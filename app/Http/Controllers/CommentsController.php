@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tasks;
+use App\Models\Comments;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TasksController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.Tasks');
+        //
     }
 
     /**
@@ -35,7 +35,7 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tasks $tasks)
+    public function show(Comments $comments)
     {
         //
     }
@@ -43,36 +43,23 @@ class TasksController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tasks $tasks)
+    public function edit(Comments $comments)
     {
-        //return
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tasks $tasks)
+    public function update(Request $request, Comments $comments)
     {
-        // $request->validate([
-        //     'title' => 'required|string|max:255',
-        //     'description' => 'nullable|string|max:255',
-        //     'deadline' => 'required|date',
-        // ]);
-
-        // $tasks->update([
-        //     'title' => $request->title,
-        //     'description' => $request->description,
-        //     'deadline' => $request->deadline,
-        // ]);
-
-        // return redirect()->route('tasks.index')->with('success', 'Tasks updated successfully.');
+        //
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tasks $tasks)
+    public function destroy(Comments $comments)
     {
         //
     }
