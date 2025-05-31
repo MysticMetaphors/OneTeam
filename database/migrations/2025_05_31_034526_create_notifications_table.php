@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('task_id');
             $table->unsignedBigInteger('issued_to');
-            $table->string('title', 255);
-            $table->string('description', 255);
-            $table->dateTime('deadline');
-            $table->string('action', 255);
-            $table->enum('priority', ['High', 'Mild', 'Low'])->default('Low');
-            $table->enum('status', ['Completed', 'Processing', 'Cancelled'])->default('false');
-            $table->enum('is_deleted', ['true', 'false'])->default('false');
+            $table->string('content', 255);
+            $table->dateTime('read_at');
+            $table->dateTime('updated_at');
+            $table->enum('is_deleted', ['false','true'])->default('false');
             $table->timestamps();
 
             $table->foreign('issued_to')->references('id')->on('users')->onDelete('cascade');
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('notifications');
     }
 };
