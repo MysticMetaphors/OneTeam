@@ -15,10 +15,10 @@
         </div>
         <ul>
             <li class="">
-                <div class="parent-menu {{ str_contains($currentRouteName, 'dashboard') ? 'active' : '' }}">
+                <div class="parent-menu">
                     <img src="{{ asset('storage/Icons/dashboard_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg') }}"
                         class="icon-large">
-                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                    <a href="">Dashboard</a>
                 </div>
             </li>
 
@@ -45,10 +45,10 @@
             </li>
 
             <li class="">
-                <div class="parent-menu {{ str_contains($currentRouteName, 'technologies') ? 'active' : '' }}">
+                <div class="parent-menu ">
                     <img src="{{ asset('storage/Icons/code_32dp_000000_FILL0_wght400_GRAD0_opsz40.svg') }}"
                         class="icon-large">
-                    <a href="{{ route('technologies') }}">My Team</a>
+                    <a href="">My Team</a>
                 </div>
             </li>
 
@@ -60,13 +60,13 @@
                 </div>
             </li>
 
-            <li class="">
+            {{-- <li class="">
                 <div class="parent-menu">
                     <img src="{{ asset('storage/Icons/contacts_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg') }}"
                         class="icon-large">
                     <a href="Dashboard"></a>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="">
                 <div class="parent-menu">
@@ -104,7 +104,7 @@
                 <div class="parent-menu">
                     <img src="{{ asset('storage/Icons/logout_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg') }}"
                         class="icon-large">
-                    <a href="{{ route('home') }}">Logout</a>
+                    <a href="">Logout</a>
                 </div>
             </li>
 
