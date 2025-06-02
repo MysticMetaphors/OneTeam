@@ -29,10 +29,32 @@
     --toggler-bg: #151A2D;
 }
 
+.active {
+    color: var(--hover-font-color) !important;
+    background: var(--hover-bg);
+}
+
+.d-flex-row-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.d-flex-column-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
 body {
     min-height: 100vh;
-    background: linear-gradient(#F1FAFF, #CBE4FF);
+    /* background: linear-gradient(#F1FAFF, #CBE4FF); */
     scroll-behavior: smooth;
+    color: var(--font-color);
+    background-color: var(--background-color);
 }
 
 .sidebar {
@@ -43,6 +65,7 @@ body {
     background: var(--sidebar-bg);
     height: calc(100vh - 32px);
     transition: all 0.4s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar.collapsed {
@@ -60,7 +83,7 @@ body {
 
 .sidebar.collapsed .sidebar-header {
     border-color: #cbe4ff00;
-    padding: 25px 20px ;
+    padding: 25px 20px;
 }
 
 .sidebar-header .header-logo img {
@@ -122,14 +145,17 @@ body {
     max-height: 412px;
     overflow: hidden;
     overflow-y: scroll;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
 }
 
 .sidebar.collapsed .nav-divider {
     display: none;
 }
+
 .sidebar-nav .nav-list::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+    display: none;
+    /* Hide scrollbar for Chrome, Safari and Opera */
 }
 
 .sidebar.collapsed .sidebar-nav .primary-nav {
@@ -205,15 +231,28 @@ body {
 }
 
 .main-content {
-    margin-left:280px;
+    margin-left: 280px;
     padding: 20px;
     height: 100%;
     transition: all 0.4s ease;
-
 }
 
-.sidebar.collapsed + .main-content {
+.page-header {
+    margin-bottom: 20px;
+}
+
+.sidebar.collapsed+.main-content {
     margin-left: 100px;
+}
+
+.card {
+    background: var(--sidebar-bg);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    flex: 1;
+    min-width: 200px;
 }
 
 /* Responsive media query code for small screens */
@@ -236,7 +275,6 @@ body {
         top: 0;
         z-index: 20;
         border-radius: 16px;
-        background: #151A2D;
         padding: 8px 10px;
     }
 
@@ -285,4 +323,17 @@ body {
         padding: 85px 20px 0;
         width: 100%;
     }
+    .d-flex-row-container {
+        flex-wrap: wrap;
+    }
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: var(--toggler-bg);
+    color: var(--sidebar-bg);
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
 }

@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Dashboard')</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     @vite('resources/css/Navigation.css')
     @vite('resources/css/Main.css')
     @vite('resources/js/app.js')
 </head>
 
-<body>
+<body class="lightmode">
     <aside class="sidebar">
         <!-- Sidebar header -->
         <header class="sidebar-header">
             <a href="#" class="header-logo">
-                <img src="{{ asset('storage/images/FAVICON-removebg-preview.png')}}" alt="Logo" style="height: 40px;">
+                <img src="{{ asset('storage/images/FAVICON-removebg-preview.png') }}" alt="Logo"
+                    style="height: 40px;">
             </a>
             <button class="toggler sidebar-toggler">
                 <span class="material-symbols-rounded">chevron_left</span>
@@ -30,8 +32,8 @@
         <nav class="sidebar-nav">
             <!-- Primary top nav -->
             <ul class="nav-list primary-nav">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item ">
+                    <a href="#" class="nav-link active">
                         <span class="nav-icon material-symbols-rounded">dashboard</span>
                         <span class="nav-label">Dashboard</span>
                     </a>
