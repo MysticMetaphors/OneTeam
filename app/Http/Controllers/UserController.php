@@ -16,6 +16,11 @@ class UserController extends Controller
         //
     }
 
+    public function login(User $user)
+    {
+        //
+    }
+
     /**
      * Show the form for creating a new resource.
      */
