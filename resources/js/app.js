@@ -13,7 +13,7 @@ sidebarToggler.addEventListener("click", () => {
 
 const toggleMenu = (isMenuActive) => {
     sidebar.style.height = isMenuActive ? `${sidebar.scrollHeight}px` : collapsedSidebarHeight;
-    menuToggler.querySelector("span").innerText = isMenuActive ? "close" : "menu";
+    menuToggler.querySelector("span").innerText = isMenuActive ? "menu" : "close";
 }
 
 menuToggler.addEventListener("click", () => {
@@ -72,4 +72,17 @@ themeToggle.addEventListener("click", () => {
         root.style.setProperty('--hover-font-color', '#151A2D');
         root.style.setProperty('--toggler-bg', '#ffffff');
     }
+});
+
+//Submenu toggle functionality
+const submenuTogglers = document.querySelectorAll(".has-submenu");
+submenuTogglers.forEach(toggler => {
+    toggler.addEventListener("click", (e) => {
+        e.preventDefault();
+        const submenu = toggler.querySelector(".submenu");
+        if (!submenu) return; // If no submenu, do nothing
+        submenu.classList.toggle("open");
+        const icon = toggler.querySelector("i");
+        icon.classList.toggle("rotate-180");
+    });
 });

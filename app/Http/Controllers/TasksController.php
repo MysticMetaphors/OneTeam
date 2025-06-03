@@ -13,7 +13,118 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return view('pages.Tasks');
+        // Create a test task data
+        $tasks = collect([
+            (object)[
+            'name' => 'Test Task 1',
+            'description' => 'This is a test task description 1.',
+            'status' => 'Open',
+            'priority' => 'High',
+            'type' => 'feature',
+            'deadline' => now()->addDays(7)->toDateTimeString(),
+            'created_at' => now(),
+            'assigned_to' => 'John Doe',
+            'files' => [
+                (object)[
+                'name' => 'specification1.pdf',
+                'path' => 'tasks/specification1.pdf'
+                ]
+            ]
+            ],
+            (object)[
+            'name' => 'Test Task 2',
+            'description' => 'This is a test task description 2.',
+            'status' => 'In Progress',
+            'priority' => 'Medium',
+            'type' => 'bug',
+            'deadline' => now()->addDays(3)->toDateTimeString(),
+            'created_at' => now()->subDay(),
+            'assigned_to' => 'Jane Smith',
+            'files' => []
+            ],
+            (object)[
+            'name' => 'Test Task 3',
+            'description' => 'This is a test task description 3.',
+            'status' => 'Closed',
+            'priority' => 'Low',
+            'type' => null,
+            'deadline' => null,
+            'created_at' => now()->subDays(2),
+            'assigned_to' => 'Alice Johnson',
+            'files' => [
+                (object)[
+                'name' => 'report.docx',
+                'path' => 'tasks/report.docx'
+                ]
+            ]
+            ],
+            (object)[
+            'name' => 'Test Task 4',
+            'description' => 'This is a test task description 4.',
+            'status' => 'Open',
+            'priority' => 'High',
+            'type' => 'improvement',
+            'deadline' => now()->addDays(10)->toDateTimeString(),
+            'created_at' => now()->subDays(3),
+            'assigned_to' => 'Bob Brown',
+            'files' => []
+            ],
+            (object)[
+            'name' => 'Test Task 5',
+            'description' => 'This is a test task description 5.',
+            'status' => 'In Progress',
+            'priority' => 'Medium',
+            'type' => 'feature',
+            'deadline' => now()->addDays(5)->toDateTimeString(),
+            'created_at' => now()->subDays(4),
+            'assigned_to' => 'Charlie Green',
+            'files' => [
+                (object)[
+                'name' => 'design.png',
+                'path' => 'tasks/design.png'
+                ]
+            ]
+            ],
+            (object)[
+            'name' => 'Test Task 6',
+            'description' => 'This is a test task description 6.',
+            'status' => 'Closed',
+            'priority' => 'Low',
+            'type' => null,
+            'deadline' => null,
+            'created_at' => now()->subDays(5),
+            'assigned_to' => 'Diana Prince',
+            'files' => []
+            ],
+            (object)[
+            'name' => 'Test Task 7',
+            'description' => 'This is a test task description 7.',
+            'status' => 'Open',
+            'priority' => 'High',
+            'type' => 'bug',
+            'deadline' => now()->addDays(2)->toDateTimeString(),
+            'created_at' => now()->subDays(6),
+            'assigned_to' => 'Eve Adams',
+            'files' => [
+                (object)[
+                'name' => 'log.txt',
+                'path' => 'tasks/log.txt'
+                ]
+            ]
+            ],
+            (object)[
+            'name' => 'Test Task 8',
+            'description' => 'This is a test task description 8.',
+            'status' => 'In Progress',
+            'priority' => 'Medium',
+            'type' => 'improvement',
+            'deadline' => now()->addDays(1)->toDateTimeString(),
+            'created_at' => now()->subDays(7),
+            'assigned_to' => 'Frank Miller',
+            'files' => []
+            ],
+        ]);
+        return view('pages.Tasks', ['tasks' => $tasks]);
     }
 
     /**
