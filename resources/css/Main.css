@@ -382,6 +382,10 @@ body {
     .d-flex-row-container {
         flex-wrap: wrap;
     }
+
+    .table {
+        width: max-content;
+    }
 }
 
 button {
@@ -404,9 +408,12 @@ button {
     color: var(--font-color);
 }
 
-.table-responsive {
-    width: 100%;
-    overflow-x: auto;
+.table-container {
+    overflow: hidden;
+    overflow-x: scroll;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -416,9 +423,7 @@ table {
     /* margin-top: 24px; */
     background: var(--background-color);
     border-radius: 8px;
-    overflow: hidden;
     font-size: 14px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 table th,
