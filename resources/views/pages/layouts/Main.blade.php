@@ -43,37 +43,52 @@
                     </a>
                     <span class="nav-tooltip">Dashboard</span>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item has-submenu">
                     <a href="{{ route('task') }}" class="nav-link {{ $currentRouteName === 'task' ? 'active' : '' }}">
                         <span class="nav-icon material-symbols-rounded">check_circle</span>
                         <span class="nav-label">Task</span>
+                        <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
                     </a>
+
                     <span class="nav-tooltip">Task</span>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href=""
+                                class="submenu-link {{ $currentRouteName === 'recurring' ? 'active' : '' }}">
+                                <span class="material-symbols-rounded"
+                                    style="vertical-align: middle;">chevron_right</span>
+                                Recurring
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item has-submenu">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">folder</span>
                         <span class="nav-label">Projects</span>
-                        <span class="submenu-arrow material-symbols-rounded">expand_more</span>
+                        <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
                     </a>
+
                     <span class="nav-tooltip">Projects</span>
                     <ul class="submenu">
                         <li class="submenu-item">
                             <a href="{{ route('dashboard') }}" class="submenu-link">
-                                <span class="material-symbols-rounded" style="vertical-align: middle;">chevron_right</span>
+                                <span class="material-symbols-rounded"
+                                    style="vertical-align: middle;">chevron_right</span>
                                 Projects 1
                             </a>
                         </li>
                         <li class="submenu-item">
                             <a href="{{ route('dashboard') }}" class="submenu-link">
-                                <span class="material-symbols-rounded" style="vertical-align: middle;">chevron_right</span>
+                                <span class="material-symbols-rounded"
+                                    style="vertical-align: middle;">chevron_right</span>
                                 Project 2
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user') }}" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">group</span>
                         <span class="nav-label">Team</span>
                     </a>
@@ -92,6 +107,13 @@
                         <span class="nav-label">Reports</span>
                     </a>
                     <span class="nav-tooltip">Reports</span>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">history</span>
+                        <span class="nav-label">Activity Logs</span>
+                    </a>
+                    <span class="nav-tooltip">Activity Logs</span>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">

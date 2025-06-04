@@ -98,3 +98,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// const taskTable = document.querySelector('.table-container');
+// const kanbanTable = document.querySelector('.kanban-view');
+// function toggleTableView(tableType) {
+
+// }
+
+const taskTablebtn = document.getElementById('task-view-btn');
+const kanbanTablebtn = document.getElementById('kanban-view-btn');
+
+const taskTable = document.getElementById('task-table-view');
+const kanbanTable = document.getElementById('kanban-view');
+
+kanbanTablebtn.addEventListener('click', () => {
+    kanbanTable.style.display = "flex";
+    taskTable.style.display = "none";
+});
+taskTablebtn.addEventListener('click', () => {
+    taskTable.style.display = "block";
+    kanbanTable.style.display = "none";
+});
+
+const toggleSubmenu = document.querySelectorAll('.submenu-toggler');
+toggleSubmenu.forEach(toggler => {
+    toggler.addEventListener('click', (e) => {
+        e.preventDefault();
+        const submenu = toggler.closest('.nav-item').querySelector('.submenu');
+        submenu.classList.toggle('open-submenu');
+        const icon = toggler;
+        icon.classList.toggle('rotate-180');
+    });
+});

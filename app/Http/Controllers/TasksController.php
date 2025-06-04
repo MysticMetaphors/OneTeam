@@ -18,17 +18,17 @@ class TasksController extends Controller
             (object)[
             'name' => 'Test Task 1',
             'description' => 'This is a test task description 1.',
-            'status' => 'Open',
+            'status' => 'Waiting',
             'priority' => 'High',
             'type' => 'feature',
             'deadline' => now()->addDays(7)->toDateTimeString(),
             'created_at' => now(),
             'assigned_to' => 'John Doe',
             'files' => [
-                (object)[
-                'name' => 'specification1.pdf',
-                'path' => 'tasks/specification1.pdf'
-                ]
+            (object)[
+            'name' => 'specification1.pdf',
+            'path' => 'tasks/specification1.pdf'
+            ]
             ]
             ],
             (object)[
@@ -45,23 +45,23 @@ class TasksController extends Controller
             (object)[
             'name' => 'Test Task 3',
             'description' => 'This is a test task description 3.',
-            'status' => 'Closed',
+            'status' => 'Complete',
             'priority' => 'Low',
             'type' => null,
             'deadline' => null,
             'created_at' => now()->subDays(2),
             'assigned_to' => 'Alice Johnson',
             'files' => [
-                (object)[
-                'name' => 'report.docx',
-                'path' => 'tasks/report.docx'
-                ]
+            (object)[
+            'name' => 'report.docx',
+            'path' => 'tasks/report.docx'
+            ]
             ]
             ],
             (object)[
             'name' => 'Test Task 4',
             'description' => 'This is a test task description 4.',
-            'status' => 'Open',
+            'status' => 'Waiting',
             'priority' => 'High',
             'type' => 'improvement',
             'deadline' => now()->addDays(10)->toDateTimeString(),
@@ -79,16 +79,16 @@ class TasksController extends Controller
             'created_at' => now()->subDays(4),
             'assigned_to' => 'Charlie Green',
             'files' => [
-                (object)[
-                'name' => 'design.png',
-                'path' => 'tasks/design.png'
-                ]
+            (object)[
+            'name' => 'design.png',
+            'path' => 'tasks/design.png'
+            ]
             ]
             ],
             (object)[
             'name' => 'Test Task 6',
             'description' => 'This is a test task description 6.',
-            'status' => 'Closed',
+            'status' => 'Complete',
             'priority' => 'Low',
             'type' => null,
             'deadline' => null,
@@ -99,21 +99,21 @@ class TasksController extends Controller
             (object)[
             'name' => 'Test Task 7',
             'description' => 'This is a test task description 7.',
-            'status' => 'Open',
+            'status' => 'Waiting',
             'priority' => 'High',
             'type' => 'bug',
             'deadline' => now()->addDays(2)->toDateTimeString(),
             'created_at' => now()->subDays(6),
             'assigned_to' => 'Eve Adams',
             'files' => [
-                (object)[
-                'name' => 'log.txt',
-                'path' => 'tasks/log.txt'
-                ],
-                (object)[
-                'name' => 'log.png',
-                'path' => 'tasks/log.png'
-                ]
+            (object)[
+            'name' => 'log.txt',
+            'path' => 'tasks/log.txt'
+            ],
+            (object)[
+            'name' => 'log.png',
+            'path' => 'tasks/log.png'
+            ]
             ]
             ],
             (object)[
