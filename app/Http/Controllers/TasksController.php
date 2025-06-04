@@ -109,6 +109,10 @@ class TasksController extends Controller
                 (object)[
                 'name' => 'log.txt',
                 'path' => 'tasks/log.txt'
+                ],
+                (object)[
+                'name' => 'log.png',
+                'path' => 'tasks/log.png'
                 ]
             ]
             ],

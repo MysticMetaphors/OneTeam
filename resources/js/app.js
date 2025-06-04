@@ -61,6 +61,7 @@ themeToggle.addEventListener("click", () => {
         root.style.setProperty('--hover-bg', '#151A2D');
         root.style.setProperty('--hover-font-color', '#ffffff');
         root.style.setProperty('--toggler-bg', '#151A2D');
+        root.style.setProperty('--search-bar-bg', '#151a2da5')
     } else {
         root.style.setProperty('--background-color', '#151A2D');
         root.style.setProperty('--background-gradient-end', '#1E213F');
@@ -71,18 +72,29 @@ themeToggle.addEventListener("click", () => {
         root.style.setProperty('--hover-bg', '#ffffff');
         root.style.setProperty('--hover-font-color', '#151A2D');
         root.style.setProperty('--toggler-bg', '#ffffff');
+        root.style.setProperty('--search-bar-bg', '#f1faff86')
     }
 });
 
-//Submenu toggle functionality
-const submenuTogglers = document.querySelectorAll(".has-submenu");
-submenuTogglers.forEach(toggler => {
-    toggler.addEventListener("click", (e) => {
-        e.preventDefault();
-        const submenu = toggler.querySelector(".submenu");
-        if (!submenu) return; // If no submenu, do nothing
-        submenu.classList.toggle("open");
-        const icon = toggler.querySelector("i");
-        icon.classList.toggle("rotate-180");
+function DateConvert(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        // hour: 'numeric',
+        // minute: '2-digit'
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const dateElements = document.querySelectorAll('.convertDate');
+
+    dateElements.forEach(el => {
+        const rawDate = el.dataset.date;
+        if (rawDate) {
+            const formatted = DateConvert(rawDate);
+            el.textContent = formatted;
+        }
     });
 });
