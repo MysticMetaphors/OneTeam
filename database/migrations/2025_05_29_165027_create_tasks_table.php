@@ -24,6 +24,21 @@ return new class extends Migration
 
             $table->foreign('issued_to')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('task_id');
+            $table->string('name', 255);
+            $table->string('owner', 255);
+            $table->string('image', 255);
+            $table->string('description', 255)->nullable();
+            $table->enum('status', ['Complete', 'In progress'. 'On hold'])->default('On hold');
+            $table->enum('is_deleted', ['true', 'false'])->default('false');
+            $table->dateTime('deadline');
+            $table->dateTime('start_date');
+            $table->timestamps();
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+        });
     }
 
     /**

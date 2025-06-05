@@ -47,9 +47,9 @@
                     <a href="{{ route('task') }}" class="nav-link {{ $currentRouteName === 'task' ? 'active' : '' }}">
                         <span class="nav-icon material-symbols-rounded">check_circle</span>
                         <span class="nav-label">Task</span>
-                        <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
-                    </a>
 
+                    </a>
+                    <span class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'task' ? 'active' : '' }}">expand_more</span>
                     <span class="nav-tooltip">Task</span>
                     <ul class="submenu">
                         <li class="submenu-item">
@@ -63,28 +63,24 @@
                     </ul>
                 </li>
                 <li class="nav-item has-submenu">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('project') }}" class="nav-link {{ $currentRouteName === 'project' ? 'active' : '' }}">
                         <span class="nav-icon material-symbols-rounded">folder</span>
                         <span class="nav-label">Projects</span>
-                        <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
-                    </a>
 
+                    </a>
+                    <span class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'project' ? 'active' : '' }}">expand_more</span>
                     <span class="nav-tooltip">Projects</span>
                     <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="{{ route('dashboard') }}" class="submenu-link">
-                                <span class="material-symbols-rounded"
-                                    style="vertical-align: middle;">chevron_right</span>
-                                Projects 1
-                            </a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('dashboard') }}" class="submenu-link">
-                                <span class="material-symbols-rounded"
-                                    style="vertical-align: middle;">chevron_right</span>
-                                Project 2
-                            </a>
-                        </li>
+                        @foreach ($projects as $project)
+                            <li class="submenu-item">
+                                <a href="" {{-- {{ route('project.show', $project->id) }} --}}
+                                    class="submenu-link {{ $currentRouteName === 'project.show' ? 'active' : '' }}">
+                                    <span class="material-symbols-rounded"
+                                        style="vertical-align: middle;">chevron_right</span>
+                                    {{ $project->name }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </li>
                 <li class="nav-item">

@@ -3,9 +3,9 @@
 @section('title', 'Activities')
 
 @section('content')
-<div class="main-content">
-     <div class="d-flex-row-container page-header card top-panel">
-        <div></div>
+    <div class="main-content">
+        <div class="d-flex-row-container page-header card top-panel">
+            <div></div>
             <div class="d-flex-row-container">
                 <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected">
                     <span class="material-symbols-rounded">add</span>
@@ -28,14 +28,14 @@
             </div>
         </div>
 
-          <div class="table-container" id="task-table-view">
+        <div class="table-container" id="task-table-view">
             <table class="table table-striped tasks-table table-responsive">
                 <thead>
                     <tr>
                         <th colspan="10">
                             <div class="d-flex-row-container" style="gap: 12px;">
                                 <div class="d-flex-row-container">
-                                    <button class="btn btn-sm btn-outline-secondary" id="bulkCompleteBtn"
+                                    {{-- <button class="btn btn-sm btn-outline-secondary" id="bulkCompleteBtn"
                                         title="edit Selected">
                                         <span class="material-symbols-rounded">edit</span>
                                         Edit
@@ -44,7 +44,7 @@
                                         title="Delete Selected">
                                         <span class="material-symbols-rounded">delete</span>
                                         Delete
-                                    </button>
+                                    </button> --}}
 
                                 </div>
                                 <div class="d-flex-row-container">
@@ -59,9 +59,9 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>
+                        {{-- <th>
                             <input type="checkbox" id="selectAllTasks" title="Select All">
-                        </th>
+                        </th> --}}
                         <th>User</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -82,11 +82,11 @@
                 @endphp
 
                 <tbody>
-                   @foreach ($users as $user)
+                    @foreach ($users as $user)
                         <tr>
-                            <td>
+                            {{-- <td>
                                 <input type="checkbox" class="task-checkbox" data-task-id="{{ $user->id }}">
-                            </td>
+                            </td> --}}
                             <td>
                                 <img src="{{ asset('storage/images/default-profile.png') }}" class="profile-img">
                             </td>
@@ -98,17 +98,17 @@
                             <td class="convertDate" data-date="{{ $user->birthdate }}">{{ $user->birthdate }}</td>
                             <td>{{ $user->contact }}</td>
                             <td class="d-flex-row-container">
-                                <button class="btn-no-bg" title="Edit User">
+                                <button class="btn-edit" title="Edit Task">
                                     <span class="material-symbols-rounded">edit</span>
                                 </button>
-                                <button class="btn-no-bg" title="Delete User">
+                                <button class="btn-delete" title="Delete Task">
                                     <span class="material-symbols-rounded">delete</span>
                                 </button>
                             </td>
                         </tr>
-                   @endforeach
+                    @endforeach
                 </tbody>
             </table>
         </div>
-</div>
+    </div>
 @endsection

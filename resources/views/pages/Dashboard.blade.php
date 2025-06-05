@@ -5,12 +5,12 @@
 @section('content')
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
-            <div class="search-bar">
+            {{-- <div class="search-bar">
                 <input type="text" class="form-control" placeholder="Search...">
                 <button class="btn search-btn" type="submit" title="Search">
                     <span class="material-symbols-rounded">&#xe8b6;</span>
                 </button>
-            </div>
+            </div> --}}
             <div class="d-flex-row-container">
                 <button class="btn create-project-btn btn-no-bg" title="Create Project">
                     <span class="material-symbols-rounded">&#xe147;</span>

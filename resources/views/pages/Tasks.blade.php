@@ -3,9 +3,6 @@
 @section('title', 'Tasks')
 
 @section('content')
-    @php
-        $current = Route::current()->getName() === 'task' ? 'Tasks' : 'Task';
-    @endphp
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
             {{-- <div class="search-bar">
@@ -19,7 +16,7 @@
                     <span class="material-symbols-rounded">view_kanban</span>
                     Kanban View
                 </button>
-                <button class="btn-no-bg" id="task-view-btn" title="Table View">
+                <button class="btn-no-bg btn-border" id="task-view-btn" title="Table View">
                     <span class="material-symbols-rounded">table</span>
                     Table View
                 </button>
@@ -53,8 +50,9 @@
                     <tr>
                         <th colspan="10">
                             <div class="d-flex-row-container" style="gap: 12px;">
+
                                 <div class="d-flex-row-container">
-                                    <button class="btn btn-sm btn-outline-secondary" id="bulkCompleteBtn"
+                                    {{-- <button class="btn btn-sm btn-outline-secondary" id="bulkCompleteBtn"
                                         title="Add Selected">
                                         <span class="material-symbols-rounded">add</span>
                                         Complete
@@ -68,8 +66,8 @@
                                         title="Delete Selected">
                                         <span class="material-symbols-rounded">delete</span>
                                         Delete
-                                    </button>
-
+                                    </button> --}}
+                                    Tasks/All
                                 </div>
                                 <div class="d-flex-row-container">
                                     <div class="search-bar">
@@ -83,22 +81,22 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>
+                        {{-- <th>
                             <input type="checkbox" id="selectAllTasks" title="Select All">
-                        </th>
+                        </th> --}}
                         <th>Description</th>
-                        <th>Assigned To</th>
+                        <th>Assigned</th>
                         <th>Status</th>
                         <th>Type</th>
                         <th>Priority</th>
                         <th>Files</th>
-                        <th>Created At</th>
                         <th>Deadline</th>
-                        <th>Actions</th>
+                        {{-- <th>Actions</th> --}}
                     </tr>
                 </thead>
                 @php
                     $statuses = [
+                        'Scheduled' => ['original' => 'Scheduled', 'tag' => 'tag-primary'],
                         'Waiting' => ['original' => 'Waiting', 'tag' => 'tag-grey'],
                         'In Progress' => ['original' => 'In Progress', 'tag' => 'tag-warning'],
                         'Complete' => ['original' => 'Complete', 'tag' => 'tag-success'],
@@ -106,26 +104,21 @@
                 @endphp
 
                 <tbody>
-                    @foreach ($statuses as  $displayStatus => $info)
+                    @foreach ($statuses as $displayStatus => $info)
                         @php
                             $TaskStatus = $tasks->where('status', $info['original']);
                         @endphp
-                        {{-- <tr>
-                             <td colspan="10">{{$displayStatus}}</td>
-                        </tr> --}}
-
                         @foreach ($TaskStatus as $task)
                             <tr>
-                                <td>
+                                {{-- <td>
                                     <input type="checkbox" id="selectAllTasks" title="Select All">
-                                </td>
+                                </td> --}}
                                 <td>{{ $task->description }}</td>
                                 <td>
                                     @if (isset($task->assigned_to))
                                         <div class="assigned-profile">
                                             <img src="{{ asset('storage/images/default-profile.png') }}" class="profile-img"
                                                 style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
-                                            <span>{{ $task->assigned_to }}</span>
                                         </div>
                                     @else
                                         <span>—</span>
@@ -144,7 +137,13 @@
                                 </td>
                                 <td>
                                     @if (isset($task->type))
-                                        {{ ucfirst($task->type) }}
+                                        @if ($task->type == 'recurring')
+                                            <span class="material-symbols-rounded">
+                                                repeat
+                                            </span>
+                                        @else
+                                            {{ ucfirst($task->type) }}
+                                        @endif
                                     @else
                                         <span>—</span>
                                     @endif
@@ -189,9 +188,6 @@
                                         <span>—</span>
                                     @endif
                                 </td>
-                                <td><span class="convertDate"
-                                        data-date="{{ $task->created_at }}">{{ $task->created_at }}</span>
-                                </td>
                                 <td>
                                     @if (isset($task->deadline))
                                         <span class="convertDate"
@@ -200,16 +196,16 @@
                                         <span>—</span>
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <div class="d-flex-row-container">
-                                        <button class="btn-no-bg" title="Edit Task">
+                                        <button class="btn-edit" title="Edit Task">
                                             <span class="material-symbols-rounded">edit</span>
                                         </button>
-                                        <button class="btn-no-bg" title="Delete Task">
+                                        <button class="btn-delete" title="Delete Task">
                                             <span class="material-symbols-rounded">delete</span>
                                         </button>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     @endforeach
@@ -231,55 +227,58 @@
                     <div class="kanban-column">
                         <div class="kanban-column-header">
                             <span>{{ $displayStatus }}</span>
+                            <hr>
                         </div>
                         <div class="kanban-tasks">
                             @php
                                 $tasksForStatus = $tasks->where('status', $info['original']);
+                                $lightColors = [
+                                    '#F8BBD0', // light pink
+                                    '#81D4FA', // darker light blue
+                                    '#FFF3E0', // light orange
+                                    '#E8F5E9', // light green
+                                    '#F3E5F5', // light purple
+                                ];
                             @endphp
                             @forelse ($tasksForStatus as $task)
-                                <div class="kanban-task-card">
-                                    <div class="kanban-task-desc">{{ $task->description }}</div>
-                                    <div class="kanban-task-assigned">
-                                        @if (isset($task->assigned_to))
-                                            <img src="{{ asset('storage/images/default-profile.png') }}"
-                                                class="profile-img">
-                                            <span>{{ $task->assigned_to }}</span>
-                                        @else
-                                            <span>—</span>
-                                        @endif
+                                {{-- @php
+                                    $color = $lightColors[array_rand($lightColors)];
+                                @endphp --}}
+                                @php
+                                    if ($task->priority === 'High') {
+                                        $color = '#F3E5F5'; // light purple
+                                    } elseif ($task->priority === 'Mild' || $task->priority === 'Medium') {
+                                        $color = '#81D4FA'; // darker light blue
+                                    } elseif ($task->status === 'Complete') {
+                                        $color = '#E8F5E9'; // light green
+                                    } else {
+                                        $color = '#FFF3E0'; // default light orange
+                                    }
+                                @endphp
+                                <div class="kanban-task-card" style="background: {{ $color }};">
+                                    <div class="d-flex-row-container">
+                                        <div class="kanban-task-assigned">
+                                            @if (isset($task->assigned_to))
+                                                <img src="{{ asset('storage/images/default-profile.png') }}"
+                                                    class="profile-img">
+                                            @else
+                                                <span>—</span>
+                                            @endif
+                                        </div>
+                                        <div class="kanban-task-desc">{{ $task->description }}</div>
                                     </div>
-                                    <div class="kanban-task-tags">
-                                        <span class="tags {{ $info['tag'] }}">{{ $displayStatus }}</span>
-                                        <span
-                                            class="tags
-                                                @if ($task->priority === 'Low') tag-success
-                                                @elseif ($task->priority === 'Mild') tag-warning
-                                                @elseif ($task->priority === 'High') tag-danger
-                                                @else tag-primary @endif
-                                            ">{{ $task->priority }}</span>
-                                        @if (isset($task->type))
-                                            <span class="tags tag-primary">{{ ucfirst($task->type) }}</span>
-                                        @endif
-                                    </div>
+
+
                                     <div class="kanban-task-dates">
-                                        <span class="convertDate"
-                                            data-date="{{ $task->created_at }}">{{ $task->created_at }}</span>
-                                        @if (isset($task->deadline))
-                                            &nbsp;|&nbsp;
-                                            <span class="convertDate"
-                                                data-date="{{ $task->deadline }}">{{ $task->deadline }}</span>
-                                        @endif
-                                    </div>
-                                    <div class="kanban-task-actions">
-                                        <button class="btn-no-bg" title="Edit Task">
-                                            <span class="material-symbols-rounded">description</span>
-                                        </button>
-                                        <button class="btn-no-bg" title="Edit Task">
-                                            <span class="material-symbols-rounded">edit</span>
-                                        </button>
-                                        <button class="btn-no-bg" title="Delete Task">
-                                            <span class="material-symbols-rounded">delete</span>
-                                        </button>
+
+                                        <div class="d-flex-row-container">
+                                            @if (isset($task->deadline))
+                                                <span class="convertDate"
+                                                    data-date="{{ $task->deadline }}">{{ $task->deadline }}</span>
+                                            @endif
+                                            <span class="material-symbols-rounded"
+                                                style="vertical-align:middle;">description</span>
+                                        </div>
                                     </div>
                                 </div>
                             @empty
@@ -324,6 +323,11 @@
         .btn-no-bg {
             padding: 0;
             cursor: pointer;
+        }
+
+        .btn-border {
+            border-bottom: 2px solid var(--font-color);
+            border-radius: 0px;
         }
     </style>
 @endsection

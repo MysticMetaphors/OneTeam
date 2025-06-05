@@ -1,28 +1,20 @@
 <?php
 
-namespace App\Providers;
+namespace App\Http\Controllers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
+use App\Models\Project;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class AppServiceProvider extends ServiceProvider
+class ProjectController extends Controller
 {
     /**
-     * Register any application services.
+     * Display a listing of the resource.
      */
-    public function register(): void
+    public function index()
     {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot()
-    {
-        // Load data only when the 'layouts.app' layout is used
-        View::composer('pages.layouts.Main', function ($view) {
-             $projects = collect([
+        // Data placeholder based on the table structure
+        $projects = collect([
             (object)[
                 'id' => 1,
                 'task_id' => 1,
@@ -150,7 +142,56 @@ class AppServiceProvider extends ServiceProvider
                 'updated_at' => now(),
             ],
         ]);
-            $view->with('projects', $projects);
-        });
+
+        // Pass the data to the view
+        return view('pages.Project ', ['projects' => $projects]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Project $project)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Project $project)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Project $project)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Project $project)
+    {
+        //
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('Auth');});
@@ -26,4 +27,12 @@ Route::prefix('Team')->group(function () {
     Route::post('/store', [TasksController::class, 'store'])->name('user.store');
     Route::post('/update', [TasksController::class, 'update'])->name('user.update');
     Route::post('/destroy', [TasksController::class, 'destroy'])->name('user.destroy');
+});
+
+Route::prefix('Project')->group(function () {
+    Route::get('/', [ProjectController::class, 'index'])->name('project');
+    Route::get('/show/{id}', [ProjectController::class, 'show'])->name('project.show');
+    Route::post('/store', [ProjectController::class, 'store'])->name('project.store');
+    Route::post('/update', [ProjectController::class, 'update'])->name('project.update');
+    Route::post('/destroy', [ProjectController::class, 'destroy'])->name('project.destroy');
 });

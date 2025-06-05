@@ -114,10 +114,17 @@ const kanbanTable = document.getElementById('kanban-view');
 kanbanTablebtn.addEventListener('click', () => {
     kanbanTable.style.display = "flex";
     taskTable.style.display = "none";
+
+    taskTablebtn.classList.remove('btn-border');
+    kanbanTablebtn.classList.add('btn-border');
+
 });
 taskTablebtn.addEventListener('click', () => {
     taskTable.style.display = "block";
     kanbanTable.style.display = "none";
+
+    kanbanTablebtn.classList.remove('btn-border');
+    taskTablebtn.classList.add('btn-border');
 });
 
 const toggleSubmenu = document.querySelectorAll('.submenu-toggler');
