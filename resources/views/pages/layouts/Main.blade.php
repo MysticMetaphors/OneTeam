@@ -141,6 +141,7 @@
     </aside>
     </ul>
     </nav>
+
     @yield('content')
 </body>
 

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('issued_to');
             $table->string('content', 255);
             $table->dateTime('read_at');
-            $table->dateTime('updated_at');
             $table->enum('is_deleted', ['false','true'])->default('false');
             $table->timestamps();
 

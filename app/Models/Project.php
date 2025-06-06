@@ -14,6 +14,7 @@ class Project extends Model
         'description',
         'status',
         'is_deleted',
+        'start_date',
         'deadline',
     ];
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('deadline');
             $table->string('action', 255);
             $table->enum('priority', ['High', 'Mild', 'Low'])->default('Low');
-            $table->enum('status', ['Completed', 'Processing', 'Cancelled'])->default('false');
+            $table->enum('status', ['Completed', 'Processing', 'Cancelled', 'Waiting'])->default('Waiting');
             $table->enum('is_deleted', ['true', 'false'])->default('false');
             $table->timestamps();
 

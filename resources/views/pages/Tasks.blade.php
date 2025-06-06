@@ -26,10 +26,6 @@
                     <span class="material-symbols-rounded">add</span>
                     New Task
                 </button>
-                <button class="btn btn-no-bg create-project-btn" title="Create Project">
-                    <span class="material-symbols-rounded">&#xe147;</span>
-                    Create Project
-                </button>
                 <button class="btn btn-no-bg notification-btn" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
                 </button>

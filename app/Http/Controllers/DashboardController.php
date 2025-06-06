@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
+use App\Models\Activity;
+use App\Models\Project;
+use App\Models\Tasks;
+
 class DashboardController extends Controller
 {
     /**
@@ -13,7 +17,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('pages.Dashboard');
+        $project = Project::limit(5)->get();
+        $task = Tasks::limit(5)->get();
+        $activity = Activity::limit(5)->get();
+        return view('pages.Dashboard', [
+            'project' => $project,
+            // 'task' => $task,
+            // 'activity' => $activity
+        ]);
     }
 
     /**

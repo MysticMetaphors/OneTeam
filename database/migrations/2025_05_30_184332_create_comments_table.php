@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->integer('task_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('content');
-            $table->enum('is_deleted', ['false','true'])->default('false');
+            $table->enum('is_deleted', ['false', 'true'])->default('false');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

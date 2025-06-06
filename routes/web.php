@@ -15,6 +15,15 @@ Route::prefix('Dashboard')->group(function () {
     Route::post('/destroy', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
 });
 
+Route::prefix('Project')->group(function () {
+    Route::get('/', [ProjectController::class, 'index'])->name('project');
+    Route::get('/create', [ProjectController::class, 'create'])->name('project.create');
+    Route::get('/show/{id}', [ProjectController::class, 'show'])->name('project.show');
+    Route::post('/store', [ProjectController::class, 'store'])->name('project.store');
+    Route::post('/update', [ProjectController::class, 'update'])->name('project.update');
+    Route::post('/destroy', [ProjectController::class, 'destroy'])->name('project.destroy');
+});
+
 Route::prefix('Task')->group(function () {
     Route::get('/', [TasksController::class, 'index'])->name('task');
     Route::post('/store', [TasksController::class, 'store'])->name('task.store');
@@ -27,12 +36,4 @@ Route::prefix('Team')->group(function () {
     Route::post('/store', [TasksController::class, 'store'])->name('user.store');
     Route::post('/update', [TasksController::class, 'update'])->name('user.update');
     Route::post('/destroy', [TasksController::class, 'destroy'])->name('user.destroy');
-});
-
-Route::prefix('Project')->group(function () {
-    Route::get('/', [ProjectController::class, 'index'])->name('project');
-    Route::get('/show/{id}', [ProjectController::class, 'show'])->name('project.show');
-    Route::post('/store', [ProjectController::class, 'store'])->name('project.store');
-    Route::post('/update', [ProjectController::class, 'update'])->name('project.update');
-    Route::post('/destroy', [ProjectController::class, 'destroy'])->name('project.destroy');
 });

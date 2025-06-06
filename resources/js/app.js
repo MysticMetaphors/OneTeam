@@ -111,21 +111,23 @@ const kanbanTablebtn = document.getElementById('kanban-view-btn');
 const taskTable = document.getElementById('task-table-view');
 const kanbanTable = document.getElementById('kanban-view');
 
-kanbanTablebtn.addEventListener('click', () => {
-    kanbanTable.style.display = "flex";
-    taskTable.style.display = "none";
+if (kanbanTablebtn && taskTablebtn && kanbanTable && taskTable) {
+    kanbanTablebtn.addEventListener('click', () => {
+        kanbanTable.style.display = "flex";
+        taskTable.style.display = "none";
 
-    taskTablebtn.classList.remove('btn-border');
-    kanbanTablebtn.classList.add('btn-border');
+        taskTablebtn.classList.remove('btn-border');
+        kanbanTablebtn.classList.add('btn-border');
+    });
 
-});
-taskTablebtn.addEventListener('click', () => {
-    taskTable.style.display = "block";
-    kanbanTable.style.display = "none";
+    taskTablebtn.addEventListener('click', () => {
+        taskTable.style.display = "block";
+        kanbanTable.style.display = "none";
 
-    kanbanTablebtn.classList.remove('btn-border');
-    taskTablebtn.classList.add('btn-border');
-});
+        kanbanTablebtn.classList.remove('btn-border');
+        taskTablebtn.classList.add('btn-border');
+    });
+}
 
 const toggleSubmenu = document.querySelectorAll('.submenu-toggler');
 toggleSubmenu.forEach(toggler => {

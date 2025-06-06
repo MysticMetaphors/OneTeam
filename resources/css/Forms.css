@@ -1,0 +1,72 @@
+form {
+	display: flex;
+	align-items: left;
+	justify-content: center;
+	flex-direction: column;
+	padding:50px;
+	height: 100%;
+    width: 600px;
+    background: var(--sidebar-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 16px;
+}
+
+.form-direction-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+input, textarea, select {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    width: 100%;
+    color: grey;
+}
+
+.input-icon {
+    width: 100%;
+    background-color: #eee;
+    gap: 0;
+       color: black;
+}
+
+.input-icon span {
+    padding:0 8px;
+}
+
+.input-icon label {
+    padding:13px 8px;
+    background-color: #cecece;
+    height: 100%;
+    font-size: 14px;
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none !important;
+}
+
+textarea {
+    resize: none;
+}
+
+.text-success {
+    color: var(--font-color);
+    background-color: rgba(120, 255, 120, 0.486);
+    padding: 10px;
+}
+
+.input-error {
+    border: 1px solid red;
+}

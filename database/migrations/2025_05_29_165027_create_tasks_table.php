@@ -10,42 +10,37 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('issued_to');
-            $table->string('title', 255);
-            $table->string('description', 255);
-            $table->enum('priority', ['High', 'Mild', 'Low'])->default('Low');
-            $table->enum('status', ['Completed', 'Processing', 'Cancelled'])->default('false');
-            $table->enum('is_deleted', ['true', 'false'])->default('false');
-            $table->dateTime('deadline');
-            $table->timestamps();
+{
+    // Create `projects` table first
+    Schema::create('projects', function (Blueprint $table) {
+        $table->id();
+        $table->string('name', 255);
+        $table->string('owner', 255);
+        $table->string('image', 255);
+        $table->string('description', 255)->nullable();
+        $table->enum('status', ['Complete', 'In progress', 'On hold'])->default('On hold'); // Also fix the typo here: comma instead of period
+        $table->enum('is_deleted', ['true', 'false'])->default('false');
+        $table->dateTime('deadline');
+        $table->dateTime('start_date');
+        $table->timestamps();
+    });
 
-            $table->foreign('issued_to')->references('id')->on('users')->onDelete('cascade');
-        });
+    // Then create `tasks` table
+    Schema::create('tasks', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('project_id');
+        $table->unsignedBigInteger('issued_to');
+        $table->string('title', 255);
+        $table->string('description', 255);
+        $table->enum('priority', ['High', 'Mild', 'Low'])->default('Low');
+        $table->enum('status', ['Completed', 'Processing', 'Cancelled', 'Waiting'])->default('Waiting');
+        $table->enum('is_deleted', ['true', 'false'])->default('false');
+        $table->dateTime('deadline');
+        $table->timestamps();
 
-        Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('task_id');
-            $table->string('name', 255);
-            $table->string('owner', 255);
-            $table->string('image', 255);
-            $table->string('description', 255)->nullable();
-            $table->enum('status', ['Complete', 'In progress'. 'On hold'])->default('On hold');
-            $table->enum('is_deleted', ['true', 'false'])->default('false');
-            $table->dateTime('deadline');
-            $table->dateTime('start_date');
-            $table->timestamps();
-            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
-        });
-    }
+        $table->foreign('issued_to')->references('id')->on('users')->onDelete('cascade');
+        $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('tasks');
-    }
 };

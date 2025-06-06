@@ -5,16 +5,12 @@
 @section('content')
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
-            {{-- <div class="search-bar">
-                <input type="text" class="form-control" placeholder="Search...">
-                <button class="btn search-btn" type="submit" title="Search">
-                    <span class="material-symbols-rounded">&#xe8b6;</span>
-                </button>
-            </div> --}}
+            <div></div>
             <div class="d-flex-row-container">
-                <button class="btn create-project-btn btn-no-bg" title="Create Project">
-                    <span class="material-symbols-rounded">&#xe147;</span>
-                    Create Project
+                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
+                    onclick="window.location.href='{{ route('project.create') }}'">
+                    <span class="material-symbols-rounded">add</span>
+                    New project
                 </button>
                 <button class="btn notification-btn btn-no-bg" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
@@ -88,44 +84,46 @@
                 </div>
             </div>
             <table class="table table-striped tasks-table">
-            <thead>
-                <tr>
-                   <th colspan="5"><h2>Open Projects</h2></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Website Redesign</td>
-                    <td>Alice Smith</td>
-                    <td><span class="badge bg-success">Active</span></td>
-                    <td>2024-07-15</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-secondary" title="Edit"><i class="bi bi-pencil"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mobile App Launch</td>
-                    <td>Bob Johnson</td>
-                    <td><span class="badge bg-warning text-dark">Pending</span></td>
-                    <td>2024-08-01</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-secondary" title="Edit"><i class="bi bi-pencil"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>API Integration</td>
-                    <td>Carol Lee</td>
-                    <td><span class="badge bg-info text-dark">In Progress</span></td>
-                    <td>2024-07-30</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-secondary" title="Edit"><i class="bi bi-pencil"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th colspan="5">
+                            <h2>Open Projects</h2>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Website Redesign</td>
+                        <td>Alice Smith</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>2024-07-15</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-secondary" title="Edit"><i class="bi bi-pencil"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mobile App Launch</td>
+                        <td>Bob Johnson</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                        <td>2024-08-01</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-secondary" title="Edit"><i class="bi bi-pencil"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>API Integration</td>
+                        <td>Carol Lee</td>
+                        <td><span class="badge bg-info text-dark">In Progress</span></td>
+                        <td>2024-07-30</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" title="View"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-secondary" title="Edit"><i class="bi bi-pencil"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 

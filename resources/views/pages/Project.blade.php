@@ -6,16 +6,19 @@
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
             <div class="d-flex-row-container">
-
+                <button class="btn-no-bg" title="Team View">
+                    <span class="material-symbols-rounded">group</span>
+                    Team
+                </button>
+                <button class="btn-no-bg btn-border" title="Task Table View">
+                    <span class="material-symbols-rounded">checklist</span>
+                    View Task
+                </button>
             </div>
             <div class="d-flex-row-container">
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected">
+                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected" onclick="window.location.href='{{ route('project.create') }}'">
                     <span class="material-symbols-rounded">add</span>
                     New project
-                </button>
-                <button class="btn btn-no-bg create-project-btn" title="Create Project">
-                    <span class="material-symbols-rounded">&#xe147;</span>
-                    Create Project
                 </button>
                 <button class="btn btn-no-bg notification-btn" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
@@ -53,7 +56,7 @@
                     </tr>
                     <tr>
                         <th>Name</th>
-                        <th>Description</th>
+                        {{-- <th>Description</th> --}}
                         <th>Owner</th>
                         <th>Status</th>
                         <th>StartDate</th>
@@ -78,11 +81,11 @@
                                     <input type="checkbox" id="selectAllprojects" title="Select All">
                                 </td> --}}
                                 <td>{{ $project->name }}</td>
-                                <td>{{ $project->description }}</td>
+                                {{-- <td>{{ $project->description }}</td> --}}
                                 <td>
                                     @if (isset($project->owner))
                                         <div class="profile">
-                                            <img src="{{ asset('storage/images/default-profile.png') }}" class="profile-img"
+                                            <img src="{{ asset('storage/profile/' . $project->image) }}" class="profile-img"
                                                 style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
                                             {{ $project->owner }}
                                         </div>

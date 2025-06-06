@@ -24,6 +24,8 @@
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
+                <button onclick="window.location.href = '{{ route('dashboard') }}'">Sign In</button>
+                {{-- change type submit if login done --}}
             </form>
 
         </div>
@@ -32,7 +34,6 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Hello, Friend!</h1>
                     <p>Enter your personal details and start journey with us</p>
-                    <button onclick="window.location.href = '{{ route('dashboard') }}'">Sign In</button> {{--change type submit if login done--}}
                 </div>
             </div>
         </div>
