@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image')->default('default_images.png');
             $table->string('email')->unique();
             $table->enum('role', ['admin', 'member'])->default('member');
-            $table->string('department', 255);
+            $table->string('department', 255)->nullable();
             $table->string('position', 255);
             $table->date('birthdate');
             $table->string('location', 255);

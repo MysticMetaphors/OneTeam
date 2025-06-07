@@ -16,7 +16,8 @@
                 </button>
             </div>
             <div class="d-flex-row-container">
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected" onclick="window.location.href='{{ route('project.create') }}'">
+                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
+                    onclick="window.location.href='{{ route('project.create') }}'">
                     <span class="material-symbols-rounded">add</span>
                     New project
                 </button>
@@ -59,6 +60,9 @@
                         {{-- <th>Description</th> --}}
                         <th>Owner</th>
                         <th>Status</th>
+                        <th>Team</th>
+                        <th>Task</th>
+                        <th>Docs</th>
                         <th>StartDate</th>
                         <th>Deadline</th>
                     </tr>
@@ -97,12 +101,27 @@
                                     <div
                                         class="tags
                                 @if ($project->status === 'Complete') tag-success
-                                @elseif ($project->status === 'In Progress') tag-warning
+                                @elseif ($project->status === 'In progress') tag-warning
                                 @elseif ($project->status === 'On hold') tag-grey
                                 @else tag-primary @endif
                             ">
                                         {{ $project->status }}
                                     </div>
+                                </td>
+                                <td>
+                                    <button class="btn-no-bg" title="View Team">
+                                        <span class="material-symbols-rounded">group</span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn-no-bg" title="View Tasks">
+                                        <span class="material-symbols-rounded">checklist</span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn-no-bg" title="View Description">
+                                        <span class="material-symbols-rounded">description</span>
+                                    </button>
                                 </td>
                                 <td>
                                     @if (isset($project->start_date))

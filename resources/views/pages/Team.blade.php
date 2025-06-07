@@ -9,11 +9,7 @@
             <div class="d-flex-row-container">
                 <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected">
                     <span class="material-symbols-rounded">add</span>
-                    Add Member
-                </button>
-                <button class="btn btn-no-bg create-project-btn" title="Create Project">
-                    <span class="material-symbols-rounded">&#xe147;</span>
-                    Create Project
+                    New Member
                 </button>
                 <button class="btn btn-no-bg notification-btn" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
@@ -73,14 +69,6 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                @php
-                    $statuses = [
-                        'Waiting' => ['original' => 'Waiting', 'tag' => 'tag-grey'],
-                        'In Progress' => ['original' => 'In Progress', 'tag' => 'tag-warning'],
-                        'Complete' => ['original' => 'Complete', 'tag' => 'tag-success'],
-                    ];
-                @endphp
-
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
@@ -88,7 +76,7 @@
                                 <input type="checkbox" class="task-checkbox" data-task-id="{{ $user->id }}">
                             </td> --}}
                             <td>
-                                <img src="{{ asset('storage/images/default-profile.png') }}" class="profile-img">
+                                <img src="{{ asset('storage/profile/' . $user->image) }}" class="profile-img">
                             </td>
                             <td>{{ $user->name }}</td>
                             <td><span>{{ $user->email }}</span></td>

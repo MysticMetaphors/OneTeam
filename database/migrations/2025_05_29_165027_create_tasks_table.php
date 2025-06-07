@@ -11,21 +11,19 @@ return new class extends Migration
      */
     public function up(): void
 {
-    // Create `projects` table first
     Schema::create('projects', function (Blueprint $table) {
         $table->id();
         $table->string('name', 255);
         $table->string('owner', 255);
         $table->string('image', 255);
         $table->string('description', 255)->nullable();
-        $table->enum('status', ['Complete', 'In progress', 'On hold'])->default('On hold'); // Also fix the typo here: comma instead of period
+        $table->enum('status', ['Complete', 'In progress', 'On hold', 'New'])->default('New');
         $table->enum('is_deleted', ['true', 'false'])->default('false');
         $table->dateTime('deadline');
         $table->dateTime('start_date');
         $table->timestamps();
     });
 
-    // Then create `tasks` table
     Schema::create('tasks', function (Blueprint $table) {
         $table->id();
         $table->unsignedBigInteger('project_id');

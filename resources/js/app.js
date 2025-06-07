@@ -129,6 +129,26 @@ if (kanbanTablebtn && taskTablebtn && kanbanTable && taskTable) {
     });
 }
 
+const modal = document.getElementById("loginModal");
+const openBtn = document.getElementById("openModalBtn");
+const closeBtn = document.getElementById("closeModalBtn");
+
+if (openBtn && closeBtn) {
+    openBtn.onclick = () => {
+        modal.style.display = "block";
+    }
+
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+    }
+}
+
+window.onclick = (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
 const toggleSubmenu = document.querySelectorAll('.submenu-toggler');
 toggleSubmenu.forEach(toggler => {
     toggler.addEventListener('click', (e) => {

@@ -272,8 +272,12 @@
                                                 <span class="convertDate"
                                                     data-date="{{ $task->deadline }}">{{ $task->deadline }}</span>
                                             @endif
-                                            <span class="material-symbols-rounded"
-                                                style="vertical-align:middle;">description</span>
+                                            <div>
+                                                <span class="material-symbols-rounded">description</span>
+                                                @if ($task->type == 'recurring')
+                                                    <span class="material-symbols-rounded">repeat</span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -67,6 +67,13 @@ textarea {
     padding: 10px;
 }
 
+.text-error {
+    color: var(--font-color);
+    background-color: rgba(255, 120, 120, 0.486);
+    padding: 10px;
+}
+
 .input-error {
     border: 1px solid red;
+    /* background-color: rgba(254, 143, 143, 0.317); */
 }

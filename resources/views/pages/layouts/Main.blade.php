@@ -49,7 +49,8 @@
                         <span class="nav-label">Task</span>
 
                     </a>
-                    <span class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'task' ? 'active' : '' }}">expand_more</span>
+                    <span
+                        class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'task' ? 'active' : '' }}">expand_more</span>
                     <span class="nav-tooltip">Task</span>
                     <ul class="submenu">
                         <li class="submenu-item">
@@ -63,12 +64,14 @@
                     </ul>
                 </li>
                 <li class="nav-item has-submenu">
-                    <a href="{{ route('project') }}" class="nav-link {{ $currentRouteName === 'project' ? 'active' : '' }}">
+                    <a href="{{ route('project') }}"
+                        class="nav-link {{ $currentRouteName === 'project' ? 'active' : '' }}">
                         <span class="nav-icon material-symbols-rounded">folder</span>
                         <span class="nav-label">Projects</span>
 
                     </a>
-                    <span class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'project' ? 'active' : '' }}">expand_more</span>
+                    <span
+                        class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'project' ? 'active' : '' }}">expand_more</span>
                     <span class="nav-tooltip">Projects</span>
                     <ul class="submenu">
                         @foreach ($projects as $project)
@@ -124,7 +127,8 @@
             <ul class="nav-list secondary-nav">
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">account_circle</span>
+                        <img src="{{ asset('storage/profile/' . Auth::user()->image) }}" alt=""
+                            class="profile-img">
                         <span class="nav-label">Profile</span>
                     </a>
                     <span class="nav-tooltip">Profile</span>
@@ -132,7 +136,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">logout</span>
-                        <span class="nav-label">Logout</span>
+                        <span class="nav-label" id="openModalBtn">Logout</span>
                     </a>
                     <span class="nav-tooltip">Logout</span>
                 </li>
@@ -141,6 +145,20 @@
     </aside>
     </ul>
     </nav>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModalBtn">&times;</span>
+            <h2>Are you sure?</h2>
+            <form method="POST" action="{{ route('user.logout') }}">
+                @csrf
+                <div class="modal-btns">
+                    <button type="button">No</button>
+                    <button type="submit">Yes</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     @yield('content')
 </body>
