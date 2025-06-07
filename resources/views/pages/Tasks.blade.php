@@ -101,6 +101,7 @@
 
                 <tbody>
                     @foreach ($statuses as $displayStatus => $info)
+                    <tr><td>test</td></tr>
                         @php
                             $TaskStatus = $tasks->where('status', $info['original']);
                         @endphp

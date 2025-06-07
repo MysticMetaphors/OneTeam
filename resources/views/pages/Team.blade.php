@@ -7,7 +7,7 @@
         <div class="d-flex-row-container page-header card top-panel">
             <div></div>
             <div class="d-flex-row-container">
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected">
+                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected" onclick="window.location.href='{{route('user.create')}}'">
                     <span class="material-symbols-rounded">add</span>
                     New Member
                 </button>
@@ -66,7 +66,7 @@
                         <th>Location</th>
                         <th>Birthdate At</th>
                         <th>Contact</th>
-                        <th>Actions</th>
+                        {{-- <th>Actions</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -85,14 +85,14 @@
                             <td><span>{{ $user->location }}</span></td>
                             <td class="convertDate" data-date="{{ $user->birthdate }}">{{ $user->birthdate }}</td>
                             <td>{{ $user->contact }}</td>
-                            <td class="d-flex-row-container">
+                            {{-- <td class="d-flex-row-container">
                                 <button class="btn-edit" title="Edit Task">
                                     <span class="material-symbols-rounded">edit</span>
                                 </button>
                                 <button class="btn-delete" title="Delete Task">
                                     <span class="material-symbols-rounded">delete</span>
                                 </button>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>

@@ -201,7 +201,7 @@ class UserController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => '* Invalid email or password',
         ])->onlyInput('email');
     }
 

@@ -22,7 +22,7 @@
             <div class="form-direction-row input-icon @error('status') input-error @enderror">
                 <select name="status" >
                     <option hidden value="">Select Status</option>
-                    <option value="On hold">New</option>
+                    <option value="New">New</option>
                     <option value="On hold">On hold</option>
                     <option value="In progress">In progress</option>
                     <option value="Complete">Complete</option>

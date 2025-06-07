@@ -184,11 +184,16 @@ body {
     gap: 12px;
     white-space: nowrap;
     border-radius: 8px;
-    padding: 12px 15px;
+    padding: 8px 15px;
     align-items: center;
     /* justify-content: space-between; */
     text-decoration: none;
     transition: 0.4s ease;
+}
+
+.submenu-item a {
+    padding: 8px 5px;
+    gap: 8px;
 }
 
 .sidebar.collapsed .sidebar-nav .nav-link {
@@ -252,7 +257,6 @@ body {
     display: none;
     flex-direction: column;
     gap: 4px;
-    padding-left: 10px;
 }
 
 .open-submenu {
@@ -281,6 +285,36 @@ body {
     height: 100%;
     transition: all 0.4s ease;
 }
+
+/* .project-content {
+    margin-left: 77px;
+} */
+/*
+.project-tool {
+    position: fixed;
+    background: var(--sidebar-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    height: calc(100vh - 100px);
+}
+
+.project-nav {
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.project-nav a {
+    text-decoration: none;
+    color:var(--font-color)
+}
+
+.project-item {
+    font-size: 14px;
+} */
 
 .page-header {
     margin-bottom: 20px;
@@ -474,6 +508,7 @@ table th {
     font-weight: 600;
     padding: 16px;
     color: var(--font-color);
+    border-bottom: 1.4px solid rgb(197, 197, 197);
 }
 
 table tr {
@@ -625,7 +660,7 @@ table span {
 .tags {
     display: inline-block;
     padding: 0.25em 0.75em;
-    border-radius: 16px;
+    border-radius: 4px;
     font-size: 0.92em;
     font-weight: 500;
     color: #fff;
@@ -676,27 +711,28 @@ table span {
     border-radius: 50%;
     object-fit: cover;
 }
+
 /* Modal container */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.6);
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 /* Modal content */
 .modal-content {
-  background-color: #fff;
-  margin: 10% auto;
-  padding: 20px 30px;
-  border-radius: 8px;
-  width: 300px;
-  position: relative;
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px 30px;
+    border-radius: 8px;
+    width: 300px;
+    position: relative;
 }
 
 .modal-btns {
@@ -714,15 +750,15 @@ table span {
 
 /* Close button */
 .close-btn {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
 }
 
 .close-btn:hover {
-  color: #000;
+    color: #000;
 }

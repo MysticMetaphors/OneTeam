@@ -13,7 +13,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-in-container">
-            <form action="{{route('user.login')}}" method="POST" >
+            <form action="{{ route('user.login') }}" method="POST">
                 @csrf
                 <h1>Login</h1>
                 <div class="social-container">
@@ -21,6 +21,11 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
+                @error('email')
+                    <div class="error-message" style="color: red;">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <input type="email" name="email" placeholder="Email" />
                 <input type="password" name="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>

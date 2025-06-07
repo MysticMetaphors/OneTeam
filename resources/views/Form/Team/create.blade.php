@@ -17,7 +17,7 @@
             <input type="text" name="email" placeholder="Email" @error('email') class="input-error" @enderror>
         </div>
 
-        <div class="form-direction-row input-icon @error('image') input-error @enderror" >
+        <div class="form-direction-row input-icon @error('image') input-error @enderror">
             <input type="file" name="image">
             <span class="material-symbols-rounded">add_a_photo</span>
         </div>
@@ -65,7 +65,7 @@
             </div> --}}
 
         <div class="form-direction-row">
-            <button type="button" onclick="window.location.href= '{{route('user')}}'">
+            <button type="button" onclick="window.location.href= '{{ route('user') }}'">
                 Cancel
             </button>
             <button type="submit">

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Project;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,134 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Load data only when the 'layouts.app' layout is used
         View::composer('pages.layouts.Main', function ($view) {
-             $projects = collect([
-            (object)[
-                'id' => 1,
-                'task_id' => 1,
-                'name' => 'Project Alpha',
-                'owner' => 'Alice',
-                'image' => 'alpha.jpg',
-                'description' => 'First project description',
-                'status' => 'On hold',
-                'is_deleted' => 'false',
-                'deadline' => '2024-12-31 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 2,
-                'task_id' => 2,
-                'name' => 'Project Beta',
-                'owner' => 'Bob',
-                'image' => 'beta.jpg',
-                'description' => 'Second project description',
-                'status' => 'In progress',
-                'is_deleted' => 'false',
-                'deadline' => '2024-11-30 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 3,
-                'task_id' => 3,
-                'name' => 'Project Beta',
-                'owner' => 'Bob',
-                'image' => 'beta.jpg',
-                'description' => 'Second project description',
-                'status' => 'Complete',
-                'is_deleted' => 'false',
-                'deadline' => '2024-11-30 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 1,
-                'task_id' => 1,
-                'name' => 'Project Alpha',
-                'owner' => 'Alice',
-                'image' => 'alpha.jpg',
-                'description' => 'First project description',
-                'status' => 'On hold',
-                'is_deleted' => 'false',
-                'deadline' => '2024-12-31 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 2,
-                'task_id' => 2,
-                'name' => 'Project Beta',
-                'owner' => 'Bob',
-                'image' => 'beta.jpg',
-                'description' => 'Second project description',
-                'status' => 'In progress',
-                'is_deleted' => 'false',
-                'deadline' => '2024-11-30 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 3,
-                'task_id' => 3,
-                'name' => 'Project Beta',
-                'owner' => 'Bob',
-                'image' => 'beta.jpg',
-                'description' => 'Second project description',
-                'status' => 'Complete',
-                'is_deleted' => 'false',
-                'deadline' => '2024-11-30 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 1,
-                'task_id' => 1,
-                'name' => 'Project Alpha',
-                'owner' => 'Alice',
-                'image' => 'alpha.jpg',
-                'description' => 'First project description',
-                'status' => 'On hold',
-                'is_deleted' => 'false',
-                'deadline' => '2024-12-31 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 2,
-                'task_id' => 2,
-                'name' => 'Project Beta',
-                'owner' => 'Bob',
-                'image' => 'beta.jpg',
-                'description' => 'Second project description',
-                'status' => 'In progress',
-                'is_deleted' => 'false',
-                'deadline' => '2024-11-30 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            (object)[
-                'id' => 3,
-                'task_id' => 3,
-                'name' => 'Project Beta',
-                'owner' => 'Bob',
-                'image' => 'beta.jpg',
-                'description' => 'Second project description',
-                'status' => 'Complete',
-                'is_deleted' => 'false',
-                'deadline' => '2024-11-30 23:59:59',
-                'start_date' => '2024-01-01 00:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+            $projects = Project::all();
             $view->with('projects', $projects);
         });
     }

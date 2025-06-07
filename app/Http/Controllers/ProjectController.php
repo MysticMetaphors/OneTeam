@@ -170,7 +170,7 @@ class ProjectController extends Controller
             'owner' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'description' => 'required|string',
-            'status' => 'required|string|in:On hold,In progress,Complete',
+            'status' => 'required|string|in:New,On hold,In progress,Complete',
             'deadline' => 'required|date',
             'start_date' => 'required|date',
         ]);

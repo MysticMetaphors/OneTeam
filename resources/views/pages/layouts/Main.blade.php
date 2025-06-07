@@ -146,21 +146,20 @@
     </ul>
     </nav>
 
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModalBtn">&times;</span>
-            <h2>Are you sure?</h2>
-            <form method="POST" action="{{ route('user.logout') }}">
-                @csrf
-                <div class="modal-btns">
-                    <button type="button">No</button>
-                    <button type="submit">Yes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     @yield('content')
 </body>
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <h2>Are you sure?</h2>
+        <form method="POST" action="{{ route('user.logout') }}">
+            @csrf
+            <div class="modal-btns">
+                <button type="button">No</button>
+                <button type="submit">Yes</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </html>
