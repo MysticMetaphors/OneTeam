@@ -43,26 +43,7 @@
                     </a>
                     <span class="nav-tooltip">Dashboard</span>
                 </li>
-                <li class="nav-item has-submenu">
-                    <a href="{{ route('task') }}" class="nav-link {{ $currentRouteName === 'task' ? 'active' : '' }}">
-                        <span class="nav-icon material-symbols-rounded">check_circle</span>
-                        <span class="nav-label">Task</span>
 
-                    </a>
-                    <span
-                        class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'task' ? 'active' : '' }}">expand_more</span>
-                    <span class="nav-tooltip">Task</span>
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href=""
-                                class="submenu-link {{ $currentRouteName === 'recurring' ? 'active' : '' }}">
-                                <span class="material-symbols-rounded"
-                                    style="vertical-align: middle;">chevron_right</span>
-                                Recurring
-                            </a>
-                        </li>
-                    </ul>
-                </li>
                 <li class="nav-item has-submenu">
                     <a href="{{ route('project') }}"
                         class="nav-link {{ $currentRouteName === 'project' ? 'active' : '' }}">
@@ -86,6 +67,28 @@
                         @endforeach
                     </ul>
                 </li>
+
+                 <li class="nav-item has-submenu">
+                    <a href="{{ route('task') }}" class="nav-link {{ $currentRouteName === 'task' ? 'active' : '' }}">
+                        <span class="nav-icon material-symbols-rounded">check_circle</span>
+                        <span class="nav-label">Task</span>
+
+                    </a>
+                    <span
+                        class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'task' ? 'active' : '' }}">expand_more</span>
+                    <span class="nav-tooltip">Task</span>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href=""
+                                class="submenu-link {{ $currentRouteName === 'recurring' ? 'active' : '' }}">
+                                <span class="material-symbols-rounded"
+                                    style="vertical-align: middle;">chevron_right</span>
+                                Recurring
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('user') }}" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">group</span>
@@ -121,6 +124,13 @@
                     </a>
                     <span class="nav-tooltip">Settings</span>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">description</span>
+                        <span class="nav-label">Documentation</span>
+                    </a>
+                    <span class="nav-tooltip">Documentation</span>
+                </li>
             </ul>
             <!-- Secondary bottom nav -->
             <div class="divider"></div>
@@ -133,10 +143,10 @@
                     </a>
                     <span class="nav-tooltip">Profile</span>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="openModalBtn">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">logout</span>
-                        <span class="nav-label" id="openModalBtn">Logout</span>
+                        <span class="nav-label">Logout</span>
                     </a>
                     <span class="nav-tooltip">Logout</span>
                 </li>

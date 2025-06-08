@@ -77,3 +77,20 @@ textarea {
     border: 1px solid red;
     /* background-color: rgba(254, 143, 143, 0.317); */
 }
+
+.checkbox-input {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 15px;
+    font-size: 13px;
+    align-items: center;
+}
+
+.checkbox-input input[type='checkbox']{
+    height: 14px;
+    width: 14px;
+}
+
+.checkbox-input input {
+    padding: 0px;
+}

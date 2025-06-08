@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tasks;
+use App\Models\Project;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,202 +15,12 @@ class TasksController extends Controller
      */
     public function index()
     {
-        // Create a test task data
-        $tasks = collect([
-            (object)[
-                'name' => 'Recurring Task 1',
-                'description' => 'This is a recurring task that happens every week.',
-                'status' => 'Scheduled',
-                'priority' => 'Medium',
-                'type' => 'recurring',
-                'deadline' => now()->addWeek()->toDateTimeString(),
-                'created_at' => now(),
-                'assigned_to' => null,
-                'files' => [
-                    (object)[
-                        'name' => 'recurring_instructions1.pdf',
-                        'path' => 'tasks/recurring_instructions1.pdf'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Recurring Task 2',
-                'description' => 'This is a recurring task that happens every week.',
-                'status' => 'Scheduled',
-                'priority' => 'Medium',
-                'type' => 'recurring',
-                'deadline' => now()->addWeeks(2)->toDateTimeString(),
-                'created_at' => now()->subDay(),
-                'assigned_to' => null,
-                'files' => [
-                    (object)[
-                        'name' => 'recurring_instructions2.pdf',
-                        'path' => 'tasks/recurring_instructions2.pdf'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Recurring Task 3',
-                'description' => 'This is a recurring task that happens every week.',
-                'status' => 'Scheduled',
-                'priority' => 'Medium',
-                'type' => 'recurring',
-                'deadline' => now()->addWeeks(3)->toDateTimeString(),
-                'created_at' => now()->subDays(2),
-                'assigned_to' => 'Recurring User 3',
-                'files' => [
-                    (object)[
-                        'name' => 'recurring_instructions3.pdf',
-                        'path' => 'tasks/recurring_instructions3.pdf'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Recurring Task 4',
-                'description' => 'This is a recurring task that happens every week.',
-                'status' => 'Scheduled',
-                'priority' => 'Medium',
-                'type' => 'recurring',
-                'deadline' => now()->addWeeks(4)->toDateTimeString(),
-                'created_at' => now()->subDays(3),
-                'assigned_to' => 'Recurring User 4',
-                'files' => [
-                    (object)[
-                        'name' => 'recurring_instructions4.pdf',
-                        'path' => 'tasks/recurring_instructions4.pdf'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Recurring Task 5',
-                'description' => 'This is a recurring task that happens every week.',
-                'status' => 'Scheduled',
-                'priority' => 'Medium',
-                'type' => 'recurring',
-                'deadline' => now()->addWeeks(5)->toDateTimeString(),
-                'created_at' => now()->subDays(4),
-                'assigned_to' => null,
-                'files' => [
-                    (object)[
-                        'name' => 'recurring_instructions5.pdf',
-                        'path' => 'tasks/recurring_instructions5.pdf'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Test Task 1',
-                'description' => 'This is a test task description 1.',
-                'status' => 'Waiting',
-                'priority' => 'High',
-                'type' => 'feature',
-                'deadline' => now()->addDays(7)->toDateTimeString(),
-                'created_at' => now(),
-                'assigned_to' => null,
-                'files' => [
-                    (object)[
-                        'name' => 'specification1.pdf',
-                        'path' => 'tasks/specification1.pdf'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Test Task 2',
-                'description' => 'This is a test task description 2.',
-                'status' => 'In Progress',
-                'priority' => 'Medium',
-                'type' => 'bug',
-                'deadline' => now()->addDays(3)->toDateTimeString(),
-                'created_at' => now()->subDay(),
-                'assigned_to' => 'Jane Smith',
-                'files' => []
-            ],
-            (object)[
-                'name' => 'Test Task 3',
-                'description' => 'This is a test task description 3.',
-                'status' => 'Complete',
-                'priority' => 'Low',
-                'type' => null,
-                'deadline' => null,
-                'created_at' => now()->subDays(2),
-                'assigned_to' => 'Alice Johnson',
-                'files' => [
-                    (object)[
-                        'name' => 'report.docx',
-                        'path' => 'tasks/report.docx'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Test Task 4',
-                'description' => 'This is a test task description 4.',
-                'status' => 'Waiting',
-                'priority' => 'High',
-                'type' => 'improvement',
-                'deadline' => now()->addDays(10)->toDateTimeString(),
-                'created_at' => now()->subDays(3),
-                'assigned_to' => null,
-                'files' => []
-            ],
-            (object)[
-                'name' => 'Test Task 5',
-                'description' => 'This is a test task description 5.',
-                'status' => 'In Progress',
-                'priority' => 'Medium',
-                'type' => 'feature',
-                'deadline' => now()->addDays(5)->toDateTimeString(),
-                'created_at' => now()->subDays(4),
-                'assigned_to' => 'Charlie Green',
-                'files' => [
-                    (object)[
-                        'name' => 'design.png',
-                        'path' => 'tasks/design.png'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Test Task 6',
-                'description' => 'This is a test task description 6.',
-                'status' => 'Complete',
-                'priority' => 'Low',
-                'type' => null,
-                'deadline' => null,
-                'created_at' => now()->subDays(5),
-                'assigned_to' => 'Diana Prince',
-                'files' => []
-            ],
-            (object)[
-                'name' => 'Test Task 7',
-                'description' => 'This is a test task description 7.',
-                'status' => 'Waiting',
-                'priority' => 'High',
-                'type' => 'bug',
-                'deadline' => now()->addDays(2)->toDateTimeString(),
-                'created_at' => now()->subDays(6),
-                'assigned_to' => null,
-                'files' => [
-                    (object)[
-                        'name' => 'log.txt',
-                        'path' => 'tasks/log.txt'
-                    ],
-                    (object)[
-                        'name' => 'log.png',
-                        'path' => 'tasks/log.png'
-                    ]
-                ]
-            ],
-            (object)[
-                'name' => 'Test Task 8',
-                'description' => 'This is a test task description 8.',
-                'status' => 'In Progress',
-                'priority' => 'Medium',
-                'type' => 'improvement',
-                'deadline' => now()->addDays(1)->toDateTimeString(),
-                'created_at' => now()->subDays(7),
-                'assigned_to' => 'Frank Miller',
-                'files' => []
-            ],
+        $tasks = Tasks::all();
+        $users = User::all();
+        return view('pages.Tasks', [
+            'tasks' => $tasks,
+            'users' => $users
         ]);
-        return view('pages.Tasks', ['tasks' => $tasks]);
     }
 
     /**
@@ -217,6 +29,12 @@ class TasksController extends Controller
     public function create()
     {
         //
+        $users = User::all();
+        $projects = Project::all();
+        return view('Form.Task.create', [
+            'projects' => $projects,
+            'users' => $users
+        ]);
     }
 
     /**
@@ -225,6 +43,37 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         //
+        $validateData = $request->validate([
+            'title' => 'required|string|max:30|min:3',
+            'description' => 'required|string|max:255',
+            'priority' => 'required|in:High,Medium,Low',
+            'assignee' => 'required|integer',
+            'project' => 'required|integer',
+            'deadline' => 'required|date',
+            // 'recurring' => 'nullable',
+            'type' => 'required|string|max:20',
+            // 'repeat_interval' => 'nullable|integer|min:0'
+        ]);
+
+        // if ($validateData['recurring'] == 'on') {
+        //     $validateData['recurring'] = "true";
+        // }
+
+       // dd($validateData);
+
+        Tasks::create([
+            'title' => $validateData['title'],
+            'description' => $validateData['description'],
+            'priority' => $validateData['priority'],
+            'issued_to' => $validateData['assignee'],
+            'project_id' => $validateData['project'],
+            'deadline' => $validateData['deadline'],
+            'type' => $validateData['type'],
+            // 'is_repeat' => $validateData['recurring'],
+            // 'repeat_interval' => $validateData['repeat_interval']
+        ]);
+
+        return redirect()->route('task.create')->with('success', 'Task created successfully.');
     }
 
     /**

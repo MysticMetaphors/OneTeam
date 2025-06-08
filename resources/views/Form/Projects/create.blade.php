@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="form-direction-row">
-            <button type="button">
+            <button type="button" onclick="window.location.href='{{route('project')}}'">
                 Cancel
             </button>
             <button type="submit">

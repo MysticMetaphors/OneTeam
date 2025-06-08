@@ -74,6 +74,7 @@
                             'On hold' => ['original' => 'On hold', 'tag' => 'tag-primary'],
                             'In Progress' => ['original' => 'In progress', 'tag' => 'tag-warning'],
                             'Complete' => ['original' => 'Complete', 'tag' => 'tag-success'],
+                            'Cancelled' => ['original' => 'Cancelled', 'tag' => 'tag-success'],
                         ];
                     @endphp
                     <tbody>
@@ -94,7 +95,7 @@
                                                 <img src="{{ asset('storage/profile/' . $project->image) }}"
                                                     class="profile-img"
                                                     style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
-                                                {{-- {{ $project->owner }} --}}
+                                                {{ $project->owner }}
                                             </div>
                                         @else
                                             <span>—</span>
@@ -106,6 +107,7 @@
                                 @if ($project->status === 'Complete') tag-success
                                 @elseif ($project->status === 'In progress') tag-warning
                                 @elseif ($project->status === 'On hold') tag-grey
+                                @elseif ($project->status === 'Cancelled') tag-danger
                                 @else tag-primary @endif
                             ">
                                            {{ $project->status }}

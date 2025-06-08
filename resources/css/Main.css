@@ -274,7 +274,7 @@ body {
 .submenu-arrow {
     position: absolute;
     right: 10px;
-    top: 24px;
+    top: 20px;
     transform: translateY(-50%);
     cursor: pointer;
 }

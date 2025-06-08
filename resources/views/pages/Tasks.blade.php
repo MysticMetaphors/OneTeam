@@ -22,7 +22,8 @@
                 </button>
             </div>
             <div class="d-flex-row-container">
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected">
+                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
+                    onclick="window.location.href='{{ route('task.create') }}'">
                     <span class="material-symbols-rounded">add</span>
                     New Task
                 </button>
@@ -80,7 +81,7 @@
                         {{-- <th>
                             <input type="checkbox" id="selectAllTasks" title="Select All">
                         </th> --}}
-                        <th>Description</th>
+                        <th>Title</th>
                         <th>Assigned</th>
                         <th>Status</th>
                         <th>Type</th>
@@ -94,38 +95,44 @@
                     $statuses = [
                         'Scheduled' => ['original' => 'Scheduled', 'tag' => 'tag-primary'],
                         'Waiting' => ['original' => 'Waiting', 'tag' => 'tag-grey'],
-                        'In Progress' => ['original' => 'In Progress', 'tag' => 'tag-warning'],
-                        'Complete' => ['original' => 'Complete', 'tag' => 'tag-success'],
+                        'Processing' => ['original' => 'Processing', 'tag' => 'tag-warning'],
+                        'Completed' => ['original' => 'Completed', 'tag' => 'tag-success'],
                     ];
                 @endphp
 
                 <tbody>
                     @foreach ($statuses as $displayStatus => $info)
-                    <tr><td>test</td></tr>
                         @php
                             $TaskStatus = $tasks->where('status', $info['original']);
                         @endphp
                         @foreach ($TaskStatus as $task)
+                            @php
+                                $user = $users->where('id', $task->issued_to)->first();
+                            @endphp
                             <tr>
                                 {{-- <td>
                                     <input type="checkbox" id="selectAllTasks" title="Select All">
                                 </td> --}}
-                                <td>{{ $task->description }}</td>
                                 <td>
-                                    @if (isset($task->assigned_to))
+                                    {{ $task->title }}
+                                    <span class="material-symbols-rounded" style="vertical-align:middle;">description</span>
+                                </td>
+                                <td>
+                                    @if (isset($task->issued_to))
                                         <div class="assigned-profile">
-                                            <img src="{{ asset('storage/images/default-profile.png') }}" class="profile-img"
+                                            <img src="{{ asset('storage/profile/' . $user->image) }}" class="profile-img"
                                                 style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+                                            {{ $user->name }}
                                         </div>
                                     @else
-                                        <span>—</span>
+                                        <span>-</span>
                                     @endif
                                 </td>
                                 <td>
                                     <div
                                         class="tags
-                                @if ($task->status === 'Complete') tag-success
-                                @elseif ($task->status === 'In Progress') tag-warning
+                                @if ($task->status === 'Completed') tag-success
+                                @elseif ($task->status === 'Processing') tag-warning
                                 @elseif ($task->status === 'Waiting') tag-grey
                                 @else tag-primary @endif
                             ">
@@ -134,13 +141,7 @@
                                 </td>
                                 <td>
                                     @if (isset($task->type))
-                                        @if ($task->type == 'recurring')
-                                            <span class="material-symbols-rounded">
-                                                repeat
-                                            </span>
-                                        @else
-                                            {{ ucfirst($task->type) }}
-                                        @endif
+                                        {{ ucfirst($task->type) }}
                                     @else
                                         <span>—</span>
                                     @endif
@@ -229,40 +230,33 @@
                         <div class="kanban-tasks">
                             @php
                                 $tasksForStatus = $tasks->where('status', $info['original']);
-                                $lightColors = [
-                                    '#F8BBD0', // light pink
-                                    '#81D4FA', // darker light blue
-                                    '#FFF3E0', // light orange
-                                    '#E8F5E9', // light green
-                                    '#F3E5F5', // light purple
-                                ];
                             @endphp
                             @forelse ($tasksForStatus as $task)
-                                {{-- @php
-                                    $color = $lightColors[array_rand($lightColors)];
-                                @endphp --}}
+                                @php
+                                    $user = $users->where('id', $task->issued_to)->first();
+                                @endphp
                                 @php
                                     if ($task->priority === 'High') {
-                                        $color = '#F3E5F5'; // light purple
-                                    } elseif ($task->priority === 'Mild' || $task->priority === 'Medium') {
-                                        $color = '#81D4FA'; // darker light blue
-                                    } elseif ($task->status === 'Complete') {
-                                        $color = '#E8F5E9'; // light green
+                                        $color = '#FFCDD2'; // light redish
+                                    } elseif ($task->priority === 'Medium') {
+                                        $color = '#FFF3E0'; // light orange
+                                    } elseif ($task->status === 'Completed') {
+                                        $color = '#E8F5E9';
                                     } else {
-                                        $color = '#FFF3E0'; // default light orange
+                                        $color = '#81D4FA';
                                     }
                                 @endphp
                                 <div class="kanban-task-card" style="background: {{ $color }};">
                                     <div class="d-flex-row-container">
                                         <div class="kanban-task-assigned">
-                                            @if (isset($task->assigned_to))
-                                                <img src="{{ asset('storage/images/default-profile.png') }}"
+                                            @if (isset($task->issued_to))
+                                                <img src="{{ asset('storage/profile/' . $user->image) }}"
                                                     class="profile-img">
                                             @else
                                                 <span>—</span>
                                             @endif
                                         </div>
-                                        <div class="kanban-task-desc">{{ $task->description }}</div>
+                                        <div class="kanban-task-desc">{{ $task->title }}</div>
                                     </div>
 
 
@@ -275,7 +269,7 @@
                                             @endif
                                             <div>
                                                 <span class="material-symbols-rounded">description</span>
-                                                @if ($task->type == 'recurring')
+                                                @if ($task->type == 'true')
                                                     <span class="material-symbols-rounded">repeat</span>
                                                 @endif
                                             </div>
