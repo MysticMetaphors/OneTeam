@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Tasks;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -186,6 +187,17 @@ class UserController extends Controller
         return view('pages.Team', ['users' => $users]);
     }
 
+        public function profile()
+    {
+
+        $tasks = Tasks::all();
+        return view('pages.Profile', [
+            // 'users' => $users
+            'tasks' => $tasks
+        ]);
+    }
+
+
     public function login(Request $request)
     {
         $validateData = $request->validate([
@@ -261,7 +273,7 @@ class UserController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
         unset($validatedData['repeat-password']);
 
-        $user = User::create([
+        User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => $validatedData['password'],

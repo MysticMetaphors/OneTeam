@@ -44,4 +44,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/update', [UserController::class, 'update'])->name('user.update');
         Route::post('/destroy', [UserController::class, 'destroy'])->name('user.destroy');
     });
+
+     Route::get('/Profile', [UserController::class, 'profile'])->name('user.profile');
 });
