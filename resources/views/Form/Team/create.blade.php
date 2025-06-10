@@ -13,32 +13,37 @@
         @endif
 
         <div class="form-direction-row">
-            <input type="text" name="name" placeholder="Name" @error('name') class="input-error" @enderror>
-            <input type="text" name="email" placeholder="Email" @error('email') class="input-error" @enderror>
+            <input type="text" name="name" placeholder="Name" @error('name') class="input-error" @enderror
+                value="{{ old('name') }}">
+            <input type="text" name="email" placeholder="Email" @error('email') class="input-error" @enderror
+                value="{{ old('email') }}">
         </div>
 
         <div class="form-direction-row input-icon @error('image') input-error @enderror">
-            <input type="file" name="image">
+            <input type="file" name="image" value="{{ old('image') }}">
             <span class="material-symbols-rounded">add_a_photo</span>
         </div>
 
         <div class="form-direction-row">
-            <input type="text" name="contact" placeholder="Contact" @error('contact') class="input-error" @enderror>
-            <input type="text" name="location" placeholder="Location" @error('location') class="input-error" @enderror>
+            <input type="text" name="contact" placeholder="Contact" @error('contact') class="input-error" @enderror
+                value="{{ old('contact') }}">
+            <input type="text" name="location" placeholder="Location" @error('location') class="input-error" @enderror
+                value="{{ old('location') }}">
         </div>
 
         <div class="form-direction-row input-icon">
             <label for="birthdate">Birth</label>
-            <input type="date" id="birthdate" name="birthdate" @error('birthdate') class="input-error" @enderror>
+            <input type="date" id="birthdate" name="birthdate" @error('birthdate') class="input-error" @enderror
+                value="{{ old('birthdate') }}">
         </div>
 
         <div class="form-direction-row">
             <div class="form-direction-row input-icon @error('position') input-error @enderror">
-                <input type="text" name="position" placeholder="Position">
+                <input type="text" name="position" placeholder="Position" value="{{ old('position') }}">
                 <span class="material-symbols-rounded"></span>
             </div>
             <div class="form-direction-row input-icon @error('role') input-error @enderror">
-                <select name="role">
+                <select name="role" value="{{ old('role') }}">
                     <option hidden value="">Select role</option>
                     <option value="admin">Admin</option>
                     <option value="member">Member</option>
