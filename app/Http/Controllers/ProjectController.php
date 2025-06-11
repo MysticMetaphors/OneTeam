@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ProjectController extends Controller
 {
@@ -13,142 +14,16 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        // Data placeholder based on the table structure
-        // $projects = collect([
-        //     (object)[
-        //         'id' => 1,
-        //         'task_id' => 1,
-        //         'name' => 'Project Alpha',
-        //         'owner' => 'Alice',
-        //         'image' => 'alpha.jpg',
-        //         'description' => 'First project description',
-        //         'status' => 'On hold',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-12-31 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 2,
-        //         'task_id' => 2,
-        //         'name' => 'Project Beta',
-        //         'owner' => 'Bob',
-        //         'image' => 'beta.jpg',
-        //         'description' => 'Second project description',
-        //         'status' => 'In progress',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-11-30 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 3,
-        //         'task_id' => 3,
-        //         'name' => 'Project Beta',
-        //         'owner' => 'Bob',
-        //         'image' => 'beta.jpg',
-        //         'description' => 'Second project description',
-        //         'status' => 'Complete',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-11-30 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 1,
-        //         'task_id' => 1,
-        //         'name' => 'Project Alpha',
-        //         'owner' => 'Alice',
-        //         'image' => 'alpha.jpg',
-        //         'description' => 'First project description',
-        //         'status' => 'On hold',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-12-31 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 2,
-        //         'task_id' => 2,
-        //         'name' => 'Project Beta',
-        //         'owner' => 'Bob',
-        //         'image' => 'beta.jpg',
-        //         'description' => 'Second project description',
-        //         'status' => 'In progress',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-11-30 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 3,
-        //         'task_id' => 3,
-        //         'name' => 'Project Beta',
-        //         'owner' => 'Bob',
-        //         'image' => 'beta.jpg',
-        //         'description' => 'Second project description',
-        //         'status' => 'Complete',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-11-30 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 1,
-        //         'task_id' => 1,
-        //         'name' => 'Project Alpha',
-        //         'owner' => 'Alice',
-        //         'image' => 'alpha.jpg',
-        //         'description' => 'First project description',
-        //         'status' => 'On hold',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-12-31 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 2,
-        //         'task_id' => 2,
-        //         'name' => 'Project Beta',
-        //         'owner' => 'Bob',
-        //         'image' => 'beta.jpg',
-        //         'description' => 'Second project description',
-        //         'status' => 'In progress',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-11-30 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        //     (object)[
-        //         'id' => 3,
-        //         'task_id' => 3,
-        //         'name' => 'Project Beta',
-        //         'owner' => 'Bob',
-        //         'image' => 'beta.jpg',
-        //         'description' => 'Second project description',
-        //         'status' => 'Complete',
-        //         'is_deleted' => 'false',
-        //         'deadline' => '2024-11-30 23:59:59',
-        //         'start_date' => '2024-01-01 00:00:00',
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ],
-        // ]);
-
         $projects = Project::where('is_deleted', 'false')->get();
         // $projects = Project::all();
         // $projects = Project::where('is_deleted', 'false')->get();
         // $projects = Project::where('is_deleted', 'false')->orderBy('created_at', 'desc')->get();
 
         // Pass the data to the view
+        foreach ($projects as $project) {
+            $project->encrypt = Crypt::encryptString($project->id);
+        }
+        // dd($projects);
         return view('pages.Project ', ['projects' => $projects]);
     }
 

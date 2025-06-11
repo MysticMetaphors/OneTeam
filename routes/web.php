@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('Task')->group(function () {
         Route::get('/', [TasksController::class, 'index'])->name('task');
         Route::get('/create', [TasksController::class, 'create'])->name('task.create');
+        Route::get('/show/{id}', [TasksController::class, 'show'])->name('task.show');
         Route::post('/store', [TasksController::class, 'store'])->name('task.store');
         Route::post('/update', [TasksController::class, 'update'])->name('task.update');
         Route::post('/destroy', [TasksController::class, 'destroy'])->name('task.destroy');
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('Team')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user');
         Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        Route::get('/show/{id}', [UserController::class, 'show'])->name('user.show');
         Route::post('/store', [UserController::class, 'store'])->name('user.store');
         Route::post('/update', [UserController::class, 'update'])->name('user.update');
         Route::post('/destroy', [UserController::class, 'destroy'])->name('user.destroy');

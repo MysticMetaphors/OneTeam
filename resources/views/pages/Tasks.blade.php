@@ -5,12 +5,6 @@
 @section('content')
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
-            {{-- <div class="search-bar">
-                <input type="text" class="form-control" placeholder="Search...">
-                <button class="btn search-btn" type="submit" title="Search">
-                    <span class="material-symbols-rounded">&#xe8b6;</span>
-                </button>
-            </div> --}}
             <div class="d-flex-row-container">
                 <button class="btn-no-bg" id="kanban-view-btn" title="Kanban View">
                     <span class="material-symbols-rounded">view_kanban</span>
@@ -49,21 +43,6 @@
                             <div class="d-flex-row-container" style="gap: 12px;">
 
                                 <div class="d-flex-row-container">
-                                    {{-- <button class="btn btn-sm btn-outline-secondary" id="bulkCompleteBtn"
-                                        title="Add Selected">
-                                        <span class="material-symbols-rounded">add</span>
-                                        Complete
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary" id="bulkCompleteBtn"
-                                        title="edit Selected">
-                                        <span class="material-symbols-rounded">edit</span>
-                                        Edit
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary" id="bulkDeleteBtn"
-                                        title="Delete Selected">
-                                        <span class="material-symbols-rounded">delete</span>
-                                        Delete
-                                    </button> --}}
                                     Tasks/All
                                 </div>
                                 <div class="d-flex-row-container">
@@ -210,6 +189,7 @@
                 </tbody>
             </table>
         </div>
+
 
         <div id="kanban-view" style="margin-top: 32px;">
 

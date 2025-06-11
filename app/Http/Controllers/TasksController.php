@@ -7,6 +7,8 @@ use App\Models\Project;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 
 class TasksController extends Controller
 {
@@ -59,7 +61,7 @@ class TasksController extends Controller
         //     $validateData['recurring'] = "true";
         // }
 
-       // dd($validateData);
+        // dd($validateData);
 
         Tasks::create([
             'title' => $validateData['title'],
@@ -79,9 +81,20 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tasks $tasks)
+    public function show(Tasks $tasks, $id)
     {
-        //
+        try {
+            $decryptedId = Crypt::decryptString($id);
+            $tasks = Tasks::where('project_id', $decryptedId)->get();
+
+            $users = User::all();
+            return view('pages.Tasks', [
+                'tasks' => $tasks,
+                'users' => $users
+            ]);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            abort(404);
+        }
     }
 
     /**

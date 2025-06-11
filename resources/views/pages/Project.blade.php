@@ -65,7 +65,7 @@
                             <th>Task</th>
                             <th>Docs</th>
                             <th>StartDate</th>
-                            <th>Deadline</th>
+                            <th>DueDate</th>
                         </tr>
                     </thead>
                     @php
@@ -110,7 +110,7 @@
                                 @elseif ($project->status === 'Cancelled') tag-danger
                                 @else tag-primary @endif
                             ">
-                                           {{ $project->status }}
+                                            {{ $project->status }}
                                         </div>
                                     </td>
                                     <td>
@@ -119,7 +119,8 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn-no-bg" title="View Tasks">
+                                        <button class="btn-no-bg" title="View Tasks"
+                                            onclick="window.location.href='{{ route('task.show', ['id' => urlencode($project->encrypt)]) }}'">
                                             <span class="material-symbols-rounded">checklist</span>
                                         </button>
                                     </td>
@@ -152,7 +153,7 @@
             </div>
         </div>
 
-         {{-- <div class="project-tool">
+        {{-- <div class="project-tool">
             <ul class="project-nav">
                 <span class="nav-icon material-symbols-rounded">folder</span>
                 <span class="nav-icon material-symbols-rounded">edit_square</span>
