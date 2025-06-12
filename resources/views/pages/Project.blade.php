@@ -65,7 +65,8 @@
                             <th>Task</th>
                             <th>Docs</th>
                             <th>StartDate</th>
-                            <th>DueDate</th>
+                            <th>Due</th>
+                            <th></th>
                         </tr>
                     </thead>
                     @php
@@ -144,6 +145,16 @@
                                         @else
                                             <span>—</span>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex-row-container">
+                                            <button class="btn-no-bg" title="Edit Task">
+                                                <span class="material-symbols-rounded">edit</span>
+                                            </button>
+                                            <button class="btn-no-bg" title="Delete Task">
+                                                <span class="material-symbols-rounded">delete</span>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

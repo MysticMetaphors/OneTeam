@@ -24,7 +24,7 @@
                 </button>
             </div>
         </div>
-        <div class="d-flex-row-container">
+        {{-- <div class="d-flex-row-container">
             <div class="card" style="width: 18rem;">
                 <div class="card-body d-flex align-items-center">
                     <span class="me-3">
@@ -70,20 +70,71 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="d-flex-row-container">
-            <div class="card" style="width: 100%; margin-bottom: 1rem;">
-                <div class="card-body d-flex align-items-center">
-                    <span class="me-3">
-                        <i class="bi bi-people-fill" style="font-size: 2rem;"></i>
-                    </span>
-                    <div>
-                        <h5 class="card-title mb-1">Team Members</h5>
-                        <p class="card-text mb-0">Manage your team and assign roles.</p>
-                    </div>
-                </div>
-            </div>
+             <table class="table table-striped tasks-table">
+                <thead>
+                    <tr>
+                        <th colspan="5">
+                            <h2>Open Projects</h2>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Website Redesign</td>
+                        <td>Alice Smith</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>2024-07-15</td>
+
+                    </tr>
+                    <tr>
+                        <td>Mobile App Launch</td>
+                        <td>Bob Johnson</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                        <td>2024-08-01</td>
+
+                    </tr>
+                    <tr>
+                        <td>API Integration</td>
+                        <td>Carol Lee</td>
+                        <td><span class="badge bg-info text-dark">In Progress</span></td>
+                        <td>2024-07-30</td>
+
+                    </tr>
+                </tbody>
+            </table>
             <table class="table table-striped tasks-table">
+                <thead>
+                    <tr>
+                        <th colspan="5">
+                            <h2>Open Projects</h2>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Website Redesign</td>
+                        <td>Alice Smith</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>2024-07-15</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile App Launch</td>
+                        <td>Bob Johnson</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                        <td>2024-08-01</td>
+                    </tr>
+                    <tr>
+                        <td>API Integration</td>
+                        <td>Carol Lee</td>
+                        <td><span class="badge bg-info text-dark">In Progress</span></td>
+                        <td>2024-07-30</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+         {{-- <table class="table table-striped tasks-table">
                 <thead>
                     <tr>
                         <th colspan="5">
@@ -124,7 +175,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div> --}}
     </div>
 
 @endsection

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Tasks;
+use App\Models\User;
+use App\Models\Activity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -15,11 +19,6 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::where('is_deleted', 'false')->get();
-        // $projects = Project::all();
-        // $projects = Project::where('is_deleted', 'false')->get();
-        // $projects = Project::where('is_deleted', 'false')->orderBy('created_at', 'desc')->get();
-
-        // Pass the data to the view
         foreach ($projects as $project) {
             $project->encrypt = Crypt::encryptString($project->id);
         }
@@ -54,10 +53,6 @@ class ProjectController extends Controller
         //     return response()->json(['errors' => $request->errors()], 422);
         // }
 
-        // return $validatedData;
-        // dd($validatedData);
-        // return $validatedData['start_date'];
-
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -75,15 +70,34 @@ class ProjectController extends Controller
             'deadline' => $validatedData['deadline'],
             'start_date' => $validatedData['start_date'],
         ]);
+
+        Activity::create([
+            'title' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'made_by' => Auth::user()->id,
+            'action' => 'Create',
+            'type' => 'Project',
+        ]);
         return redirect()->route('project.create')->with('success', 'Project created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(Project $project, $id)
     {
-        //
+        try {
+            $decryptedId = Crypt::decryptString($id);
+            $tasks = Tasks::where('id', $decryptedId)->get();
+
+            $users = User::all();
+            return view('pages.ViewProject', [
+                'tasks' => $tasks,
+                'users' => $users
+            ]);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            abort(404);
+        }
     }
 
     /**

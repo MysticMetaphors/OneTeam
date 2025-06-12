@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,12 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        $activity = Activity::all();
+        $user = User::all();
+        return view('pages.Activity', [
+            'activity' => $activity,
+            'users' => $user
+        ]);
     }
 
     /**

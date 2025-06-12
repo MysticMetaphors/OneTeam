@@ -57,7 +57,7 @@
                     <ul class="submenu">
                         @foreach ($projects as $project)
                             <li class="submenu-item">
-                                <a href="" {{-- {{ route('project.show', $project->id) }} --}}
+                                <a href="{{route('project.show', [ 'id' => $project->encrypt])}}"
                                     class="submenu-link {{ $currentRouteName === 'project.show' ? 'active' : '' }}">
                                     <span class="material-symbols-rounded"
                                         style="vertical-align: middle;">chevron_right</span>
@@ -111,7 +111,7 @@
                     <span class="nav-tooltip">Reports</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('activity')}}" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">history</span>
                         <span class="nav-label">Activity Logs</span>
                     </a>
@@ -136,7 +136,7 @@
             <div class="divider"></div>
             <ul class="nav-list secondary-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('user.profile')}}" class="nav-link">
                         <img src="{{ asset('storage/profile/' . Auth::user()->image) }}" alt=""
                             class="profile-img">
                         <span class="nav-label">Profile</span>

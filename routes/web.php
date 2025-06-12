@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\UserController;
@@ -47,5 +48,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/destroy', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
-     Route::get('/Profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/Profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/Activity', [ActivityController::class, 'index'])->name('activity');
 });

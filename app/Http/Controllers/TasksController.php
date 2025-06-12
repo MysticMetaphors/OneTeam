@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Tasks;
 use App\Models\Project;
 use App\Models\User;
+use App\Models\Activity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
@@ -52,16 +53,8 @@ class TasksController extends Controller
             'assignee' => 'required|integer',
             'project' => 'required|integer',
             'deadline' => 'required|date',
-            // 'recurring' => 'nullable',
             'type' => 'required|string|max:20',
-            // 'repeat_interval' => 'nullable|integer|min:0'
         ]);
-
-        // if ($validateData['recurring'] == 'on') {
-        //     $validateData['recurring'] = "true";
-        // }
-
-        // dd($validateData);
 
         Tasks::create([
             'title' => $validateData['title'],
@@ -71,8 +64,14 @@ class TasksController extends Controller
             'project_id' => $validateData['project'],
             'deadline' => $validateData['deadline'],
             'type' => $validateData['type'],
-            // 'is_repeat' => $validateData['recurring'],
-            // 'repeat_interval' => $validateData['repeat_interval']
+        ]);
+
+        Activity::create([
+            'title' => $validateData['title'],
+            'description' => $validateData['description'],
+            'made_by' => Auth::user()->id,
+            'action' => 'Create',
+            'type' => 'Task',
         ]);
 
         return redirect()->route('task.create')->with('success', 'Task created successfully.');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image')->default('default_images.png');
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'member'])->default('member');
+            $table->enum('role', ['Admin', 'Member'])->default('Member');
             $table->string('department', 255)->nullable();
             $table->string('position', 255);
             $table->date('birthdate');

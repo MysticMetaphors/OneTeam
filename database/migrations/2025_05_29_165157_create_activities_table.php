@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('issued_to');
+            $table->unsignedBigInteger('made_by');
             $table->string('title', 255);
             $table->string('description', 255);
             $table->dateTime('deadline');
             $table->string('action', 255);
-            $table->enum('priority', ['High', 'Mild', 'Low'])->default('Low');
-            $table->enum('status', ['Completed', 'Processing', 'Cancelled', 'Waiting'])->default('Waiting');
+            $table->enum('type', ['Project', 'Task'])->default('Task');
             $table->enum('is_deleted', ['true', 'false'])->default('false');
             $table->timestamps();
 
-            $table->foreign('issued_to')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('made_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

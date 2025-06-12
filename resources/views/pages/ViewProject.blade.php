@@ -1,6 +1,6 @@
 @extends('pages.layouts.Main')
 
-@section('title', 'Tasks')
+@section('title', 'Project - View')
 
 @section('content')
     <div class="main-content">
