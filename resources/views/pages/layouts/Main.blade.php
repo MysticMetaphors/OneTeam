@@ -113,9 +113,9 @@
                 <li class="nav-item">
                     <a href="{{route('activity')}}" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">history</span>
-                        <span class="nav-label">Activity Logs</span>
+                        <span class="nav-label">History</span>
                     </a>
-                    <span class="nav-tooltip">Activity Logs</span>
+                    <span class="nav-tooltip">History</span>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">

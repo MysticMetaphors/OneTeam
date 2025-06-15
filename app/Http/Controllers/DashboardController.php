@@ -9,6 +9,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Models\Activity;
 use App\Models\Project;
 use App\Models\Tasks;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -18,11 +19,11 @@ class DashboardController extends Controller
     public function index()
     {
         $project = Project::limit(5)->get();
-        $task = Tasks::limit(5)->get();
+        $task = Tasks::where('issued_to', Auth::user()->id)->get();
         $activity = Activity::limit(5)->get();
         return view('pages.Dashboard', [
             'project' => $project,
-            // 'task' => $task,
+            'tasks' => $task,
             // 'activity' => $activity
         ]);
     }

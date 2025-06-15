@@ -94,7 +94,6 @@
                                 </td> --}}
                                 <td>
                                     {{ $task->title }}
-                                    <span class="material-symbols-rounded" style="vertical-align:middle;">description</span>
                                 </td>
                                 <td>
                                     @if (isset($task->issued_to))
@@ -175,6 +174,9 @@
                                 </td>
                                 <td>
                                     <div class="d-flex-row-container">
+                                        <button class="btn-no-bg" title="Task Description">
+                                             <span class="material-symbols-rounded" style="vertical-align:middle;">description</span>
+                                        </button>
                                         <button class="btn-no-bg" title="Edit Task">
                                             <span class="material-symbols-rounded">edit</span>
                                         </button>
