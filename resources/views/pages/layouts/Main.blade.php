@@ -44,31 +44,33 @@
                     <span class="nav-tooltip">Dashboard</span>
                 </li>
 
+                @if (Auth::user()->role == 'Admin')
+                    <li class="nav-item has-submenu">
+                        <a href="{{ route('project') }}"
+                            class="nav-link {{ $currentRouteName === 'project' ? 'active' : '' }}">
+                            <span class="nav-icon material-symbols-rounded">folder</span>
+                            <span class="nav-label">Projects</span>
+
+                        </a>
+                        <span
+                            class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'project' ? 'active' : '' }}">expand_more</span>
+                        <span class="nav-tooltip">Projects</span>
+                        <ul class="submenu">
+                            @foreach ($projects as $project)
+                                <li class="submenu-item">
+                                    <a href="{{ route('project.show', ['id' => $project->encrypt]) }}"
+                                        class="submenu-link {{ $currentRouteName === 'project.show' ? 'active' : '' }}">
+                                        <span class="material-symbols-rounded"
+                                            style="vertical-align: middle;">chevron_right</span>
+                                        {{ $project->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
+
                 <li class="nav-item has-submenu">
-                    <a href="{{ route('project') }}"
-                        class="nav-link {{ $currentRouteName === 'project' ? 'active' : '' }}">
-                        <span class="nav-icon material-symbols-rounded">folder</span>
-                        <span class="nav-label">Projects</span>
-
-                    </a>
-                    <span
-                        class="submenu-arrow material-symbols-rounded submenu-toggler {{ $currentRouteName === 'project' ? 'active' : '' }}">expand_more</span>
-                    <span class="nav-tooltip">Projects</span>
-                    <ul class="submenu">
-                        @foreach ($projects as $project)
-                            <li class="submenu-item">
-                                <a href="{{route('project.show', [ 'id' => $project->encrypt])}}"
-                                    class="submenu-link {{ $currentRouteName === 'project.show' ? 'active' : '' }}">
-                                    <span class="material-symbols-rounded"
-                                        style="vertical-align: middle;">chevron_right</span>
-                                    {{ $project->name }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-
-                 <li class="nav-item has-submenu">
                     <a href="{{ route('task') }}" class="nav-link {{ $currentRouteName === 'task' ? 'active' : '' }}">
                         <span class="nav-icon material-symbols-rounded">check_circle</span>
                         <span class="nav-label">Task</span>
@@ -89,13 +91,16 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('user') }}" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">group</span>
-                        <span class="nav-label">Team</span>
-                    </a>
-                    <span class="nav-tooltip">Team</span>
-                </li>
+                @if (Auth::user()->role == 'Admin')
+                    <li class="nav-item">
+                        <a href="{{ route('user') }}" class="nav-link">
+                            <span class="nav-icon material-symbols-rounded">group</span>
+                            <span class="nav-label">Team</span>
+                        </a>
+                        <span class="nav-tooltip">Team</span>
+                    </li>
+                @endif
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">forum</span>
@@ -103,27 +108,34 @@
                     </a>
                     <span class="nav-tooltip">Discussion</span>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">insert_chart</span>
-                        <span class="nav-label">Reports</span>
-                    </a>
-                    <span class="nav-tooltip">Reports</span>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('activity')}}" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">history</span>
-                        <span class="nav-label">History</span>
-                    </a>
-                    <span class="nav-tooltip">History</span>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">settings</span>
-                        <span class="nav-label">Settings</span>
-                    </a>
-                    <span class="nav-tooltip">Settings</span>
-                </li>
+
+                @if (Auth::user()->role == 'Admin')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon material-symbols-rounded">insert_chart</span>
+                            <span class="nav-label">Reports</span>
+                        </a>
+                        <span class="nav-tooltip">Reports</span>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="{{ route('activity') }}" class="nav-link">
+                            <span class="nav-icon material-symbols-rounded">history</span>
+                            <span class="nav-label">History</span>
+                        </a>
+                        <span class="nav-tooltip">History</span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon material-symbols-rounded">settings</span>
+                            <span class="nav-label">Settings</span>
+                        </a>
+                        <span class="nav-tooltip">Settings</span>
+                    </li>
+                @endif
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">description</span>
@@ -136,14 +148,14 @@
             <div class="divider"></div>
             <ul class="nav-list secondary-nav">
                 <li class="nav-item">
-                    <a href="{{route('user.profile')}}" class="nav-link">
+                    <a href="{{ route('user.profile') }}" class="nav-link">
                         <img src="{{ asset('storage/profile/' . Auth::user()->image) }}" alt=""
                             class="profile-img">
                         <span class="nav-label">Profile</span>
                     </a>
                     <span class="nav-tooltip">Profile</span>
                 </li>
-                <li class="nav-item" id="openModalBtn">
+                <li class="nav-item" onclick="openModal('loginModal')">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">logout</span>
                         <span class="nav-label">Logout</span>
@@ -160,12 +172,12 @@
 </body>
 <div id="loginModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" id="closeModalBtn">&times;</span>
+        {{-- <span class="close-btn" >&times;</span> --}}
         <h2>Are you sure?</h2>
         <form method="POST" action="{{ route('user.logout') }}">
             @csrf
             <div class="modal-btns">
-                <button type="button">No</button>
+                <button type="button" id="closeModalBtn" data-modal-close>No</button>
                 <button type="submit">Yes</button>
             </div>
         </form>

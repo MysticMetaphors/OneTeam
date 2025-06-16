@@ -18,8 +18,14 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Tasks::all();
-        $users = User::all();
+        if (Auth::user()->role == 'Admin') {
+            $tasks = Tasks::all();
+            $users = User::all();
+        } else {
+            $id = Auth::user()->id;
+            $tasks = Tasks::where('issued_to', $id)->get();
+            $users = Auth::user();
+        }
         return view('pages.Tasks', [
             'tasks' => $tasks,
             'users' => $users

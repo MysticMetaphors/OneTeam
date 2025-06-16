@@ -174,15 +174,22 @@
                                 </td>
                                 <td>
                                     <div class="d-flex-row-container">
-                                        <button class="btn-no-bg" title="Task Description">
-                                             <span class="material-symbols-rounded" style="vertical-align:middle;">description</span>
+                                        <button class="btn-no-bg" title="Task Description"
+                                            onclick="openModal('taskModal'
+                                            ,'{{ $task->title }}'
+                                            ,'{{ $task->description }}'
+                                            ,'{{ $task->attachment }}'
+                                            ,'{{ $task->deadline }}')">
+                                            <span class="material-symbols-rounded">description</span>
                                         </button>
-                                        <button class="btn-no-bg" title="Edit Task">
-                                            <span class="material-symbols-rounded">edit</span>
-                                        </button>
-                                        <button class="btn-no-bg" title="Delete Task">
-                                            <span class="material-symbols-rounded">delete</span>
-                                        </button>
+                                        @if (Auth::user()->role == 'Admin')
+                                            <button class="btn-no-bg" title="Edit Task">
+                                                <span class="material-symbols-rounded">edit</span>
+                                            </button>
+                                            <button class="btn-no-bg" title="Delete Task">
+                                                <span class="material-symbols-rounded">delete</span>
+                                            </button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
@@ -192,17 +199,8 @@
             </table>
         </div>
 
-
         <div id="kanban-view" style="margin-top: 32px;">
-
             <div class="kanban-board">
-                {{-- @php
-                    $statuses = [
-                        'Waiting' => ['original' => 'Waiting', 'tag' => 'tag-grey'],
-                        'In Progress' => ['original' => 'In Progress', 'tag' => 'tag-warning'],
-                        'Complete' => ['original' => 'Complete', 'tag' => 'tag-success'],
-                    ];
-                @endphp --}}
                 @foreach ($statuses as $displayStatus => $info)
                     <div class="kanban-column">
                         <div class="kanban-column-header">
@@ -265,6 +263,61 @@
                     </div>
                 @endforeach
             </div>
+        </div>
+    </div>
+
+    <div id="taskModal" class="modal">
+        <div class="modal-content task-card">
+            <h2 class="task-title">Campaign Strategy Development</h2>
+            <p class="task-desc">
+                The marketing team is tasked with developing a comprehensive strategy for an upcoming product launch. The
+                goal is to create a campaign that effectively targets…
+            </p>
+
+            <button class="btn-no-bg">
+                <span class="material-symbols-rounded" style="vertical-align:middle;">image</span>
+                Attachments
+            </button>
+
+            <div class="task-meta">
+                <div>
+                    <strong>Tags:</strong>
+                    <span class="tag purple">Development</span>
+                    <span class="tag green">Marketing</span>
+                </div>
+                <div>
+                    <strong>Status:</strong>
+                    <span class="tag yellow">In Progress</span>
+                </div>
+            </div>
+
+            <div class="task-progress">
+                <strong>Task Progress</strong>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%;"></div>
+                </div>
+                <span class="progress-text">50%</span>
+            </div>
+
+            <div class="task-footer">
+                <div class="task-stats">
+                    <span>📋 4/8</span>
+                    <span>💬 7</span>
+                    <span>📎 3</span>
+                </div>
+                <div class="task-date">
+                    06-05-2024
+                </div>
+            </div>
+
+            {{-- <span class="material-symbols-rounded">attachment</span> --}}
+            <form method="POST" action="{{ route('user.logout') }}">
+                @csrf
+                <div class="modal-btns">
+                    <button type="button" data-modal-close>Cancel</button>
+                    <button type="submit">Complete</button>
+                </div>
+            </form>
         </div>
     </div>
 

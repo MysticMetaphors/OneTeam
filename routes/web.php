@@ -5,7 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AdminOnly;
 
 Route::get('/', function () {
     return view('Auth');
@@ -21,7 +23,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/destroy', [DashboardController::class, 'destroy'])->name('dashboard.destroy');
     });
 
-    Route::prefix('Project')->group(function () {
+    Route::prefix('Project')->middleware(AdminOnly::class)->group(function () {
         Route::get('/', [ProjectController::class, 'index'])->name('project');
         Route::get('/create', [ProjectController::class, 'create'])->name('project.create');
         Route::get('/show/{id}', [ProjectController::class, 'show'])->name('project.show');
@@ -39,7 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/destroy', [TasksController::class, 'destroy'])->name('task.destroy');
     });
 
-    Route::prefix('Team')->group(function () {
+    Route::prefix('Team')->middleware(AdminOnly::class)->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user');
         Route::get('/create', [UserController::class, 'create'])->name('user.create');
         Route::get('/show/{id}', [UserController::class, 'show'])->name('user.show');

@@ -1,4 +1,5 @@
 import './bootstrap';
+window.openModal = openModal;
 
 const sidebar = document.querySelector(".sidebar");
 const sidebarToggler = document.querySelector(".sidebar-toggler");
@@ -97,13 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
             el.textContent = formatted;
         }
     });
+
+    // Generic modal handler for any modal with data-modal-target and data-modal-close attributes
 });
-
-// const taskTable = document.querySelector('.table-container');
-// const kanbanTable = document.querySelector('.kanban-view');
-// function toggleTableView(tableType) {
-
-// }
 
 const taskTablebtn = document.getElementById('task-view-btn');
 const kanbanTablebtn = document.getElementById('kanban-view-btn');
@@ -129,26 +126,6 @@ if (kanbanTablebtn && taskTablebtn && kanbanTable && taskTable) {
     });
 }
 
-const modal = document.getElementById("loginModal");
-const openBtn = document.getElementById("openModalBtn");
-const closeBtn = document.getElementById("closeModalBtn");
-
-if (openBtn && closeBtn) {
-    openBtn.onclick = () => {
-        modal.style.display = "block";
-    }
-
-    closeBtn.onclick = () => {
-        modal.style.display = "none";
-    }
-}
-
-window.onclick = (event) => {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-}
-
 const toggleSubmenu = document.querySelectorAll('.submenu-toggler');
 toggleSubmenu.forEach(toggler => {
     toggler.addEventListener('click', (e) => {
@@ -159,3 +136,35 @@ toggleSubmenu.forEach(toggler => {
         icon.classList.toggle('rotate-180');
     });
 });
+
+function openModal(modalId, title, desc, attach, due) {
+    const modal = document.getElementById(modalId);
+    const titleCon = document.querySelector('.task-title');
+    const descCon = document.querySelector('.task-desc');
+    const duecCon = document.querySelector('.task-date');
+    // const attachCon = document.getElementsByClassName('task-title');
+    if (!modal) return console.log('failed', modal);
+
+    if (title) {
+        titleCon.innerHTML = title;
+        descCon.innerHTML = desc;
+        duecCon.textContent = DateConvert(due);
+    }
+
+    modal.style.display = "block";
+    if (!modal.dataset.listenersAdded) {
+        modal.querySelectorAll('[data-modal-close]').forEach(closeBtn => {
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = "none";
+            });
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        modal.dataset.listenersAdded = "true";
+    }
+}
