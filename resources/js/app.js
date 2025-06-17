@@ -137,11 +137,12 @@ toggleSubmenu.forEach(toggler => {
     });
 });
 
-function openModal(modalId, title, desc, attach, due) {
+function openModal(modalId, title, desc, attach, due, status) {
     const modal = document.getElementById(modalId);
     const titleCon = document.querySelector('.task-title');
     const descCon = document.querySelector('.task-desc');
     const duecCon = document.querySelector('.task-date');
+    const statusCon = document.querySelector('.modal-tag');
     // const attachCon = document.getElementsByClassName('task-title');
     if (!modal) return console.log('failed', modal);
 
@@ -149,6 +150,7 @@ function openModal(modalId, title, desc, attach, due) {
         titleCon.innerHTML = title;
         descCon.innerHTML = desc;
         duecCon.textContent = DateConvert(due);
+        statusCon.textContent = status;
     }
 
     modal.style.display = "block";

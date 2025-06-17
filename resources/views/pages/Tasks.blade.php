@@ -45,12 +45,12 @@
                                     Tasks/All
                                 </div>
                                 <div class="d-flex-row-container">
-                                    <div class="search-bar">
+                                    {{-- <div class="search-bar">
                                         <input type="text" class="form-control" placeholder="Search...">
                                         <button class="btn search-btn" type="submit" title="Search">
                                             <span class="material-symbols-rounded">&#xe8b6;</span>
                                         </button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </th>
@@ -179,7 +179,9 @@
                                             ,'{{ $task->title }}'
                                             ,'{{ $task->description }}'
                                             ,'{{ $task->attachment }}'
-                                            ,'{{ $task->deadline }}')">
+                                            ,'{{ $task->deadline }}'
+                                            ,'{{ $task->status }}'
+                                            )">
                                             <span class="material-symbols-rounded">description</span>
                                         </button>
                                         @if (Auth::user()->role == 'Admin')
@@ -274,48 +276,72 @@
                 goal is to create a campaign that effectively targets…
             </p>
 
-            <button class="btn-no-bg">
+            <hr>
+
+            <div class="task-sub">
+                <div class="checkbox-input">
+                    <input type="checkbox" name="recurring">
+                    <span>Subtask 1</span>
+                </div>
+                <div class="checkbox-input">
+                    <input type="checkbox" name="recurring">
+                    <span>Subtask 2</span>
+                </div>
+                <div class="checkbox-input">
+                    <input type="checkbox" name="recurring">
+                    <span>Subtask 3</span>
+                </div>
+            </div>
+
+            <button class="btn-no-bg task-btn">
                 <span class="material-symbols-rounded" style="vertical-align:middle;">image</span>
                 Attachments
             </button>
 
-            <div class="task-meta">
-                <div>
-                    <strong>Tags:</strong>
-                    <span class="tag purple">Development</span>
-                    <span class="tag green">Marketing</span>
-                </div>
-                <div>
-                    <strong>Status:</strong>
-                    <span class="tag yellow">In Progress</span>
+            <div class="attachments">
+                <div class="attachment-card">
+
                 </div>
             </div>
 
-            <div class="task-progress">
+            <div class="task-meta">
+                {{-- <div>
+                    <strong>Tags:</strong>
+                    <span class="tag purple">Development</span>
+                    <span class="tag green">Marketing</span>
+                </div> --}}
+                <div>
+                    <strong>Status:</strong>
+                    <span class="tag modal-tag">In Progress</span>
+                </div>
+                <div>
+                    <strong>Due:</strong>
+                    <span class="task-date"></span>
+                </div>
+            </div>
+
+             {{-- <div class="task-progress">
                 <strong>Task Progress</strong>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 50%;"></div>
                 </div>
                 <span class="progress-text">50%</span>
-            </div>
+            </div> --}}
 
-            <div class="task-footer">
+            {{-- <div class="task-footer">
                 <div class="task-stats">
                     <span>📋 4/8</span>
                     <span>💬 7</span>
                     <span>📎 3</span>
                 </div>
-                <div class="task-date">
-                    06-05-2024
-                </div>
-            </div>
+            </div> --}}
 
             {{-- <span class="material-symbols-rounded">attachment</span> --}}
             <form method="POST" action="{{ route('user.logout') }}">
                 @csrf
                 <div class="modal-btns">
                     <button type="button" data-modal-close>Cancel</button>
-                    <button type="submit">Complete</button>
+                    <button type="submit">Save</button>
                 </div>
             </form>
         </div>

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tasks extends Model
 {
@@ -19,4 +21,16 @@ class Tasks extends Model
         'title',
         'type'
     ];
+
+    // protected $with = ['subtasks', 'attachments'];
+
+    public function subtasks(): HasMany
+    {
+        return $this->hasMany(Subtasks::class);
+    }
+
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(TaskAttachment::class);
+    }
 }

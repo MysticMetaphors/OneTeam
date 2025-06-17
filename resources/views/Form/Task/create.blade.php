@@ -23,6 +23,10 @@
         <textarea name="description" id="" placeholder="Description" rows="4"
             @error('description') class="input-error" @enderror>{{ old('description') }}</textarea>
 
+        <div class="form-direction-row input-icon @error('image') input-error @enderror">
+            <input type="file" name="image" value="{{ old('image') }}">
+            <span class="material-symbols-rounded">image</span>
+        </div>
 
         <div class="form-direction-row">
             <div class="form-direction-row input-icon @error('priority') input-error @enderror">

@@ -481,9 +481,14 @@ button {
 .table-container {
     overflow: hidden;
     overflow-x: scroll;
+
     max-width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-container::-webkit-scrollbar  {
+    display: none;
 }
 
 table {
@@ -750,9 +755,17 @@ table span {
     padding: 10px 20px;
 }
 
+.task-btn {
+    margin-top: 10px;
+    background-color: rgb(205, 205, 205) !important;
+    border-radius: 2px;
+    padding: 0 4px !important;
+}
+
 .task-card {
     text-align: left;
-      font-size: 14px;
+    font-size: 14px;
+    margin: 5% auto;
 }
 
 .task-title {
@@ -770,6 +783,32 @@ table span {
   justify-content: space-between;
   margin-top: 15px;
   flex-wrap: wrap;
+}
+
+.task-meta strong {
+    font-size: 13px;
+}
+
+.task-sub {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.task-sub .checkbox-input {
+    /* border: 0.5px solid black; */
+    display: inherit;
+    gap: 7px;
+    flex-direction: row;
+    padding: 3px;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.task-sub .checkbox-input input{
+    width: 14px;
+    height: 14px;
 }
 
 .task-progress {
