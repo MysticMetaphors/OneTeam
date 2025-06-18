@@ -10,7 +10,7 @@ class TaskAttachment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['task_id', 'file_path', 'file_name'];
+    protected $fillable = ['task_id', 'file_name'];
 
     public function task(): BelongsTo
     {

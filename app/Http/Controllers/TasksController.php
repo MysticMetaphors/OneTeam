@@ -6,6 +6,10 @@ use App\Models\Tasks;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Activity;
+use App\Models\Subtasks;
+use App\Models\TaskAttachment;
+
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -26,6 +30,8 @@ class TasksController extends Controller
             $tasks = Tasks::where('issued_to', $id)->get();
             $users = Auth::user();
         }
+        // dd($tasks);
+        // return $tasks;
         return view('pages.Tasks', [
             'tasks' => $tasks,
             'users' => $users
@@ -60,9 +66,11 @@ class TasksController extends Controller
             'project' => 'required|integer',
             'deadline' => 'required|date',
             'type' => 'required|string|max:20',
+            'sub' => 'nullable|array',
+            'attach' => 'nullable|file|mimes:pdf,png,docx'
         ]);
 
-        Tasks::create([
+         $task = Tasks::create([
             'title' => $validateData['title'],
             'description' => $validateData['description'],
             'priority' => $validateData['priority'],
@@ -71,6 +79,26 @@ class TasksController extends Controller
             'deadline' => $validateData['deadline'],
             'type' => $validateData['type'],
         ]);
+
+        if (!empty($validateData['sub'])) {
+            foreach ($validateData['sub'] as $subtaskText) {
+                Subtasks::create([
+                    'task_id' => $task->id,
+                    'title' => $subtaskText,
+                ]);
+            }
+        }
+
+        if (!empty($validateData['attach'])) {
+            $file = $request->file('attach');
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('uploads', $filename);
+
+            TaskAttachment::create([
+                'task_id' => $task->id,
+                'file_name' => $filename,
+            ]);
+        }
 
         Activity::create([
             'title' => $validateData['title'],

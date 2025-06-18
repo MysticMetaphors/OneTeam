@@ -22,15 +22,15 @@ class Tasks extends Model
         'type'
     ];
 
-    // protected $with = ['subtasks', 'attachments'];
+    protected $with = ['subtasks', 'attachments'];
 
     public function subtasks(): HasMany
     {
-        return $this->hasMany(Subtasks::class);
+        return $this->hasMany(Subtasks::class, 'task_id');
     }
 
     public function attachments(): HasMany
     {
-        return $this->hasMany(TaskAttachment::class);
+        return $this->hasMany(TaskAttachment::class, 'task_id');
     }
 }

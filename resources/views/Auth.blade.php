@@ -11,6 +11,10 @@
 </head>
 
 <body>
+    @php
+       echo bcrypt('test101');
+    @endphp
+
     <div class="container" id="container">
         <div class="form-container sign-in-container">
             <form action="{{ route('user.login') }}" method="POST">

@@ -1,4 +1,12 @@
 import './bootstrap';
+// import '../css/app.css';
+
+// if (window.location.pathname.includes('/login')) {
+//     import('../css/Auth.css');
+// } else if (window.location.pathname.includes('Dashboard')) {
+//     import('../css/Main.css');
+// }
+
 window.openModal = openModal;
 
 const sidebar = document.querySelector(".sidebar");
@@ -137,13 +145,14 @@ toggleSubmenu.forEach(toggler => {
     });
 });
 
-function openModal(modalId, title, desc, attach, due, status) {
+function openModal(modalId, title, desc, attach, due, status, sub) {
     const modal = document.getElementById(modalId);
     const titleCon = document.querySelector('.task-title');
     const descCon = document.querySelector('.task-desc');
     const duecCon = document.querySelector('.task-date');
     const statusCon = document.querySelector('.modal-tag');
     // const attachCon = document.getElementsByClassName('task-title');
+    const subCon = document.querySelector('.task-sub');
     if (!modal) return console.log('failed', modal);
 
     if (title) {
@@ -151,6 +160,14 @@ function openModal(modalId, title, desc, attach, due, status) {
         descCon.innerHTML = desc;
         duecCon.textContent = DateConvert(due);
         statusCon.textContent = status;
+
+        const subArray = JSON.parse(sub);
+        subCon.innerHTML = subArray.map((item) => `
+            <div class="checkbox-input">
+                <input type="checkbox" value="${item.id}">
+                <span>${item.title}</span>
+            </div>
+        `).join("");
     }
 
     modal.style.display = "block";

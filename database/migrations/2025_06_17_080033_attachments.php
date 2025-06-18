@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('task_attachments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('task_id');
-            $table->string('file_path');
             $table->string('file_name')->nullable();
             $table->timestamps();
 

@@ -181,6 +181,7 @@
                                             ,'{{ $task->attachment }}'
                                             ,'{{ $task->deadline }}'
                                             ,'{{ $task->status }}'
+                                            , '{{ $task->subtasks }}'
                                             )">
                                             <span class="material-symbols-rounded">description</span>
                                         </button>
@@ -279,7 +280,7 @@
             <hr>
 
             <div class="task-sub">
-                <div class="checkbox-input">
+                {{-- <div class="checkbox-input">
                     <input type="checkbox" name="recurring">
                     <span>Subtask 1</span>
                 </div>
@@ -290,7 +291,7 @@
                 <div class="checkbox-input">
                     <input type="checkbox" name="recurring">
                     <span>Subtask 3</span>
-                </div>
+                </div> --}}
             </div>
 
             <button class="btn-no-bg task-btn">

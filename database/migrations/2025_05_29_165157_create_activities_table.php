@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('made_by');
             $table->string('title', 255);
             $table->string('description', 255);
-            $table->dateTime('deadline');
             $table->string('action', 255);
             $table->enum('type', ['Project', 'Task'])->default('Task');
             $table->enum('is_deleted', ['true', 'false'])->default('false');

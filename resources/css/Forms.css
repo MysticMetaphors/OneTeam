@@ -1,10 +1,10 @@
 form {
-	display: flex;
-	align-items: left;
-	justify-content: center;
-	flex-direction: column;
-	padding:50px;
-	height: 100%;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
+    padding: 50px;
+    height: 100%;
     width: 600px;
     background: var(--sidebar-bg);
     border-radius: 8px;
@@ -20,7 +20,9 @@ form {
     gap: 10px;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
     background-color: #eee;
     border: none;
     padding: 12px 15px;
@@ -32,15 +34,15 @@ input, textarea, select {
     width: 100%;
     background-color: #eee;
     gap: 0;
-       color: black;
+    color: black;
 }
 
 .input-icon span {
-    padding:0 8px;
+    padding: 0 8px;
 }
 
 .input-icon label {
-    padding:13px 8px;
+    padding: 10.5px 8px;
     background-color: #cecece;
     height: 100%;
     font-size: 14px;
@@ -48,6 +50,10 @@ input, textarea, select {
 
 input[type="file"]::file-selector-button {
     display: none;
+}
+
+input[type="date"] {
+    padding: 10.5px 15px;
 }
 
 select {
@@ -81,16 +87,26 @@ textarea {
 .checkbox-input {
     display: flex;
     flex-direction: row;
-    padding: 12px 15px;
+    margin: 16px 0 0;
     font-size: 13px;
     align-items: center;
 }
 
-.checkbox-input input[type='checkbox']{
+.checkbox-input input[type='checkbox'] {
     height: 14px;
     width: 14px;
+    padding-left: 10px;
 }
 
-.checkbox-input input {
-    padding: 0px;
+#subtasks {
+    /* background-color: #eee; */
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.attachment {
+    font-size: 14px;
+    font-weight: 500;
 }

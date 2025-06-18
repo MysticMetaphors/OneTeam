@@ -46,12 +46,12 @@
                                         Projects/All
                                     </div>
                                     <div class="d-flex-row-container">
-                                        <div class="search-bar">
+                                        {{-- <div class="search-bar">
                                             <input type="text" class="form-control" placeholder="Search...">
                                             <button class="btn search-btn" type="submit" title="Search">
                                                 <span class="material-symbols-rounded">&#xe8b6;</span>
                                             </button>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </th>
