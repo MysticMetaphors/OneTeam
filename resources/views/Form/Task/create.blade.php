@@ -79,14 +79,6 @@
             </div>
         </div> --}}
 
-        {{-- <div class="form-direction-row input-icon @error('recurring') input-error @enderror">
-            <div class="checkbox-input">
-                <input type="checkbox" name="recurring">
-                <span>Repeat?</span>
-            </div>
-            <input type="number" name="repeat_interval" placeholder="Number days before repeat">
-        </div> --}}
-
         <div>
             <button type="button" onclick="addSub()" class="btn-no-bg">Add SubTasks</button>
             <div id="subtasks">
@@ -105,6 +97,15 @@
                 <input type="file" name="attach" value="{{ old('attach') }}">
                 <span class="material-symbols-rounded">attachment</span>
             </div>
+        </div>
+
+        <div class="checkbox-input">
+            <input type="checkbox" name="recurring" id="check" onclick="show()">
+            <span>Repeat?</span>
+        </div>
+
+        <div class="form-direction-row input-icon @error('recurring') input-error @enderror">
+            <input type="number" name="repeat_interval" placeholder="Number days before repeat" id="interval" style="display: none">
         </div>
 
         <div class="form-direction-row">
@@ -133,6 +134,16 @@
             console.log(subInstance);
             subCon.insertAdjacentHTML('beforeend', subInstance);
             return;
+        }
+
+        function show() {
+            const checkbox = document.getElementById('check');
+            const input = document.getElementById('interval');
+            if (!checkbox.checked) {
+                input.style.display = 'none';
+            } else {
+                input.style.display = 'block';
+            }
         }
     </script>
 @endsection

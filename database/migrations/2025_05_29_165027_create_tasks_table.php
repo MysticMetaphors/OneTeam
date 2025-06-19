@@ -33,7 +33,7 @@ return new class extends Migration
         $table->string('attachment', 255)->nullable();
         $table->string('type', 255)->nullable();
         $table->enum('priority', ['High', 'Medium', 'Low'])->default('Low');
-        $table->enum('status', ['Completed', 'Processing', 'Cancelled', 'Waiting'])->default('Waiting');
+        $table->enum('status', ['Completed', 'Processing', 'Cancelled', 'Waiting', 'Scheduled'])->default('Waiting');
         $table->enum('is_repeat', ['true', 'false'])->default('false');
         $table->unsignedBigInteger('repeat_interval')->nullable();
         $table->enum('is_deleted', ['true', 'false'])->default('false');

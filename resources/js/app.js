@@ -1,3 +1,4 @@
+import { loadConfigFromFile } from 'vite';
 import './bootstrap';
 // import '../css/app.css';
 

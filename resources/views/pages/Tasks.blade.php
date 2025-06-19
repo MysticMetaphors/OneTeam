@@ -16,11 +16,13 @@
                 </button>
             </div>
             <div class="d-flex-row-container">
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
-                    onclick="window.location.href='{{ route('task.create') }}'">
-                    <span class="material-symbols-rounded">add</span>
-                    New Task
-                </button>
+                @if (Auth::user()->role == 'Admin')
+                    <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
+                        onclick="window.location.href='{{ route('task.create') }}'">
+                        <span class="material-symbols-rounded">add</span>
+                        New Task
+                    </button>
+                @endif
                 <button class="btn btn-no-bg notification-btn" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
                 </button>
@@ -251,7 +253,17 @@
                                                     data-date="{{ $task->deadline }}">{{ $task->deadline }}</span>
                                             @endif
                                             <div>
-                                                <span class="material-symbols-rounded">description</span>
+                                                <button class="btn-no-bg" title="Task Description"
+                                                    onclick="openModal('taskModal'
+                                            ,'{{ $task->title }}'
+                                            ,'{{ $task->description }}'
+                                            ,'{{ $task->attachment }}'
+                                            ,'{{ $task->deadline }}'
+                                            ,'{{ $task->status }}'
+                                            , '{{ $task->subtasks }}'
+                                            )">
+                                                    <span class="material-symbols-rounded">description</span>
+                                                </button>
                                                 @if ($task->type == 'true')
                                                     <span class="material-symbols-rounded">repeat</span>
                                                 @endif
@@ -321,7 +333,7 @@
                 </div>
             </div>
 
-             {{-- <div class="task-progress">
+            {{-- <div class="task-progress">
                 <strong>Task Progress</strong>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 50%;"></div>
@@ -387,4 +399,18 @@
             border-radius: 0px;
         }
     </style>
+
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData({{$tasks}});
+        });
+
+        function loadData(data) {
+            const table = document.getElementById('table');
+            const dataArray = JSON.parse(data);
+            table.innerHTML = dataArray.map((item) => `
+
+            `);
+        }
+    </script> --}}
 @endsection

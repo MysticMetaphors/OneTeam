@@ -87,9 +87,10 @@ textarea {
 .checkbox-input {
     display: flex;
     flex-direction: row;
-    margin: 16px 0 0;
+    /* margin: 16px 0 0; */
     font-size: 13px;
     align-items: center;
+    gap: 14px;
 }
 
 .checkbox-input input[type='checkbox'] {
@@ -99,8 +100,6 @@ textarea {
 }
 
 #subtasks {
-    /* background-color: #eee; */
-    margin-top: 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;

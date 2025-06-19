@@ -67,10 +67,16 @@ class TasksController extends Controller
             'deadline' => 'required|date',
             'type' => 'required|string|max:20',
             'sub' => 'nullable|array',
-            'attach' => 'nullable|file|mimes:pdf,png,docx'
+            'attach' => 'nullable|file|mimes:pdf,png,docx',
+            'repeat_interval' => 'nullable|integer'
         ]);
 
-         $task = Tasks::create([
+        if ($validateData['repeat_interval'] != null) {
+            $is_repeat = 'true';
+            $status = 'Scheduled';
+         }
+
+        $task = Tasks::create([
             'title' => $validateData['title'],
             'description' => $validateData['description'],
             'priority' => $validateData['priority'],
@@ -78,6 +84,9 @@ class TasksController extends Controller
             'project_id' => $validateData['project'],
             'deadline' => $validateData['deadline'],
             'type' => $validateData['type'],
+            'repeat_interval' => $validateData['repeat_interval'],
+            'is_repeat' => $is_repeat,
+            'status' => $status
         ]);
 
         if (!empty($validateData['sub'])) {
