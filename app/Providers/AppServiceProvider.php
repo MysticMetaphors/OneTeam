@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Project;
+use App\Models\Project;use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Crypt;
-
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +31,13 @@ class AppServiceProvider extends ServiceProvider
             }
             $view->with('projects', $projects);
         });
+
+        Inertia::share([
+            'auth' => function () {
+                return [
+                    'user' => Auth::user(),
+                ];
+            },
+        ]);
     }
 }

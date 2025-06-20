@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 use App\Models\Activity;
@@ -18,12 +19,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $statuses = [
+            'Scheduled' => ['original' => 'Scheduled', 'tag' => 'tag-primary'],
+            'Waiting' => ['original' => 'Waiting', 'tag' => 'tag-grey'],
+            'Processing' => ['original' => 'Processing', 'tag' => 'tag-warning'],
+            'Completed' => ['original' => 'Completed', 'tag' => 'tag-success'],
+        ];
+
         $project = Project::limit(5)->get();
         $task = Tasks::where('issued_to', Auth::user()->id)->get();
         $activity = Activity::limit(5)->get();
-        return view('pages.Dashboard', [
+
+        return Inertia::render('Dashboard', [
+            'statuses' => $statuses,
             'project' => $project,
-            'tasks' => $task,
+            'task' => $task,
             // 'activity' => $activity
         ]);
     }
