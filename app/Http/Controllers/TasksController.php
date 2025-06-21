@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class TasksController extends Controller
 {
@@ -28,13 +29,20 @@ class TasksController extends Controller
         } else {
             $id = Auth::user()->id;
             $tasks = Tasks::where('issued_to', $id)->get();
-            $users = Auth::user();
+            $users = null;
         }
+
         // dd($tasks);
         // return $tasks;
-        return view('pages.Tasks', [
+        // return view('pages.Tasks', [
+        //     'tasks' => $tasks,
+        //     'users' => $users
+        // ]);
+
+        return Inertia::render('Task',[
             'tasks' => $tasks,
-            'users' => $users
+            'users' => $users,
+            'currentUser' => Auth::user()
         ]);
     }
 

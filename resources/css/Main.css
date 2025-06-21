@@ -547,7 +547,7 @@ table span {
 }
 
 #kanban-view {
-    display: none
+    display: block;
 }
 
 .kanban-board {
@@ -559,7 +559,6 @@ table span {
 }
 
 .kanban-column {
-    background-color: var(--background-color);
     border-radius: 8px;
     min-width: 232px;
     flex: 1;

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
@@ -23,7 +24,10 @@ class ProjectController extends Controller
             $project->encrypt = Crypt::encryptString($project->id);
         }
         // dd($projects);
-        return view('pages.Project ', ['projects' => $projects]);
+        // return view('pages.Project ', ['projects' => $projects]);
+        return Inertia::render('Project', [
+            'projects' => $projects
+        ]);
     }
 
     /**

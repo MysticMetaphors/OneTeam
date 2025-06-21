@@ -6,6 +6,7 @@ use App\Models\Activity;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ActivityController extends Controller
 {
@@ -16,7 +17,11 @@ class ActivityController extends Controller
     {
         $activity = Activity::all();
         $user = User::all();
-        return view('pages.Activity', [
+        // return view('pages.Activity', [
+        //     'activity' => $activity,
+        //     'users' => $user
+        // ]);
+        return Inertia::render('Activity', [
             'activity' => $activity,
             'users' => $user
         ]);

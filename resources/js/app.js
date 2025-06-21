@@ -11,7 +11,6 @@ createInertiaApp({
             // If no layout specified, use default layout
             if (page.layout === undefined) {
                 page.layout = MainLayout;
-
             }
             return page
         })

@@ -1,11 +1,11 @@
 <template>
-    <aside class="sidebar">
+    <aside class="sidebar menu-active">
         <!-- Sidebar header -->
         <header class="sidebar-header">
             <a href="#" class="header-logo">
                 <img src="/storage/app/public/images/FAVICON-removebg-preview.png" alt="Logo" style="height: 40px;">
             </a>
-            <button class="toggler sidebar-toggler">
+            <button class="toggler sidebar-toggler" @click="toggleSidebar">
                 <span class="material-symbols-rounded">chevron_left</span>
             </button>
             <button class="toggler menu-toggler">
@@ -15,20 +15,21 @@
 
         <nav class="sidebar-nav">
             <!-- Primary top nav -->
+
             <ul class="nav-list primary-nav">
                 <li class="nav-item" :class="{ active: currentRouteName === 'dashboard' }">
-                    <a href="route('dashboard')" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">dashboard</span>
-                        <span class="nav-label">Dashboard</span>
-                    </a>
+                    <Link :href="`Dashboard`" class="nav-link">
+                    <span class="nav-icon material-symbols-rounded">dashboard</span>
+                    <span class="nav-label">Dashboard</span>
+                    </Link>
                     <span class="nav-tooltip">Dashboard</span>
                 </li>
 
                 <li v-if="user.role === 'Admin'" class="nav-item has-submenu">
-                    <a href="/project" class="nav-link" :class="{ active: currentRouteName === 'project' }">
-                        <span class="nav-icon material-symbols-rounded">folder</span>
-                        <span class="nav-label">Projects</span>
-                    </a>
+                    <Link :href="`Project`" class="nav-link">
+                    <span class="nav-icon material-symbols-rounded">folder</span>
+                    <span class="nav-label">Projects</span>
+                    </Link>
                     <span class="submenu-arrow material-symbols-rounded submenu-toggler"
                         :class="{ active: currentRouteName === 'project' }">expand_more</span>
                     <span class="nav-tooltip">Projects</span>
@@ -45,10 +46,10 @@
                 </li>
 
                 <li class="nav-item has-submenu">
-                    <a href="/task" class="nav-link" :class="{ active: currentRouteName === 'task' }">
+                    <Link :href="`Task`" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">check_circle</span>
                         <span class="nav-label">Task</span>
-                    </a>
+                    </Link>
                     <span class="submenu-arrow material-symbols-rounded submenu-toggler"
                         :class="{ active: currentRouteName === 'task' }">expand_more</span>
                     <span class="nav-tooltip">Task</span>
@@ -88,10 +89,10 @@
                 </li>
 
                 <li v-if="user.role === 'Admin'" class="nav-item">
-                    <a href="/activity" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">history</span>
-                        <span class="nav-label">History</span>
-                    </a>
+                    <Link :href="`Activity`" class="nav-link">
+                    <span class="nav-icon material-symbols-rounded">history</span>
+                    <span class="nav-label">History</span>
+                    </Link>
                     <span class="nav-tooltip">History</span>
                 </li>
 
@@ -148,7 +149,7 @@
 </template>
 
 <script>
-import { usePage } from '@inertiajs/vue3'
+import { usePage, Link } from '@inertiajs/vue3'
 import { route } from 'ziggy-js'
 import apiClient from '../../axios'
 // import { router } from '@inertiajs/vue3'
@@ -160,7 +161,7 @@ export default {
         const user = page.props.auth.user
 
         return {
-            user
+            user,
         }
     },
     methods: {
@@ -180,7 +181,40 @@ export default {
             } catch (error) {
                 console.error('Logout failed:', error);
             }
-        }
+        },
+        toggleSidebar() {
+            const sidebar = document.querySelector(".sidebar");
+            sidebar.classList.toggle("collapsed");
+        },
+        toggleMenu() {
+            const sidebar = document.querySelector(".sidebar");
+            const menuToggler = document.querySelector(".menu-toggler");
+            const isMenuActive = sidebar.classList.toggle("menu-active");
+            sidebar.style.height = isMenuActive ? `${sidebar.scrollHeight}px` : "56px";
+            menuToggler.querySelector("span").innerText = isMenuActive ? "menu" : "close";
+        },
+    },
+    mounted() {
+        const sidebar = document.querySelector(".sidebar");
+        const menuToggler = document.querySelector(".menu-toggler");
+        const fullSidebarHeight = "calc(100vh - 32px)";
+
+        menuToggler.addEventListener("click", this.toggleMenu);
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth >= 1024) {
+                sidebar.style.height = fullSidebarHeight;
+            } else {
+                sidebar.classList.remove("collapsed");
+                sidebar.style.height = "auto";
+                if (sidebar.classList.contains("menu-active")) {
+                    sidebar.style.height = `${sidebar.scrollHeight}px`;
+                }
+            }
+        });
+    },
+    components: {
+        Link,
     }
 }
 </script>

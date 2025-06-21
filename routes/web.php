@@ -60,7 +60,7 @@ Route::get('/', function () {
             Route::post('/destroy', [UserController::class, 'destroy'])->name('user.destroy');
         });
 
-        Route::get('/Profile', [UserController::class, 'profile'])->name('user.profile');
-        Route::get('/Activity', [ActivityController::class, 'index'])->name('activity');
+        Route::get('Profile', [UserController::class, 'profile'])->name('user.profile');
+        Route::get('Activity', [ActivityController::class, 'index'])->name('activity');
     });
 // });
