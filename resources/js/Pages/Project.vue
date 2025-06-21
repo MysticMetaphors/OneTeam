@@ -12,12 +12,8 @@
                 </button>
             </div>
             <div class="d-flex-row-container">
-                <button
-                    class="btn btn-sm btn-outline-secondary btn-no-bg"
-                    id="bulkCompleteBtn"
-                    title="Add Selected"
-                    @click="goToCreateProject"
-                >
+                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
+                    @click="goToCreateProject">
                     <span class="material-symbols-rounded">add</span>
                     New project
                 </button>
@@ -69,20 +65,14 @@
                                     <td>{{ project.name }}</td>
                                     <td>
                                         <div v-if="project.owner" class="profile">
-                                            <img
-                                                :src="profileImage(project.image)"
-                                                class="profile-img"
-                                                style="width:32px;height:32px;border-radius:50%;object-fit:cover;"
-                                            />
+                                            <img :src="profileImage(project.image)" class="profile-img"
+                                                style="width:32px;height:32px;border-radius:50%;object-fit:cover;" />
                                             {{ project.owner }}
                                         </div>
                                         <span v-else>—</span>
                                     </td>
                                     <td>
-                                        <div
-                                            class="tags"
-                                            :class="statusTagClass(project.status)"
-                                        >
+                                        <div class="tags" :class="statusTagClass(project.status)">
                                             {{ project.status }}
                                         </div>
                                     </td>
@@ -92,11 +82,7 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button
-                                            class="btn-no-bg"
-                                            title="View Tasks"
-                                            @click="goToTask(project.encrypt)"
-                                        >
+                                        <button class="btn-no-bg" title="View Tasks" @click="goToTask(project.encrypt)">
                                             <span class="material-symbols-rounded">checklist</span>
                                         </button>
                                     </td>
@@ -106,7 +92,8 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <span v-if="project.start_date" class="convertDate" :data-date="project.start_date">
+                                        <span v-if="project.start_date" class="convertDate"
+                                            :data-date="project.start_date">
                                             {{ formatDate(project.start_date) }}
                                         </span>
                                         <span v-else>—</span>
@@ -139,9 +126,9 @@
 
 <script>
 import MainLayout from './layout/MainLayout.vue';
+import { route } from 'ziggy-js';
 
 export default {
-    name: "ProjectPage",
     layout: MainLayout,
     props: {
         projects: {
@@ -176,8 +163,7 @@ export default {
             return `storage/profile/${image}`;
         },
         goToCreateProject() {
-            // Replace with your router logic if using Vue Router
-            window.location.href = "/project/create";
+            this.$inertia.visit(route('project.create'));
         },
         goToTask(encrypt) {
             // Replace with your router logic if using Vue Router

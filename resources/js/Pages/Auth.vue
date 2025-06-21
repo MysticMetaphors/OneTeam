@@ -32,8 +32,8 @@ export default {
                     <div v-if="errorMessage" class="error-message" style="color: red;">
                         {{ errorMessage }}
                     </div>
-                    <input v-model="email" type="email" name="email" placeholder="Email" required />
-                    <input v-model="password" type="password" name="password" placeholder="Password" required />
+                    <input v-model="email" type="email" name="email" placeholder="Email"/>
+                    <input v-model="password" type="password" name="password" placeholder="Password"/>
                     <button type="submit">Login</button>
                 </form>
             </div>

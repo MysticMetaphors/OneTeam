@@ -2,11 +2,19 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import MainLayout from './pages/layout/MainLayout.vue'
 import '../css/app.css'
+import { ZiggyVue } from 'ziggy-js'
 // import '../js/main'
 
 createInertiaApp({
     resolve: name => {
-        return import(`./Pages/${name}.vue`).then(module => {
+        const pages = import.meta.glob('./Pages/**/*.vue');
+        const path = `./Pages/${name}.vue`;
+        const importPage = pages[path];
+        if (!importPage) {
+            throw new Error(`Unknown page: ${name}`);
+        }
+        console.log(pages[`./Pages/${name}.vue`]);
+        return importPage().then(module => {
             const page = module.default
             // If no layout specified, use default layout
             if (page.layout === undefined) {
@@ -16,8 +24,10 @@ createInertiaApp({
         })
     },
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .mount(el)
+        const app = createApp({ render: () => h(App, props) });
+            app.use(plugin)
+            app.use(ZiggyVue, Ziggy)
+            app.config.globalProperties.$route = route
+            app.mount(el)
     },
 })

@@ -39,7 +39,7 @@ class TasksController extends Controller
         //     'users' => $users
         // ]);
 
-        return Inertia::render('Task',[
+        return Inertia::render('Task', [
             'tasks' => $tasks,
             'users' => $users,
             'currentUser' => Auth::user()
@@ -51,10 +51,10 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
         $users = User::all();
         $projects = Project::all();
-        return view('Form.Task.create', [
+
+        return Inertia::render('Form/TaskCreate', [
             'projects' => $projects,
             'users' => $users
         ]);
@@ -65,24 +65,32 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
         $validateData = $request->validate([
             'title' => 'required|string|max:30|min:3',
             'description' => 'required|string|max:255',
             'priority' => 'required|in:High,Medium,Low',
-            'assignee' => 'required|integer',
-            'project' => 'required|integer',
+            'assignee' => 'required|string',
+            'project' => 'required|string',
             'deadline' => 'required|date',
             'type' => 'required|string|max:20',
             'sub' => 'nullable|array',
             'attach' => 'nullable|file|mimes:pdf,png,docx',
-            'repeat_interval' => 'nullable|integer'
+            'repeat_interval' => 'nullable|string'
         ]);
 
-        if ($validateData['repeat_interval'] != null) {
+        $validateData['assignee'] = (int) $validateData['assignee'];
+        $validateData['project'] = (int) $validateData['project'];
+        $validateData['repeat_interval'] = (int) $validateData['repeat_interval'];
+
+        if ($validateData['repeat_interval']) {
             $is_repeat = 'true';
             $status = 'Scheduled';
-         }
+        } else {
+            $is_repeat = 'false';
+            $status = 'Waiting';
+        }
 
         $task = Tasks::create([
             'title' => $validateData['title'],
@@ -125,7 +133,7 @@ class TasksController extends Controller
             'type' => 'Task',
         ]);
 
-        return redirect()->route('task.create')->with('success', 'Task created successfully.');
+        return response()->json(['message' => 'Task created successfully.']);
     }
 
     /**

@@ -17,8 +17,8 @@
             <!-- Primary top nav -->
 
             <ul class="nav-list primary-nav">
-                <li class="nav-item" :class="{ active: currentRouteName === 'dashboard' }">
-                    <Link :href="`Dashboard`" class="nav-link">
+                <li class="nav-item">
+                    <Link :href="route('dashboard')" class="nav-link">
                     <span class="nav-icon material-symbols-rounded">dashboard</span>
                     <span class="nav-label">Dashboard</span>
                     </Link>
@@ -26,17 +26,15 @@
                 </li>
 
                 <li v-if="user.role === 'Admin'" class="nav-item has-submenu">
-                    <Link :href="`Project`" class="nav-link">
+                    <Link :href="route('project')" class="nav-link">
                     <span class="nav-icon material-symbols-rounded">folder</span>
                     <span class="nav-label">Projects</span>
                     </Link>
-                    <span class="submenu-arrow material-symbols-rounded submenu-toggler"
-                        :class="{ active: currentRouteName === 'project' }">expand_more</span>
+                    <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
                     <span class="nav-tooltip">Projects</span>
                     <ul class="submenu">
                         <li class="submenu-item" v-for="project in projects" :key="project.encrypt">
-                            <a :href="`/project/${project.encrypt}`" class="submenu-link"
-                                :class="{ active: currentRouteName === 'project.show' }">
+                            <a :href="`/project/${project.encrypt}`" class="submenu-link">
                                 <span class="material-symbols-rounded"
                                     style="vertical-align: middle;">chevron_right</span>
                                 {{ project.name }}
@@ -46,16 +44,15 @@
                 </li>
 
                 <li class="nav-item has-submenu">
-                    <Link :href="`Task`" class="nav-link">
-                        <span class="nav-icon material-symbols-rounded">check_circle</span>
-                        <span class="nav-label">Task</span>
+                    <Link :href="route('task')" class="nav-link">
+                    <span class="nav-icon material-symbols-rounded">check_circle</span>
+                    <span class="nav-label">Task</span>
                     </Link>
-                    <span class="submenu-arrow material-symbols-rounded submenu-toggler"
-                        :class="{ active: currentRouteName === 'task' }">expand_more</span>
+                    <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
                     <span class="nav-tooltip">Task</span>
                     <ul class="submenu">
                         <li class="submenu-item">
-                            <a href="#" class="submenu-link" :class="{ active: currentRouteName === 'recurring' }">
+                            <a href="#" class="submenu-link">
                                 <span class="material-symbols-rounded"
                                     style="vertical-align: middle;">chevron_right</span>
                                 Recurring
@@ -89,7 +86,7 @@
                 </li>
 
                 <li v-if="user.role === 'Admin'" class="nav-item">
-                    <Link :href="`Activity`" class="nav-link">
+                    <Link :href="route('activity')" class="nav-link">
                     <span class="nav-icon material-symbols-rounded">history</span>
                     <span class="nav-label">History</span>
                     </Link>

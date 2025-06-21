@@ -35,7 +35,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('Form.Projects.create');
+        return Inertia::render('Form/ProjectCreate');
     }
 
     /**
@@ -82,7 +82,7 @@ class ProjectController extends Controller
             'action' => 'Create',
             'type' => 'Project',
         ]);
-        return redirect()->route('project.create')->with('success', 'Project created successfully.');
+        return response()->json([ 'message' => 'Project created successfully.']);
     }
 
     /**
@@ -95,7 +95,11 @@ class ProjectController extends Controller
             $tasks = Tasks::where('id', $decryptedId)->get();
 
             $users = User::all();
-            return view('pages.ViewProject', [
+            // return view('pages.ViewProject', [
+            //     'tasks' => $tasks,
+            //     'users' => $users
+            // ]);
+            return Inertia::render('Form.ProjectCreate', [
                 'tasks' => $tasks,
                 'users' => $users
             ]);

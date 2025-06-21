@@ -212,6 +212,7 @@
 </template>
 
 <script>
+import { route } from 'ziggy-js';
 import MainLayout from './layout/MainLayout.vue';
 
 export default {
@@ -254,8 +255,7 @@ export default {
             }
         },
         goToCreateTask() {
-            // Replace with your router push or window.location
-            window.location.href = "/task/create";
+            this.$inertia.visit(route('task.create'));
         },
         statusTagClass(status) {
             if (status === "Complete") return "tag-success";

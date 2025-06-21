@@ -2,7 +2,7 @@
 
 @section('form-content')
     <form action="{{ route('project.store') }}" method="POST" enctype="multipart/form-data">
-        <h2>Create Project</h2>
+        <h2>Create Project s</h2>
         @csrf
         @if ($success = session('success'))
             <div class="text-success">{{ $success }}</div>
