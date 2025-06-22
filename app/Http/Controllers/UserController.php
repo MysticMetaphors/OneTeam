@@ -78,11 +78,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        //return response()->json(['message' => $request->all()]);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|string|min:6',
-            'repeat-password' => 'required|string|min:6',
+            'repeatPassword' => 'required|string|min:6',
             'role' => 'required|string|in:admin,member', // Assuming roles are 'admin' or 'member'
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             // 'department' => 'nullable|string',
@@ -100,12 +101,12 @@ class UserController extends Controller
             $imageName = 'default_images.png';
         }
 
-        if ($validatedData['password'] != $validatedData['repeat-password']) {
+        if ($validatedData['password'] != $validatedData['repeatPassword']) {
             return back()->with('password', 'The password and repeat password must match.');
         }
 
         $validatedData['password'] = bcrypt($validatedData['password']);
-        unset($validatedData['repeat-password']);
+        unset($validatedData['repeatPassword']);
 
         User::create([
             'name' => $validatedData['name'],
@@ -119,7 +120,7 @@ class UserController extends Controller
             'location' => $validatedData['location'],
             'contact' => $validatedData['contact'],
         ]);
-        return redirect()->route('user.create')->with('success', 'User created successfully!');
+        return response()->json(['message' => 'User created succesfully']);
     }
 
     /**

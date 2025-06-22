@@ -15,15 +15,15 @@
                 <button class="btn mail-btn btn-no-bg" title="Mail">
                     <span class="material-symbols-rounded">&#xe158;</span>
                 </button>
-                <button class="theme-toggle btn-no-bg" @click="toggleTheme">
+                <!-- <button class="theme-toggle btn-no-bg" @click="toggleTheme">
                     <span class="material-symbols-rounded" v-show="theme === 'light'" id="sunIcon">&#xe51c;</span>
                     <span class="material-symbols-rounded" v-show="theme === 'dark'" id="moonIcon">&#xe518;</span>
-                </button>
+                </button> -->
             </div>
         </div>
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
             <h2>New User</h2>
-            <div v-if="success" class="text-success">{{ success }}</div>
+            <div v-if="message" class="text-success">{{ message }}</div>
             <div v-if="passwordError" class="text-error">{{ passwordError }}</div>
 
             <div class="form-direction-row">
@@ -124,20 +124,21 @@ export default {
         },
         async submitForm() {
             try {
-                await apiClient.get('/sactum/csrf-cookie');
+                await apiClient.get('/sanctum/csrf-cookie');
                 if (this.form.password !== this.form.repeatPassword) {
                     this.errors.repeatPassword = true;
                     this.passwordError = "Passwords do not match";
                 }
-
+                const form = Object.entries(this.form);
                 const formData = new FormData()
-                formData.append('name', this.form.name);
-                formData.append('email', this.form.email);
-                formData.append('password', this.form.password);
-                formData.append('name', this.form.name);
+                for (let i = 0; i < form.length; i++) {
+                    const [key, value] = form[i];
+                    formData.append(key, value)
+                }
+                console.log(formData)
                 const response = await apiClient.post(route('user.store'), formData)
-                message = response.data.message;
-                this.$inertia.visit('user.create')
+                this.message = response.data.message;
+                // this.$inertia.visit('user.create')
             } catch (errors) {
                 console.log('Error: ', errors)
             }
