@@ -62,10 +62,10 @@
                 </li>
 
                 <li v-if="user.role === 'Admin'" class="nav-item">
-                    <a href="/user" class="nav-link">
+                    <Link :href="route('user')" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">group</span>
                         <span class="nav-label">Team</span>
-                    </a>
+                    </Link>
                     <span class="nav-tooltip">Team</span>
                 </li>
 
@@ -113,10 +113,10 @@
             <div class="divider"></div>
             <ul class="nav-list secondary-nav">
                 <li class="nav-item">
-                    <a href="/user/profile" class="nav-link">
+                    <Link :href="route('user.profile')" class="nav-link">
                         <img :src="`storage/profile/${user.image}`" alt="" class="profile-img">
                         <span class="nav-label">Profile</span>
-                    </a>
+                    </Link>
                     <span class="nav-tooltip">Profile</span>
                 </li>
                 <li class="nav-item" @click="toggleModal(true)">

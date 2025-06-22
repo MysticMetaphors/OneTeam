@@ -13,7 +13,6 @@ createInertiaApp({
         if (!importPage) {
             throw new Error(`Unknown page: ${name}`);
         }
-        console.log(pages[`./Pages/${name}.vue`]);
         return importPage().then(module => {
             const page = module.default
             // If no layout specified, use default layout

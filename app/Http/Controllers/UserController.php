@@ -17,17 +17,17 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
-        return view('pages.Team', ['users' => $users]);
+        return Inertia::render('Team', [
+            'users' => $users
+        ]);
     }
 
         public function profile()
     {
-
-        $tasks = Tasks::all();
-        return view('pages.Profile', [
-            // 'users' => $users
-            'tasks' => $tasks
+        // $tasks = Tasks::all();
+        return Inertia::render('Profile', [
+            // 'tasks' => $tasks,
+            'user' => Auth::user()
         ]);
     }
 
@@ -63,7 +63,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('Form.Team.create');
+        return Inertia::render('Form/UserCreate');
     }
     /**
      * Validate the incoming request data for creating or updating a user.
