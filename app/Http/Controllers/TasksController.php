@@ -32,17 +32,9 @@ class TasksController extends Controller
             $users = null;
         }
 
-        // dd($tasks);
-        // return $tasks;
-        // return view('pages.Tasks', [
-        //     'tasks' => $tasks,
-        //     'users' => $users
-        // ]);
-
         return Inertia::render('Task', [
             'tasks' => $tasks,
             'users' => $users,
-            'currentUser' => Auth::user()
         ]);
     }
 
@@ -139,15 +131,15 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tasks $tasks, $id)
+    public function show($id)
     {
         try {
             $decryptedId = Crypt::decryptString($id);
-            $tasks = Tasks::where('project_id', $decryptedId)->get();
-
+            $task = Tasks::where('project_id', $decryptedId)->get();
             $users = User::all();
-            return view('pages.Tasks', [
-                'tasks' => $tasks,
+
+            return Inertia::render('Task', [
+                'tasks' => $task,
                 'users' => $users
             ]);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {

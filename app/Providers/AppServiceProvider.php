@@ -24,13 +24,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Load data only when the 'layouts.app' layout is used
-        View::composer('pages.layouts.Main', function ($view) {
-            $projects = Project::all();
-            foreach ($projects as $project) {
-                $project->encrypt = Crypt::encryptString($project->id);
-            }
-            $view->with('projects', $projects);
-        });
+        // View::composer('pages.layouts.Main', function ($view) {
+        //     $projects = Project::all();
+        //     foreach ($projects as $project) {
+        //         $project->encrypt = Crypt::encryptString($project->id);
+        //     }
+        //     $view->with('projects', $projects);
+        // });
 
         Inertia::share([
             'auth' => function () {

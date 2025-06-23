@@ -222,7 +222,6 @@ export default {
         OneButton
     },
     props: {
-        currentUser: Object,
         users: Object,
         tasks: Object,
     },
@@ -232,6 +231,7 @@ export default {
             theme: "light",
             modalOpen: false,
             modalTask: {},
+            currentUser: this.$page.props.auth.user,
             statuses: {
                 "Scheduled": { original: "Scheduled", tag: "tag-primary" },
                 "Waiting": { original: "Waiting", tag: "tag-grey" },
@@ -239,25 +239,9 @@ export default {
                 "Completed": { original: "Completed", tag: "tag-success" },
                 // "Cancelled": { original: "Cancelled", tag: "tag-danger" }
             },
-            // Dummy data for demonstration. Replace with real props or API data.
         };
     },
-    mounted() {
-        this.handleUser()
-    },
     methods: {
-        handleUser() {
-            if (this.$props.users == null) {
-                // this.$props.users = this.currentUser
-                // this.$props.currentUser
-                // this.$props.tasks
-                console.log('member');
-                return;
-            } else {
-                console.log('all');
-                return this.$props
-            }
-        },
         goToCreateTask() {
             this.$inertia.visit(route('task.create'));
         },

@@ -166,8 +166,7 @@ export default {
             this.$inertia.visit(route('project.create'));
         },
         goToTask(encrypt) {
-            // Replace with your router logic if using Vue Router
-            window.location.href = `/task/${encodeURIComponent(encrypt)}`;
+            this.$inertia.visit(route('task.show', encrypt))
         },
         formatDate(dateStr) {
             const date = new Date(dateStr);
