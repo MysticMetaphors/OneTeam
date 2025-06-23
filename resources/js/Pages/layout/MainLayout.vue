@@ -25,14 +25,13 @@
                     <span class="nav-tooltip">Dashboard</span>
                 </li>
 
-                <li v-if="user.role === 'Admin'" class="nav-item has-submenu">
+                <li v-if="user.role === 'Admin'" class="nav-item">
                     <Link :href="route('project')" class="nav-link">
-                    <span class="nav-icon material-symbols-rounded">folder</span>
-                    <span class="nav-label">Projects</span>
+                        <span class="nav-icon material-symbols-rounded">folder</span>
+                        <span class="nav-label">Projects</span>
                     </Link>
-                    <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
                     <span class="nav-tooltip">Projects</span>
-                    <ul class="submenu">
+                    <!-- <ul class="submenu">
                         <li class="submenu-item" v-for="project in projects" :key="project.encrypt">
                             <a :href="`/project/${project.encrypt}`" class="submenu-link">
                                 <span class="material-symbols-rounded"
@@ -40,13 +39,13 @@
                                 {{ project.name }}
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </li>
 
                 <li class="nav-item has-submenu">
                     <Link :href="route('task')" class="nav-link">
-                    <span class="nav-icon material-symbols-rounded">check_circle</span>
-                    <span class="nav-label">Task</span>
+                        <span class="nav-icon material-symbols-rounded">check_circle</span>
+                        <span class="nav-label">Task</span>
                     </Link>
                     <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
                     <span class="nav-tooltip">Task</span>
@@ -119,7 +118,7 @@
                     </Link>
                     <span class="nav-tooltip">Profile</span>
                 </li>
-                <li class="nav-item" @click="toggleModal(true)">
+                <li class="nav-item" @click="toggleModal()">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">logout</span>
                         <span class="nav-label">Logout</span>
@@ -132,12 +131,12 @@
 
     <slot />
 
-    <div id="loginModal" class="modal v-b-modal">
+    <div class="modal" v-show="toggled == true">
         <div class="modal-content">
             <h2>Are you sure?</h2>
             <form @submit.prevent="handleLogout">
                 <div class="modal-btns">
-                    <button type="button" @click="toggleModal(false)" data-modal-close>No</button>
+                    <button type="button" @click="toggleModal()" data-modal-close>No</button>
                     <button type="submit">Yes</button>
                 </div>
             </form>
@@ -153,22 +152,24 @@ import apiClient from '../../axios'
 
 export default {
     name: 'MainLayout',
+    data() {
+        return {
+            toggled: false
+        }
+    },
     setup() {
         const page = usePage()
         const user = page.props.auth.user
 
         return {
             user,
+
         }
     },
     methods: {
-        toggleModal(status) {
-            const modal = document.getElementById('loginModal');
-            if (status) {
-                modal.style.display = 'block';
-            } else {
-                modal.style.display = 'none';
-            }
+        toggleModal() {
+            console.log(this.toggled)
+            this.toggled = !this.toggled
         },
 
         async handleLogout() {

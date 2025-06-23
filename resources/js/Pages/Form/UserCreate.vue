@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { route } from 'ziggy-js';
 import apiClient from '../../axios';
 
 export default {
@@ -120,7 +121,7 @@ export default {
             this.form.image = e.target.files[0];
         },
         cancel() {
-            this.$inertia.visit('user')
+            this.$inertia.visit(route('user'))
         },
         async submitForm() {
             try {

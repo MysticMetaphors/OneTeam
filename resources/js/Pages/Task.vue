@@ -197,7 +197,7 @@
                     </div>
                     <div>
                         <strong>Due:</strong>
-                        <span class="task-date">{{ modalTask.deadline }}</span>
+                        <span class="task-date">{{ formatDate(modalTask.deadline) }}</span>
                     </div>
                 </div>
                 <form @submit.prevent="closeModal">
@@ -214,11 +214,15 @@
 <script>
 import { route } from 'ziggy-js';
 import MainLayout from './layout/MainLayout.vue';
+import OneButton from './Component/OneButton.vue';
 
 export default {
     layout: MainLayout,
+    components: {
+        OneButton
+    },
     props: {
-        currentUser: Array,
+        currentUser: Object,
         users: Object,
         tasks: Object,
     },
@@ -316,6 +320,7 @@ export default {
             return "#81D4FA";
         },
         openModal(task) {
+            console.log(task)
             this.modalTask = { ...task };
             this.modalOpen = true;
         },

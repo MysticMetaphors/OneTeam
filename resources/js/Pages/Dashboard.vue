@@ -56,10 +56,10 @@ export default {
                     <button class="btn mail-btn btn-no-bg" title="Mail">
                         <span class="material-symbols-rounded">&#xe158;</span>
                     </button>
-                    <button class="theme-toggle btn-no-bg" @click="toggleTheme">
+                    <!-- <button class="theme-toggle btn-no-bg" @click="toggleTheme">
                         <span class="material-symbols-rounded" v-show="theme === 'light'" id="sunIcon">&#xe51c;</span>
                         <span class="material-symbols-rounded" v-show="theme === 'dark'" id="moonIcon">&#xe518;</span>
-                    </button>
+                    </button> -->
                 </div>
             </div>
 
