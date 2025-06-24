@@ -136,10 +136,9 @@ export default {
                     const [key, value] = form[i];
                     formData.append(key, value)
                 }
-                console.log(formData)
                 const response = await apiClient.post(route('user.store'), formData)
                 this.message = response.data.message;
-                // this.$inertia.visit('user.create')
+                this.$inertia.visit(route('user.create'))
             } catch (errors) {
                 console.log('Error: ', errors)
             }

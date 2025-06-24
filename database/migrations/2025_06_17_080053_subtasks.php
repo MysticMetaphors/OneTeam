@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('task_id');
             $table->string('title');
-            $table->boolean('is_completed')->default(false);
+            $table->enum('is_completed', ['true', 'false'])->default('false');
             $table->timestamps();
 
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');

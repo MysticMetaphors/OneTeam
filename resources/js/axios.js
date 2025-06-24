@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  // Use your environment variable for the backend URL
-  baseURL: import.meta.env.VITE_APP_URL || 'http://localhost/OneTeam/public',
-  withCredentials: true, // This is crucial for sending cookies
+  baseURL: import.meta.env.VITE_APP_URL //|| 'http://127.0.0.1:8000'
+    || 'http://localhost/OneTeam/public'
+  ,
+  withCredentials: true,
 });
 
-// This line makes it available for other files to import
 export default apiClient;

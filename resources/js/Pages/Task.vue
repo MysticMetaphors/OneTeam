@@ -34,12 +34,24 @@
             <table class="table table-striped tasks-table table-responsive">
                 <thead>
                     <tr>
-                        <th colspan="10">
-                            <div class="d-flex-row-container" style="gap: 12px;">
+                        <th colspan="8">
+                            <div class="d-flex-row-container">
+                                Tasks/All
+
                                 <div class="d-flex-row-container">
-                                    Tasks/All
+                                    <select name="" id="">
+                                        <option hidden value="">Status</option>
+                                    </select>
+                                    <select name="" id="">
+                                        <option hidden value="">Assignee</option>
+                                    </select>
+                                    <select name="" id="">
+                                        <option hidden value="">Priority</option>
+                                    </select>
+                                    <select name="" id="">
+                                        <option hidden value="">Date</option>
+                                    </select>
                                 </div>
-                                <div class="d-flex-row-container"></div>
                             </div>
                         </th>
                     </tr>
@@ -115,14 +127,14 @@
                                         <button class="btn-no-bg" title="Task Description" @click="openModal(task)">
                                             <span class="material-symbols-rounded">description</span>
                                         </button>
-                                        <button v-if="currentUser.role === 'Admin'" class="btn-no-bg" title="Edit Task"
+                                        <!-- <button v-if="currentUser.role === 'Admin'" class="btn-no-bg" title="Edit Task"
                                             @click="editTask(task)">
                                             <span class="material-symbols-rounded">edit</span>
                                         </button>
                                         <button v-if="currentUser.role === 'Admin'" class="btn-no-bg"
                                             title="Delete Task" @click="deleteTask(task)">
                                             <span class="material-symbols-rounded">delete</span>
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </td>
                             </tr>
