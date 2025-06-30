@@ -37,20 +37,10 @@
                         <th colspan="8">
                             <div class="d-flex-row-container">
                                 Tasks/All
-
                                 <div class="d-flex-row-container">
-                                    <select name="" id="">
-                                        <option hidden value="">Status</option>
-                                    </select>
-                                    <select name="" id="">
-                                        <option hidden value="">Assignee</option>
-                                    </select>
-                                    <select name="" id="">
-                                        <option hidden value="">Priority</option>
-                                    </select>
-                                    <select name="" id="">
-                                        <option hidden value="">Date</option>
-                                    </select>
+                                    <OneSelect
+
+                                    />
                                 </div>
                             </div>
                         </th>
@@ -227,11 +217,13 @@
 import { route } from 'ziggy-js';
 import MainLayout from './layout/MainLayout.vue';
 import OneButton from './Component/OneButton.vue';
+import OneSelect from './Component/OneSelect.vue';
 
 export default {
     layout: MainLayout,
     components: {
-        OneButton
+        OneButton,
+        OneSelect
     },
     props: {
         users: Object,
