@@ -25,8 +25,12 @@
                     <span class="nav-tooltip">Dashboard</span>
                 </li>
 
-                <li v-if="user.role === 'Admin'" class="nav-item">
-                    <Link :href="route('project')" class="nav-link">
+                <li class="nav-item">
+                    <Link v-if="user.role == 'Admin'" :href="route('project')" class="nav-link">
+                        <span class="nav-icon material-symbols-rounded">folder</span>
+                        <span class="nav-label">Projects</span>
+                    </Link>
+                    <Link v-else :href="route('project.show')" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">folder</span>
                         <span class="nav-label">Projects</span>
                     </Link>
@@ -47,14 +51,13 @@
                         <span class="nav-icon material-symbols-rounded">check_circle</span>
                         <span class="nav-label">Task</span>
                     </Link>
-                    <span class="submenu-arrow material-symbols-rounded submenu-toggler">expand_more</span>
-                    <span class="nav-tooltip">Task</span>
+                    <span class="submenu-arrow material-symbols-rounded submenu-toggler" @click="toggleSubmenu">expand_more</span>
                     <ul class="submenu">
                         <li class="submenu-item">
                             <a href="#" class="submenu-link">
                                 <span class="material-symbols-rounded"
                                     style="vertical-align: middle;">chevron_right</span>
-                                Recurring
+                                Repeating
                             </a>
                         </li>
                     </ul>
@@ -191,6 +194,12 @@ export default {
             sidebar.style.height = isMenuActive ? `${sidebar.scrollHeight}px` : "56px";
             menuToggler.querySelector("span").innerText = isMenuActive ? "menu" : "close";
         },
+        toggleSubmenu(event) {
+            const submenu = event.currentTarget.nextElementSibling;
+            submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+            const arrow = event.currentTarget.querySelector(".submenu-arrow");
+            arrow.classList.toggle("rotate");
+        }
     },
     mounted() {
         const sidebar = document.querySelector(".sidebar");

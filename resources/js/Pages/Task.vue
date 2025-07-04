@@ -41,6 +41,15 @@
                                     <OneSelect
 
                                     />
+                                    <OneSelect
+
+                                    />
+                                    <OneSelect
+
+                                    />
+                                    <OneSelect
+
+                                    />
                                 </div>
                             </div>
                         </th>

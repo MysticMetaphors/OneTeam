@@ -1,11 +1,11 @@
-@import 'tailwindcss';
+/* @import 'tailwindcss'; */
 @import '../css/Forms.css';
 @import '../css/Main.css';
 
-@import "flowbite-vue/index.css";
+/* @import "flowbite-vue/index.css";
 
 @plugin "flowbite/plugin";
-@source "../node_modules/flowbite-vue";
+@source "../node_modules/flowbite-vue"; */
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
