@@ -26,7 +26,7 @@ class ProjectController extends Controller
         // dd($projects);
         // return view('pages.Project ', ['projects' => $projects]);
         return Inertia::render('Project', [
-            'projects' => $projects
+            'projects' => $projects,
         ]);
     }
 

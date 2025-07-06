@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Tasks;
 use App\Http\Controllers\Controller;
+use App\Models\Project;
+use App\Models\Team_members;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -17,12 +20,13 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+
         return Inertia::render('Team', [
             'users' => $users
         ]);
     }
 
-        public function profile()
+    public function profile()
     {
         // $tasks = Tasks::all();
         return Inertia::render('Profile', [
@@ -51,7 +55,8 @@ class UserController extends Controller
         ])->onlyInput('email');
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -68,10 +73,7 @@ class UserController extends Controller
     /**
      * Validate the incoming request data for creating or updating a user.
      */
-    protected function validateRequest(Request $request)
-    {
-
-    }
+    protected function validateRequest(Request $request) {}
     /**
      * Store a newly created resource in storage.
      */
@@ -126,9 +128,25 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $User)
+    public function show(User $user, $id)
     {
-        //
+        try {
+            $decryptedId = Crypt::decryptString($id);
+            $team_members = Team_members::where('project_id', $decryptedId)->get();
+            $proj_name = Project::where('id', $decryptedId)->value('name');
+            $team = [];
+            foreach ($team_members as $member) {
+                $user = User::where('id', $member->user_id)->first();
+                $team[] = $user;
+            }
+
+            return Inertia::render('Team', [
+                'users' => $team,
+                'project' => $proj_name
+            ]);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            abort(404);
+        }
     }
 
     /**

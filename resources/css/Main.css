@@ -67,6 +67,10 @@ body {
     all: unset;
 }
 
+li {
+    list-style: none;
+}
+
 .sidebar {
     position: fixed;
     width: 200px;

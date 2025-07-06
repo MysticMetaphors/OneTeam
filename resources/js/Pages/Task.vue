@@ -317,7 +317,6 @@ export default {
             return "#81D4FA";
         },
         openModal(task) {
-            console.log(task)
             this.modalTask = { ...task };
             this.modalOpen = true;
         },

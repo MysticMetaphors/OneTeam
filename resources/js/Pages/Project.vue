@@ -77,7 +77,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button class="btn-no-bg" title="View Team">
+                                        <button class="btn-no-bg" title="View Team" @click="goToTeam(project.encrypt)">
                                             <span class="material-symbols-rounded">group</span>
                                         </button>
                                     </td>
@@ -167,6 +167,9 @@ export default {
         },
         goToTask(encrypt) {
             this.$inertia.visit(route('task.show', encrypt))
+        },
+        goToTeam(encrypt) {
+            this.$inertia.visit(route('user.show', encrypt));
         },
         formatDate(dateStr) {
             const date = new Date(dateStr);
