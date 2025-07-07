@@ -9,11 +9,15 @@ export default {
         async handleLogin() {
             try {
                 await apiClient.get('/sanctum/csrf-cookie');
-                await apiClient.post(route('user.login'), {
+                const response =  await apiClient.post(route('user.login'), {
                     email: this.email,
                     password: this.password,
                 });
-                this.$inertia.visit(route('dashboard'));
+                if (response.data.success) {
+                    this.$inertia.visit(route('dashboard'));
+                } else {
+                    this.errorMessage = response.data.message || 'Login failed. Please try again.';
+                }
             } catch (error) {
                 console.error('Logout failed:', error);
             }

@@ -2,6 +2,9 @@
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
             <div class="d-flex-row-container">
+                Projects/All
+            </div>
+            <div class="d-flex-row-container">
                 <button class="btn-no-bg" title="Team View">
                     <span class="material-symbols-rounded">group</span>
                     Team
@@ -10,8 +13,6 @@
                     <span class="material-symbols-rounded">checklist</span>
                     View Task
                 </button>
-            </div>
-            <div class="d-flex-row-container">
                 <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
                     @click="goToCreateProject">
                     <span class="material-symbols-rounded">add</span>
@@ -38,7 +39,7 @@
                             <th colspan="10">
                                 <div class="d-flex-row-container" style="gap: 12px;">
                                     <div class="d-flex-row-container">
-                                        Projects/All
+
                                     </div>
                                     <div class="d-flex-row-container">
                                         <!-- Search bar can be implemented here if needed -->

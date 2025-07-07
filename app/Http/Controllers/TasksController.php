@@ -11,6 +11,7 @@ use App\Models\TaskAttachment;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Team_members;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
@@ -52,13 +53,31 @@ class TasksController extends Controller
         ]);
     }
 
+    public function projectTask($id) {
+        $id = Crypt::decryptString($id);
+        $projects = Project::all();
+        $team_members = Team_members::where('project_id', $id)->get();
+        $team = [];
+        foreach($team_members as $member) {
+            $user = User::find($member->user_id);
+            if ($user) {
+                $team[] = $user;
+            }
+        }
+
+        return Inertia::render('Form/TaskCreate', [
+            'projects' => $projects,
+            'project_id' => $id,
+            'users' => $team
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-
-
         $validateData = $request->validate([
             'title' => 'required|string|max:30|min:3',
             'description' => 'required|string|max:255',
@@ -140,7 +159,8 @@ class TasksController extends Controller
 
             return Inertia::render('Task', [
                 'tasks' => $task,
-                'users' => $users
+                'project' => $id,
+                'users' => $users,
             ]);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             abort(404);

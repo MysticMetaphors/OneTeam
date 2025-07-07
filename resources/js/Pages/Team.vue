@@ -1,12 +1,17 @@
 <template>
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
-            <div></div>
+            <div>{{ this.project ? 'Team/' + this.project : 'All Users' }}</div>
             <div class="d-flex-row-container">
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn"
+                <button v-if="!project" class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn"
                     title="Add Selected" @click="goToCreateUser">
                     <span class="material-symbols-rounded">add</span>
                     New Member
+                </button>
+                <button v-else class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn"
+                    title="Add Selected" @click="toggleModal">
+                    <span class="material-symbols-rounded">add</span>
+                    Assign Member
                 </button>
                 <button class="btn btn-no-bg notification-btn" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
@@ -28,7 +33,7 @@
                         <tr>
                             <th colspan="10">
                                 <div class="d-flex-row-container" style="gap: 12px;">
-                                    {{ this.project ? this.project : 'All Members' }}
+
                                     <div class="d-flex-row-container">
                                         <!-- Bulk edit/delete buttons can be added here -->
                                     </div>
@@ -75,9 +80,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card ">
+            <!-- <div v-if="project" class="card">
                 <div class="d-flex-row-container">
-                    <h3>All Members</h3>
+                    <h5>All Members</h5>
                 </div>
                 <div>
 
@@ -85,7 +90,34 @@
                 <span>
 
                 </span>
-            </div>
+            </div> -->
+        </div>
+    </div>
+
+    <div v-if="all_users" id="addUser" class="modal" v-show="modalOpen" @click="toggleModal">
+        <div class="modal-content task-card" @click="$event.stopPropagation()">
+            <h2>Assign user</h2>
+            <ul>
+               <li v-for="user in all_users" :key="user.id" class="d-flex-row-container">
+                    <div class="profile">
+                        <img :src="profileImage(user.image)" class="profile-img" />
+                    </div>
+                    <div class="d-flex-column-container">
+                        <span>{{ user.name }}</span>
+                        <!-- <span>{{ user.email }}</span> -->
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary btn-no-bg" @click="toggleModal">
+                        <span class="material-symbols-rounded">add</span>
+                        Assign
+                    </button>
+               </li>
+            </ul>
+            <form method="post" @submit.prevent="addNew">
+                <div class="d-flex-row-container">
+                    <button type="button" @click="toggleModal">Close</button>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </template>
@@ -93,17 +125,21 @@
 <script>
 import { route } from 'ziggy-js';
 import MainLayout from './layout/MainLayout.vue';
+import { all } from 'axios';
 
 export default {
     layout: MainLayout,
     props: {
         users: Object,
+        all_users: Object,
         project: String,
     },
     data() {
         return {
             // search: "",
-            users: this.$props.users
+            all_users: this.$props.all_users,
+            users: this.$props.users,
+            modalOpen: false,
         };
     },
     computed: {
@@ -128,6 +164,9 @@ export default {
         profileImage(image) {
             return `storage/profile/${image}`;
         },
+        toggleModal() {
+            this.modalOpen = !this.modalOpen;
+        }
 
     },
     mounted() {
@@ -141,5 +180,12 @@ export default {
 .card,
 .table-container {
     align-self: flex-start;
+}
+
+
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
 }
 </style>

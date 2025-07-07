@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('Task')->group(function () {
         Route::get('/', [TasksController::class, 'index'])->name('task');
         Route::get('/create', [TasksController::class, 'create'])->middleware(AdminOnly::class)->name('task.create');
+        Route::get('/c/{id}', [TasksController::class, 'projectTask'])->name('task.c');
         Route::get('/show/{id}', [TasksController::class, 'show'])->name('task.show');
         Route::post('/store', [TasksController::class, 'store'])->name('task.store');
         Route::post('/update', [TasksController::class, 'update'])->name('task.update');

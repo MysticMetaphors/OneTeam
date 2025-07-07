@@ -47,7 +47,16 @@ class UserController extends Controller
 
         if (Auth::attempt(['email' => $validateData['email'], 'password' => $validateData['password']])) {
             $request->session()->regenerate();
-            return redirect()->intended('Dashboard')->with('success', 'Logged in successfully!');
+            return response()->json([
+                'success' =>  true,
+            ]);
+
+            // if(Auth::user()->role == 'Admin') {
+            //     return Inertia::location('Project', [route('project')]);
+            // } else {
+            //     return Inertia::location('Project', [route('project.show', ['id' => Crypt::encryptString(Auth::user()->id)])]);
+            // }
+
         }
 
         return back()->withErrors([
@@ -128,21 +137,25 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user, $id)
+    public function show($id)
     {
         try {
             $decryptedId = Crypt::decryptString($id);
             $team_members = Team_members::where('project_id', $decryptedId)->get();
             $proj_name = Project::where('id', $decryptedId)->value('name');
+            $users = User::all();
             $team = [];
+
             foreach ($team_members as $member) {
-                $user = User::where('id', $member->user_id)->first();
+                $user = $users->find($member->user_id);
+                $users = $users->reject(fn($user) => $user->id === $member->user_id);
                 $team[] = $user;
             }
 
             return Inertia::render('Team', [
                 'users' => $team,
-                'project' => $proj_name
+                'all_users' => $users,
+                'project' => $proj_name,
             ]);
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             abort(404);

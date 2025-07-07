@@ -13,7 +13,7 @@
             </div>
             <div class="d-flex-row-container">
                 <button v-if="currentUser.role === 'Admin'" class="btn btn-sm btn-outline-secondary btn-no-bg"
-                    id="bulkCompleteBtn" title="Add Selected" @click="goToCreateTask">
+                    id="bulkCompleteBtn" title="Add Selected" @click="goToCreateTask(project ?? null)">
                     <span class="material-symbols-rounded">add</span>
                     New Task
                 </button>
@@ -38,18 +38,10 @@
                             <div class="d-flex-row-container">
                                 Tasks/All
                                 <div class="d-flex-row-container">
-                                    <OneSelect
-
-                                    />
-                                    <OneSelect
-
-                                    />
-                                    <OneSelect
-
-                                    />
-                                    <OneSelect
-
-                                    />
+                                    <OneSelect />
+                                    <OneSelect />
+                                    <OneSelect />
+                                    <OneSelect />
                                 </div>
                             </div>
                         </th>
@@ -237,6 +229,8 @@ export default {
     props: {
         users: Object,
         tasks: Object,
+        project: String,
+        encrypt: String,
     },
     data() {
         return {
@@ -255,8 +249,13 @@ export default {
         };
     },
     methods: {
-        goToCreateTask() {
-            this.$inertia.visit(route('task.create'));
+        goToCreateTask(prj) {
+            if (prj == null) {
+                console.log("No project selected, redirecting to create task page");
+                this.$inertia.visit(route('task.create'));
+            } else {
+                this.$inertia.visit(route('task.c', prj));
+            }
         },
         statusTagClass(status) {
             if (status === "Complete") return "tag-success";

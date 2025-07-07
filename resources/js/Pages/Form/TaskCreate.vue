@@ -22,7 +22,7 @@
             </div>
         </div>
         <form @submit.prevent="submitForm" enctype="multipart/form-data" enc>
-            <h2>New Task</h2>
+            <h2>New Task {{ project_id ? ' > '+projects[0].name : ' > Any' }}</h2>
             <div v-show="message" class="text-success">{{ message }}</div>
 
             <div class="form-direction-row">
@@ -50,7 +50,7 @@
 
             <div class="form-direction-row">
                 <div class="form-direction-row input-icon">
-                    <select name="project" v-model="form.project">
+                    <select name="project" v-model="form.project" id="project-select">
                         <option hidden value="">Project</option>
                         <option v-for="project in projects" :key="project.id" :value="project.id">
                             {{ project.name }}
@@ -121,6 +121,7 @@ export default {
     layout: MainLayout,
     props: {
         projects: Object,
+        project_id: Number,
         users: Object
     },
     data() {
@@ -139,9 +140,14 @@ export default {
             },
             recurring: false,
             message: '',
-            projects: this.$props.projects,
-            user: this.$props.user,
+            // user: this.$props.user,
         };
+    },
+    mounted() {
+        if (this.project_id) {
+            this.form.project = this.project_id;
+            document.getElementById('project-select').disabled = true;
+        }
     },
     methods: {
         toggleInput() {

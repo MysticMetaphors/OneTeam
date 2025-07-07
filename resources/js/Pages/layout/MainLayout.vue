@@ -17,23 +17,23 @@
             <!-- Primary top nav -->
 
             <ul class="nav-list primary-nav">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <Link :href="route('dashboard')" class="nav-link">
                     <span class="nav-icon material-symbols-rounded">dashboard</span>
                     <span class="nav-label">Dashboard</span>
                     </Link>
                     <span class="nav-tooltip">Dashboard</span>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
                     <Link v-if="user.role == 'Admin'" :href="route('project')" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">folder</span>
                         <span class="nav-label">Projects</span>
                     </Link>
-                    <Link v-else :href="route('project.show')" class="nav-link">
+                    <!-- <Link v-else :href="route('project.show')" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">folder</span>
                         <span class="nav-label">Projects</span>
-                    </Link>
+                    </Link> -->
                     <span class="nav-tooltip">Projects</span>
                     <!-- <ul class="submenu">
                         <li class="submenu-item" v-for="project in projects" :key="project.encrypt">
@@ -137,7 +137,7 @@
     <div class="modal" v-show="toggled == true">
         <div class="modal-content">
             <h2>Are you sure?</h2>
-            <form @submit.prevent="handleLogout">
+            <form @submit.prevent="handleLogout" enctype="multipart/form-data">
                 <div class="modal-btns">
                     <button type="button" @click="toggleModal()" data-modal-close>No</button>
                     <button type="submit">Yes</button>
@@ -177,6 +177,7 @@ export default {
 
         async handleLogout() {
             try {
+                await apiClient.get('/sanctum/csrf-cookie');
                 await apiClient.post(route('user.logout'));
                 this.$inertia.visit(route('login'));
             } catch (error) {
