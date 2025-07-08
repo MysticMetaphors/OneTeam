@@ -22,7 +22,7 @@
             </div>
         </div>
         <form @submit.prevent="submitForm" enctype="multipart/form-data" enc>
-            <h2>New Task {{ project_id ? ' > '+projects[0].name : ' > Any' }}</h2>
+            <h2>New Task {{ project_id ? ' > '+projects[0].name : '' }}</h2>
             <div v-show="message" class="text-success">{{ message }}</div>
 
             <div class="form-direction-row">

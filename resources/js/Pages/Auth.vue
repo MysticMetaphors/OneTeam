@@ -13,8 +13,10 @@ export default {
                     email: this.email,
                     password: this.password,
                 });
-                if (response.data.success) {
-                    this.$inertia.visit(route('dashboard'));
+                if (response.data.success && response.data.role === 'Admin') {
+                    this.$inertia.visit(route('project'));
+                } else if (response.data.success && response.data.role === 'Member') {
+                    this.$inertia.visit(route('task')); //project.show
                 } else {
                     this.errorMessage = response.data.message || 'Login failed. Please try again.';
                 }

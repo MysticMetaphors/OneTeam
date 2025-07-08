@@ -26,7 +26,7 @@
                 </li> -->
 
                 <li class="nav-item">
-                    <Link v-if="user.role == 'Admin'" :href="route('project')" class="nav-link">
+                    <Link :href="route('project')" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">folder</span>
                         <span class="nav-label">Projects</span>
                     </Link>
@@ -55,6 +55,11 @@
                     <ul class="submenu">
                         <li class="submenu-item">
                             <a href="#" class="submenu-link">
+                                <span class="material-symbols-rounded"
+                                    style="vertical-align: middle;">chevron_right</span>
+                                Today
+                            </a>
+                             <a href="#" class="submenu-link">
                                 <span class="material-symbols-rounded"
                                     style="vertical-align: middle;">chevron_right</span>
                                 Repeating

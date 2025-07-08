@@ -2,6 +2,9 @@
     <div class="main-content">
         <div class="d-flex-row-container page-header card top-panel">
             <div class="d-flex-row-container">
+               Task/All
+            </div>
+            <div class="d-flex-row-container">
                 <button class="btn-no-bg" id="kanban-view-btn" title="Kanban View" @click="showKanban = true">
                     <span class="material-symbols-rounded">view_kanban</span>
                     Kanban View
@@ -10,8 +13,6 @@
                     <span class="material-symbols-rounded">table</span>
                     Table View
                 </button>
-            </div>
-            <div class="d-flex-row-container">
                 <button v-if="currentUser.role === 'Admin'" class="btn btn-sm btn-outline-secondary btn-no-bg"
                     id="bulkCompleteBtn" title="Add Selected" @click="goToCreateTask(project ?? null)">
                     <span class="material-symbols-rounded">add</span>
@@ -36,7 +37,7 @@
                     <tr>
                         <th colspan="8">
                             <div class="d-flex-row-container">
-                                Tasks/All
+                            <div></div>
                                 <div class="d-flex-row-container">
                                     <OneSelect />
                                     <OneSelect />
@@ -47,14 +48,14 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>Title</th>
+                        <!-- <th>Title</th>
                         <th>Assigned</th>
                         <th>Status</th>
                         <th>Type</th>
                         <th>Priority</th>
                         <th>Files</th>
                         <th>Due</th>
-                        <th></th>
+                        <th></th> -->
                     </tr>
                 </thead>
 
@@ -372,5 +373,9 @@ table ul {
 .btn-border {
     border-bottom: 2px solid var(--font-color);
     border-radius: 0px;
+}
+
+.modal-content {
+    min-width: 400px;
 }
 </style>

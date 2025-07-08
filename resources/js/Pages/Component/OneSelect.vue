@@ -58,8 +58,8 @@ form {
 
 select {
     width: 100%;
-    height: 40px;
-    padding: 10px;
+    /* height: 40px; */
+    padding:4px 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
     background-color: #f9f9f9;

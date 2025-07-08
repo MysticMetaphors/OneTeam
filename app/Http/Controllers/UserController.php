@@ -49,6 +49,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             return response()->json([
                 'success' =>  true,
+                'role' => Auth::user()->role,
             ]);
 
             // if(Auth::user()->role == 'Admin') {

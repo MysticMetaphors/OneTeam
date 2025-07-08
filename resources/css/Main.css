@@ -270,10 +270,6 @@ li {
     display: flex !important;
 }
 
-.submenu .submenu-item {
-    display: flex;
-}
-
 .submenu.open .submenu-item {
     display: block;
 }

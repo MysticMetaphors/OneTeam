@@ -30,19 +30,19 @@
             <div class="card">On time</div>
         </div>
 
-        <!-- <div class="table-container" id="task-table-view">
+        <div class="table-container">
             <table class="table table-striped tasks-table table-responsive">
                 <thead>
                     <tr>
                         <th colspan="10">
                             <div class="d-flex-row-container" style="gap: 12px;">
-                                <div class="d-flex-row-container">Tasks/All</div>
+                                <div class="d-flex-row-container">To-Do Today</div>
                                 <div class="d-flex-row-container">
                                 </div>
                             </div>
                         </th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>Title</th>
                         <th>Status</th>
                         <th>Type</th>
@@ -50,7 +50,7 @@
                         <th>Files</th>
                         <th>Due</th>
                         <th></th>
-                    </tr>
+                    </tr> -->
                 </thead>
                 <tbody>
                     <template v-for="(info, displayStatus) in statuses" :key="displayStatus">
@@ -127,7 +127,104 @@
                     </template>
                 </tbody>
             </table>
-        </div> -->
+        </div>
+
+        <div class="table-container">
+            <table class="table table-striped tasks-table table-responsive">
+                <thead>
+                    <tr>
+                        <th colspan="10">
+                            <div class="d-flex-row-container" style="gap: 12px;">
+                                <div class="d-flex-row-container">Log Activity</div>
+                                <div class="d-flex-row-container">
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    <!-- <tr>
+                        <th>login</th>
+                        <th>logout</th>
+                        <th>Ip</th>
+                        <th>user_agent</th>
+                        <th>status</th>
+                    </tr> -->
+                </thead>
+                <tbody>
+                    <template v-for="(info, displayStatus) in statuses" :key="displayStatus">
+                        <template v-for="task in filteredTasks(info.original)" :key="task.id">
+                            <tr>
+                                <td>{{ task.title }}</td>
+                                <td>
+                                    <div
+                                        class="tags"
+                                        :class="{
+                                            'tag-success': task.status === 'Completed',
+                                            'tag-warning': task.status === 'Processing',
+                                            'tag-grey': task.status === 'Waiting',
+                                            'tag-primary': task.status === 'Scheduled'
+                                        }"
+                                    >
+                                        {{ task.status }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <span v-if="task.type">{{ capitalize(task.type) }}</span>
+                                    <span v-else>—</span>
+                                </td>
+                                <td>
+                                    <div
+                                        class="tags"
+                                        :class="{
+                                            'tag-success': task.priority === 'Low',
+                                            'tag-warning': task.priority === 'Mild',
+                                            'tag-danger': task.priority === 'High',
+                                            'tag-primary': !['Low', 'Mild', 'High'].includes(task.priority)
+                                        }"
+                                    >
+                                        {{ task.priority }}
+                                    </div>
+                                </td>
+                                <td class="files">
+                                    <template v-if="task.files && task.files.length">
+                                        <ul>
+                                            <li v-for="(file, idx) in task.files" :key="idx">
+                                                <button class="btn-no-bg">
+                                                    <span
+                                                        class="material-symbols-rounded"
+                                                        style="vertical-align:middle;"
+                                                        v-html="fileIcon(getFilename(file))"
+                                                    ></span>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </template>
+                                    <span v-else>—</span>
+                                </td>
+                                <td>
+                                    <span v-if="task.deadline" class="convertDate" :data-date="task.deadline">
+                                        {{ task.deadline }}
+                                    </span>
+                                    <span v-else>—</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex-row-container">
+                                        <button class="btn-no-bg">
+                                            <span class="material-symbols-rounded" style="vertical-align:middle;">description</span>
+                                        </button>
+                                        <button class="btn-no-bg" title="Edit Task">
+                                            <span class="material-symbols-rounded">edit</span>
+                                        </button>
+                                        <button class="btn-no-bg" title="Delete Task">
+                                            <span class="material-symbols-rounded">delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </template>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -189,5 +286,9 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 1px;
+}
+
+.table-container {
+    margin-top: 20px;
 }
 </style>

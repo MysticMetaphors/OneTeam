@@ -35,14 +35,14 @@
             <div class="table-container" id="project-table-view">
                 <table class="table table-striped projects-table table-responsive">
                     <thead>
-                        <tr>
+                        <!-- <tr>
                             <th colspan="10">
                                 <div class="d-flex-row-container" style="gap: 12px;">
                                     <div class="d-flex-row-container">
 
                                     </div>
                                     <div class="d-flex-row-container">
-                                        <!-- Search bar can be implemented here if needed -->
+
                                     </div>
                                 </div>
                             </th>
@@ -57,7 +57,7 @@
                             <th>StartDate</th>
                             <th>Due</th>
                             <th></th>
-                        </tr>
+                        </tr> -->
                     </thead>
                     <tbody>
                         <template v-for="(details, status) in statuses" :key="status">
