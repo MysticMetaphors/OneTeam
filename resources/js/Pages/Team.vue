@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="d-flex-row-container">
+        <div class="d-flex-row-container contents">
             <div class="table-container" id="task-table-view">
                 <table class="table table-striped tasks-table table-responsive">
                     <thead>
@@ -177,12 +177,14 @@ export default {
 </script>
 
 <style scoped>
+.contents {
+    padding: 70px 0 0 0;
+}
+
 .card,
 .table-container {
     align-self: flex-start;
 }
-
-
 
 .table-container {
     width: 100%;

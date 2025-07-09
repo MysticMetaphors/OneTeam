@@ -25,7 +25,7 @@
 
         <div class="d-flex-row-container">
             <div class="card">Completed Tasks</div>
-            <div class="card">Total Assigned</div>
+            <div class="card">Failed Tasks</div>
             <div class="card">Late Submission</div>
             <div class="card">On time</div>
         </div>

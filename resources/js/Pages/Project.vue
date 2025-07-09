@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="project-content">
+        <div class="project-content contents">
             <div class="table-container" id="project-table-view">
                 <table class="table table-striped projects-table table-responsive">
                     <thead>
@@ -187,6 +187,10 @@ export default {
 </script>
 
 <style scoped>
+.contents {
+    padding: 70px 0 0 0;
+}
+
 .profile {
     display: flex;
     align-items: center;

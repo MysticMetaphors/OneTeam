@@ -31,23 +31,21 @@
             </div>
         </div>
 
-        <div v-show="!showKanban" class="table-container" id="task-table-view">
-            <template v-for="(info, displayStatus) in statuses" :key="displayStatus">
-                <template v-for="task in tasksByStatus(info.original)" :key="task.id">
-                    <div @click="openModal(task)" class="task-row d-flex-row-container">
-                        <div class="task-meta">
-                            <!-- <div class="tags" :class="statusClass(task.status)"> -->
-                            <!-- <span class="material-symbols-rounded"> -->
-                            <!-- <h2>{{ priorityClass(task.priority) }}</h2> -->
-                            <!-- </span> -->
-                            <!-- </div> -->
-
-                            <span class="material-symbols-rounded check-circle">
-                                check_circle
-                            </span>
-                            <h2>{{ priorityClass(task.priority) }}</h2>
-                            {{ task.title }}
-                            <!-- <div class="tags" :class="{
+        <div class="d-flex-row-container contents">
+            <div v-show="!showKanban" class="table-container" id="task-table-view">
+                <template v-for="(info, displayStatus) in statuses" :key="displayStatus">
+                    <template v-for="task in tasksByStatus(info.original)" :key="task.id">
+                        <div @click="openModal(task)" class="task-row d-flex-row-container">
+                            <div class="task-meta">
+                                <span class="material-symbols-rounded check-circle">
+                                    check_circle
+                                </span>
+                                <h2>{{ priorityClass(task.priority) }}</h2>
+                                {{ task.title }}
+                                <div class="tags" :class="statusClass(task.status)">
+                                    {{ task.status }}
+                                </div>
+                                <!-- <div class="tags" :class="{
                                 'tag-success': task.priority === 'Low',
                                 'tag-warning': task.priority === 'Mild',
                                 'tag-danger': task.priority === 'High',
@@ -55,36 +53,36 @@
                             }">
                                 {{ task.priority }}
                             </div> -->
-                        </div>
-
-                        <div class="task-meta">
-                            <span v-if="task.type">{{ capitalize(task.type) }}</span>
-                            <span v-else>—</span>
-
-                            <div v-if="task.issued_to" class="assigned-profile">
-                                <img :src="profileImage(task.issued_to)" class="profile-img"
-                                    style="width:32px;height:32px;border-radius:50%;object-fit:cover;" />
-                                <!-- {{ userName(task.issued_to) }} -->
                             </div>
-                            <span v-else>-</span>
 
-                            <template v-if="task.files && task.files.length">
-                                <ul>
-                                    <li v-for="(file, idx) in task.files" :key="idx">
-                                        <button class="btn-no-bg">
-                                            <span class="material-symbols-rounded" style="vertical-align:middle;"
-                                                v-html="fileIcon(file)"></span>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </template>
+                            <div class="task-meta">
+                                <span v-if="task.type">{{ capitalize(task.type) }}</span>
+                                <span v-else>—</span>
 
-                            <span v-if="task.deadline" class="convertDate" :data-date="task.deadline">{{
-                                formatDate(task.deadline) }}</span>
-                            <span v-else>—</span>
-                        </div>
+                                <div v-if="task.issued_to" class="assigned-profile">
+                                    <img :src="profileImage(task.issued_to)" class="profile-img"
+                                        style="width:32px;height:32px;border-radius:50%;object-fit:cover;" />
+                                    <!-- {{ userName(task.issued_to) }} -->
+                                </div>
+                                <span v-else>-</span>
 
-                        <!--<div class="d-flex-row-container">
+                                <template v-if="task.files && task.files.length">
+                                    <ul>
+                                        <li v-for="(file, idx) in task.files" :key="idx">
+                                            <button class="btn-no-bg">
+                                                <span class="material-symbols-rounded" style="vertical-align:middle;"
+                                                    v-html="fileIcon(file)"></span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </template>
+
+                                <span v-if="task.deadline" class="convertDate" :data-date="task.deadline">{{
+                                    formatDate(task.deadline) }}</span>
+                                <span v-else>—</span>
+                            </div>
+
+                            <!--<div class="d-flex-row-container">
                                         <button class="btn-no-bg" title="Task Description">
                                             <span class="material-symbols-rounded">description</span>
                                         </button>
@@ -98,48 +96,60 @@
                                         </button>
                                     </div>-->
 
-                    </div>
+                        </div>
+                    </template>
                 </template>
-            </template>
-        </div>
+            </div>
 
-        <div v-show="showKanban" id="kanban-view" style="margin-top: 32px;">
-            <div class="kanban-board">
-                <div class="kanban-column" v-for="(info, displayStatus) in statuses" :key="displayStatus">
-                    <div class="kanban-column-header">
-                        <span>{{ displayStatus }}</span>
-                        <hr />
-                    </div>
-                    <div class="kanban-tasks">
-                        <template v-if="tasksByStatus(info.original).length">
-                            <div class="kanban-task-card" v-for="task in tasksByStatus(info.original)" :key="task.id"
-                                :style="{ background: kanbanCardColor(task) }">
-                                <div class="d-flex-row-container">
-                                    <div class="kanban-task-assigned">
-                                        <img v-if="task.issued_to" :src="profileImage(task.issued_to)"
-                                            class="profile-img" />
-                                        <span v-else>—</span>
-                                    </div>
-                                    <div class="kanban-task-desc">{{ task.title }}</div>
-                                </div>
-                                <div class="kanban-task-dates">
+            <div v-show="showKanban" id="kanban-view" style="margin-top: 32px;flex-grow: 1;">
+                <div class="kanban-board">
+                    <div class="kanban-column" v-for="(info, displayStatus) in statuses" :key="displayStatus">
+                        <div class="kanban-column-header">
+                            <span>{{ displayStatus }}</span>
+                            <hr />
+                        </div>
+                        <div class="kanban-tasks">
+                            <template v-if="tasksByStatus(info.original).length">
+                                <div class="kanban-task-card" v-for="task in tasksByStatus(info.original)"
+                                    :key="task.id" :style="{ background: kanbanCardColor(task) }">
                                     <div class="d-flex-row-container">
-                                        <span v-if="task.deadline" class="convertDate" :data-date="task.deadline">{{
-                                            formatDate(task.deadline) }}</span>
-                                        <div>
-                                            <button class="btn-no-bg" title="Task Description" @click="openModal(task)">
-                                                <span class="material-symbols-rounded">description</span>
-                                            </button>
-                                            <span v-if="task.type === 'true'"
-                                                class="material-symbols-rounded">repeat</span>
+                                        <div class="kanban-task-assigned">
+                                            <img v-if="task.issued_to" :src="profileImage(task.issued_to)"
+                                                class="profile-img" />
+                                            <span v-else>—</span>
+                                        </div>
+                                        <div class="kanban-task-desc">{{ task.title }}</div>
+                                    </div>
+                                    <div class="kanban-task-dates">
+                                        <div class="d-flex-row-container">
+                                            <span v-if="task.deadline" class="convertDate" :data-date="task.deadline">{{
+                                                formatDate(task.deadline) }}</span>
+                                            <div>
+                                                <button class="btn-no-bg" title="Task Description"
+                                                    @click="openModal(task)">
+                                                    <span class="material-symbols-rounded">description</span>
+                                                </button>
+                                                <span v-if="task.type === 'true'"
+                                                    class="material-symbols-rounded">repeat</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </template>
-                        <div v-else class="kanban-no-tasks">No tasks</div>
+                            </template>
+                            <div v-else class="kanban-no-tasks">No tasks</div>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="card task-overview">
+                <h3>Task</h3><!--  {{ tasks ? tasks : 'null' }} -->
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae perferendis repellendus corporis,
+                    aliquam
+                    nobis non molestias temporibus est asperiores libero voluptate incidunt qui necessitatibus assumenda
+                    nihil, sed
+                    aliquid? Inventore, odio!</p>
+                Subtask
             </div>
         </div>
 
@@ -385,5 +395,34 @@ table ul {
     align-items: center;
     justify-content: space-between;
     gap: 8px;
+}
+
+.task-overview {
+    /* min-width: 446.28px; */
+    /* flex-grow: 1; */
+    flex: none;
+    align-self: flex-start;
+    height: 84%;
+    position: fixed;
+    right: 20px;
+    min-width: 233px;
+    max-width: 233px;
+}
+
+.task-overview p {
+    width: 100%;
+    font-size: 14px;
+}
+
+.table-container {
+    flex-grow: 1;
+    align-self: flex-start;
+}
+
+form {
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 </style>

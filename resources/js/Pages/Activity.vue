@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="act-content">
+        <div class="act-content contents">
             <div class="table-container" id="act-table-view">
                 <table class="table table-striped acts-table table-responsive">
                     <thead>
@@ -144,6 +144,10 @@ export default {
 </script>
 
 <style scoped>
+.contents {
+    padding: 70px 0 0 0;
+}
+
 .profile {
     display: flex;
     align-items: center;

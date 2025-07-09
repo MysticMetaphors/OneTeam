@@ -22,7 +22,7 @@
             </div>
         </div>
         <form @submit.prevent="submitForm" enctype="multipart/form-data" enc>
-            <h2>New Task {{ project_id ? ' > '+projects[0].name : '' }}</h2>
+            <h2>New Task {{ currentProject }}</h2>
             <div v-show="message" class="text-success">{{ message }}</div>
 
             <div class="form-direction-row">
@@ -153,12 +153,15 @@ export default {
             recurring: false,
             message: '',
             inputErr: null,
+            currentProject: null
             // user: this.$props.user,
         };
     },
     mounted() {
         if (this.project_id) {
             this.form.project = this.project_id;
+            const selectedProject = this.projects.find(p => p.id == this.project_id);
+            this.currentProject = '> ' + selectedProject.name;
             document.getElementById('project-select').disabled = true;
         }
     },
