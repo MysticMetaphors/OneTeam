@@ -26,8 +26,8 @@
             <div v-show="message" class="text-success">{{ message }}</div>
 
             <div class="form-direction-row">
-                <input type="text" name="title" placeholder="Title" v-model="form.title" />
-                <input type="text" name="type" placeholder="Type" v-model="form.type" />
+                <input type="text" name="title" placeholder="Title" v-model="form.title"/>
+                <input type="text" name="type" placeholder="Type" v-model="form.type"/>
             </div>
 
             <textarea name="description" placeholder="Description" rows="4" v-model="form.description"></textarea>
@@ -138,8 +138,21 @@ export default {
                 attach: [],
                 repeat_interval: [],
             },
+            formDefault: {
+                title: '',
+                type: '',
+                description: '',
+                priority: '',
+                deadline: '',
+                project: '',
+                assignee: '',
+                sub: [],
+                attach: [],
+                repeat_interval: [],
+            },
             recurring: false,
             message: '',
+            inputErr: null,
             // user: this.$props.user,
         };
     },
@@ -173,7 +186,7 @@ export default {
                 await apiClient.get('/sanctum/csrf-cookie');
 
                 const formData = new FormData();
-                console.log('Form values:', this.form);
+                // console.log('Form values:', this.form);
 
                 formData.append("title", this.form.title);
                 formData.append("assignee", this.form.assignee);
@@ -193,18 +206,26 @@ export default {
                     formData.append("sub", this.form.sub)
                 }
 
-                console.log('FormData entries:');
-                for (let pair of formData.entries()) {
-                    console.log(pair[0] + ':', pair[1]);
-                }
+                // console.log('FormData entries:');
+                // for (let pair of formData.entries()) {
+                //     console.log(pair[0] + ':', pair[1]);
+                // }
 
                 const response = await apiClient.post(route('task.store'), formData);
                 this.message = response.data.message
-                this.$inertia.visit(route('task.create'));
+                this.form = { ...this.formDefault }
+                // this.$inertia.visit(route('task.create'));
             } catch (errors) {
-                console.log('error: ', errors);
+                const err = errors.response.data.errors
+                this.inputErr = err
             }
         },
     },
 };
 </script>
+
+<style scoped>
+.error-input {
+    border: 1px solid red;
+}
+</style>

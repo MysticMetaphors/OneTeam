@@ -54,14 +54,14 @@
                             </th>
                         </tr>
                         <tr>
-                            <th>User</th>
+                            <!-- <th>User</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Position</th>
                             <th>Location</th>
                             <th>Birthdate At</th>
-                            <th>Contact</th>
+                            <th>Contact</th> -->
                         </tr>
                     </thead>
                     <tbody>

@@ -672,8 +672,8 @@ table span {
     font-weight: 500;
     color: #fff;
     background: #bdbdbd;
-    margin-right: 6px;
-    margin-bottom: 4px;
+    /* margin-right: 6px;
+    margin-bottom: 4px; */
 }
 
 .tag-primary {
