@@ -141,15 +141,27 @@
                     </div>
                 </div>
             </div>
-
+ <!-- {{ tasks ? tasks : 'null' }} -->
             <div class="card task-overview">
-                <h3>Task</h3><!--  {{ tasks ? tasks : 'null' }} -->
+                <h3>Create Homepage</h3>
+                <!-- <br> -->
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae perferendis repellendus corporis,
                     aliquam
                     nobis non molestias temporibus est asperiores libero voluptate incidunt qui necessitatibus assumenda
                     nihil, sed
                     aliquid? Inventore, odio!</p>
-                Subtask
+                <!-- <br> -->
+                <h3>Subtask</h3>
+                <div v-for="i in 2" :key="i" class="d-flex-row-container subtask">
+                    <span class="material-symbols-rounded">check_circle</span>
+                    Subtask {{ i }}
+                </div>
+                <!-- <br> -->
+                <h3>Attachments</h3>
+                <div v-for="i in 2" :key="i" class="d-flex-row-container subtask">
+                    <span class="material-symbols-rounded">attach_file</span>
+                    attach_file {{ i }}
+                </div>
             </div>
         </div>
 
@@ -405,13 +417,25 @@ table ul {
     height: 84%;
     position: fixed;
     right: 20px;
+    overflow-y: scroll;
+    scrollbar-width: none;
     min-width: 233px;
     max-width: 233px;
+}
+
+.task-overview h3 {
+    margin-bottom: 8px;
 }
 
 .task-overview p {
     width: 100%;
     font-size: 14px;
+     margin-bottom: 8px;
+}
+
+.subtask {
+    justify-content: flex-start;
+    padding: 8px 0;
 }
 
 .table-container {

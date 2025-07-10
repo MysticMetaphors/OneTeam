@@ -328,4 +328,8 @@ footer a {
     color: #3c97bf;
     text-decoration: none;
 }
+
+form {
+    margin: 0;
+}
 </style>
