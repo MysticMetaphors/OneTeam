@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
-    public function run(int $count = 20): void
+    public function run(int $count = 10): void
     {
         $positions = ['Developer', 'Designer', 'Manager', 'QA', 'DevOps'];
         $locations = ['Office', 'Remote', 'Hybrid', 'On-site'];

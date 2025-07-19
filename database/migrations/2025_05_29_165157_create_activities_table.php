@@ -23,6 +23,18 @@ return new class extends Migration
 
             $table->foreign('made_by')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::create('activity_log', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            // $table->longText('payload');
+            // $table->integer('last_activity')->index();
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
@@ -31,5 +43,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('activities');
+        Schema::dropIfExists('activity_log');
     }
 };

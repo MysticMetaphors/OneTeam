@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class ProjectSeeder extends Seeder
 {
 
-    public function run(int $count = 20): void
+    public function run(int $count = 10): void
     {
         $users = User::all();
 

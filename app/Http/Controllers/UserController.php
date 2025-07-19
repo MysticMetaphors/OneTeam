@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity_log;
 use App\Models\User;
 use App\Models\Tasks;
-use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Team_members;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Request as req;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -28,9 +31,12 @@ class UserController extends Controller
 
     public function profile()
     {
+        $act_logs = Activity_log::where('user_id', Auth::user()->id)->get();
+        // dd($act_logs);
         // $tasks = Tasks::all();
         return Inertia::render('Profile', [
             // 'tasks' => $tasks,
+            'log' => $act_logs,
             'user' => Auth::user()
         ]);
     }
@@ -47,17 +53,15 @@ class UserController extends Controller
 
         if (Auth::attempt(['email' => $validateData['email'], 'password' => $validateData['password']])) {
             $request->session()->regenerate();
+            Activity_log::create([
+                'user_id' => Auth::id(),
+                'ip_address' => req::ip(),
+                'user_agent' => req::userAgent(),
+            ]);
             return response()->json([
                 'success' =>  true,
                 'role' => Auth::user()->role,
             ]);
-
-            // if(Auth::user()->role == 'Admin') {
-            //     return Inertia::location('Project', [route('project')]);
-            // } else {
-            //     return Inertia::location('Project', [route('project.show', ['id' => Crypt::encryptString(Auth::user()->id)])]);
-            // }
-
         }
 
         return back()->withErrors([

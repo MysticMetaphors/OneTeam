@@ -187,9 +187,9 @@ export default {
 </script>
 
 <style scoped>
-.contents {
+/* .contents {
     padding: 70px 0 0 0;
-}
+} */
 
 .profile {
     display: flex;

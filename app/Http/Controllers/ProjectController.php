@@ -23,6 +23,7 @@ class ProjectController extends Controller
         foreach ($projects as $project) {
             $project->encrypt = Crypt::encryptString($project->id);
         }
+
         // dd($projects);
         // return view('pages.Project ', ['projects' => $projects]);
         return Inertia::render('Project', [
@@ -82,7 +83,7 @@ class ProjectController extends Controller
             'action' => 'Create',
             'type' => 'Project',
         ]);
-        return response()->json([ 'message' => 'Project created successfully.']);
+        return response()->json(['message' => 'Project created successfully.']);
     }
 
     /**

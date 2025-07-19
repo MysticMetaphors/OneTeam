@@ -35,15 +35,17 @@
                         <span class="nav-label">Projects</span>
                     </Link> -->
                     <span class="nav-tooltip">Projects</span>
-                    <!-- <ul class="submenu">
+                    <span class="submenu-arrow material-symbols-rounded submenu-toggler" @click="toggleSubmenu">expand_more</span>
+                    <ul class="submenu">
+
                         <li class="submenu-item" v-for="project in projects" :key="project.encrypt">
                             <a :href="`/project/${project.encrypt}`" class="submenu-link">
                                 <span class="material-symbols-rounded"
-                                    style="vertical-align: middle;">chevron_right</span>
+                                    style="vertical-align: middle;">tag</span>
                                 {{ project.name }}
                             </a>
                         </li>
-                    </ul> -->
+                    </ul>
                 </li>
 
                 <li class="nav-item has-submenu">
@@ -160,6 +162,9 @@ import apiClient from '../../axios'
 
 export default {
     name: 'MainLayout',
+    props: {
+        projects: Object
+    },
     data() {
         return {
             toggled: false
@@ -168,7 +173,6 @@ export default {
     setup() {
         const page = usePage()
         const user = page.props.auth.user
-
         return {
             user,
 
@@ -203,7 +207,8 @@ export default {
         toggleSubmenu(event) {
             const submenu = event.currentTarget.nextElementSibling;
             submenu.style.display = submenu.style.display === "block" ? "none" : "block";
-            const arrow = event.currentTarget.querySelector(".submenu-arrow");
+            const arrow = event.currentTarget;
+            console.log(arrow)
             arrow.classList.toggle("rotate");
         }
     },
