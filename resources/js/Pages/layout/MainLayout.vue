@@ -78,13 +78,13 @@
                     <span class="nav-tooltip">Team</span>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <span class="nav-icon material-symbols-rounded">forum</span>
                         <span class="nav-label">Discussion</span>
                     </a>
                     <span class="nav-tooltip">Discussion</span>
-                </li>
+                </li> -->
 
                 <li v-if="user.role === 'Admin'" class="nav-item">
                     <a href="#" class="nav-link">

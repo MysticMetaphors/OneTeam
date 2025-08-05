@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Project;use Illuminate\Support\Facades\Auth;
+use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Crypt;
@@ -23,20 +24,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Load data only when the 'layouts.app' layout is used
-        View::composer('pages.layouts.MainLayout', function ($view) {
-            $projects = Project::all();
-            foreach ($projects as $project) {
-                $project->encrypt = Crypt::encryptString($project->id);
-            }
-            $view->with('projects', $projects);
-            // dd($projects);
-        });
-
         Inertia::share([
             'auth' => function () {
+                if (!Auth::check()) {
+                    return null;
+                }
+                $projects = Project::all();
+                foreach ($projects as $project) {
+                    $project->encrypt = Crypt::encryptString($project->id);
+                }
                 return [
                     'user' => Auth::user(),
+                    'projects' => $projects
                 ];
             },
         ]);

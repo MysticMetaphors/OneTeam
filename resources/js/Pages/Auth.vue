@@ -2,9 +2,13 @@
 import { ref } from 'vue'
 import { route } from 'ziggy-js'
 import apiClient from '../axios'
+import OneToast from './Component/OneToast.vue'
 
 export default {
     layout: null,
+    components: {
+        OneToast
+    },
     methods: {
         async handleLogin() {
             try {
@@ -67,6 +71,8 @@ export default {
                 </div>
             </div> -->
         </div>
+
+        <OneToast message="This is test toast" type="success" duration="10000"/>
     </div>
 
 </template>

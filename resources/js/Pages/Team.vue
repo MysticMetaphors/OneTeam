@@ -177,10 +177,6 @@ export default {
 </script>
 
 <style scoped>
-.contents {
-    padding: 70px 0 0 0;
-}
-
 .card,
 .table-container {
     align-self: flex-start;

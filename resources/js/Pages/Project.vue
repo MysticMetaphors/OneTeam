@@ -5,14 +5,14 @@
                 Projects/All
             </div>
             <div class="d-flex-row-container">
-                <button class="btn-no-bg" title="Team View">
+                <!-- <button class="btn-no-bg" title="Team View">
                     <span class="material-symbols-rounded">group</span>
                     Team
                 </button>
                 <button class="btn-no-bg btn-border" title="Task Table View">
                     <span class="material-symbols-rounded">checklist</span>
                     View Task
-                </button>
+                </button> -->
                 <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
                     @click="goToCreateProject">
                     <span class="material-symbols-rounded">add</span>
