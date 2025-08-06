@@ -5,14 +5,6 @@
                 Projects/All
             </div>
             <div class="d-flex-row-container">
-                <!-- <button class="btn-no-bg" title="Team View">
-                    <span class="material-symbols-rounded">group</span>
-                    Team
-                </button>
-                <button class="btn-no-bg btn-border" title="Task Table View">
-                    <span class="material-symbols-rounded">checklist</span>
-                    View Task
-                </button> -->
                 <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
                     @click="goToCreateProject">
                     <span class="material-symbols-rounded">add</span>
@@ -127,6 +119,7 @@
 
 <script>
 import MainLayout from './layout/MainLayout.vue';
+import { usePage } from '@inertiajs/vue3'
 import { route } from 'ziggy-js';
 
 export default {
@@ -147,6 +140,15 @@ export default {
                 Cancelled: { original: "Cancelled", tag: "tag-success" },
             },
         };
+    },
+    setup() {
+        const page = usePage()
+        const user = page.props.auth.user
+        const proj = page.props.auth.projects
+        console.log(proj)
+        return {
+            user,
+        }
     },
     methods: {
         filteredProjectsByStatus(status) {

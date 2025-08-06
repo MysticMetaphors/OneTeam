@@ -1,7 +1,10 @@
 <template>
-    <div v-if="visible" class="one-toast" :class="toastClass">
+    <div v-if="visible" class="one-toast text-success"><!--:class="toastClass" -->
         <span>{{ message }}</span>
-        <button class="close-btn" @click="close">×</button>
+        <span class="material-symbols-rounded close-btn" @click="close">
+            close
+        </span>
+        <!-- <button >×</button> -->
     </div>
 </template>
 
@@ -47,9 +50,9 @@ export default {
         }
     },
     mounted() {
-        setTimeout(() => {
-            this.close();
-        }, this.duration);
+        // setTimeout(() => {
+        //     this.close();
+        // }, this.duration);
     }
 }
 </script>
@@ -57,16 +60,15 @@ export default {
 <style scoped>
 .one-toast {
     position: fixed;
+    /* padding-right: 40px; */
+    padding: 10px 40px 10px 20px;
     bottom: 20px;
     right: 20px;
     z-index: 9999;
-    padding: 12px 16px;
-    border-radius: 6px;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); */
+    max-width: 400px;
     display: flex;
     align-items: center;
-    max-width: 300px;
     font-family: sans-serif;
 }
 
@@ -92,12 +94,15 @@ export default {
 }
 
 .close-btn {
-    margin-left: 12px;
+    padding: 0;
     background: none;
     border: none;
     font-size: 20px;
     font-weight: bold;
     color: inherit;
     cursor: pointer;
+    position: absolute;
+    top: 13px;
+    right: 10px;
 }
 </style>

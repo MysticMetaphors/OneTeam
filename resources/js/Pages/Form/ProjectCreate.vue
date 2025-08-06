@@ -23,7 +23,8 @@
         </div>
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
             <h2>Create Project</h2>
-            <div v-show="message" class="text-success">{{ message }}</div>
+            <!-- <div v-show="message" class="text-success">{{ message }}</div> -->
+            <OneToast v-show="message" :message="message" duration="10000"/>
             <div class="form-direction-row">
                 <input type="text" name="name" placeholder="Name" v-model="form.name"
                     :class="{ 'input-error': errors.name }" />
@@ -75,10 +76,14 @@
 <script>
 import { route } from 'ziggy-js';
 import apiClient from '../../axios';
+import OneToast from '../Component/OneToast.vue';
 import MainLayout from '../layout/MainLayout.vue';
 
 export default {
     layout: MainLayout,
+    components: {
+        OneToast
+    },
     data() {
         return {
             form: {
@@ -113,7 +118,7 @@ export default {
                 formData.append('deadline', this.form.deadline);
                 const response = await apiClient.post(route('project.store'), formData);
                 this.message = response.data.message;
-                this.$inertia.visit(route('project.create'));
+                // this.$inertia.visit(route('project.create'));
                 } catch (error) {
                     console.error(error);
                 }

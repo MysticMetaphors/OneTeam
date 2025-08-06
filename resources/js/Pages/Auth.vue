@@ -72,7 +72,7 @@ export default {
             </div> -->
         </div>
 
-        <OneToast message="This is test toast" type="success" duration="10000"/>
+        <OneToast message="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores officia facere ut" type="success" duration="10000"/>
     </div>
 
 </template>

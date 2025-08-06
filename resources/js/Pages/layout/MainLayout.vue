@@ -38,7 +38,7 @@
                     <span class="submenu-arrow material-symbols-rounded submenu-toggler" @click="toggleSubmenu">expand_more</span>
                     <ul class="submenu">
 
-                        <li class="submenu-item" v-for="project in projects" :key="project.encrypt">
+                        <li class="submenu-item" v-for="project in proj" :key="project.encrypt">
                             <a :href="`/project/${project.encrypt}`" class="submenu-link">
                                 <span class="material-symbols-rounded"
                                     style="vertical-align: middle;">tag</span>
@@ -162,9 +162,6 @@ import apiClient from '../../axios'
 
 export default {
     name: 'MainLayout',
-    props: {
-        projects: Object
-    },
     data() {
         return {
             toggled: false
@@ -173,9 +170,11 @@ export default {
     setup() {
         const page = usePage()
         const user = page.props.auth.user
+        const proj = page.props.auth.projects
+        console.log(proj)
         return {
             user,
-
+            proj
         }
     },
     methods: {
