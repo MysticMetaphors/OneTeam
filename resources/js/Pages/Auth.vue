@@ -9,25 +9,40 @@ export default {
     components: {
         OneToast
     },
+    data() {
+        return {
+            error: '',
+            success: '',
+        }
+    },
     methods: {
         async handleLogin() {
             try {
                 await apiClient.get('/sanctum/csrf-cookie');
-                const response =  await apiClient.post(route('user.login'), {
+                const response = await apiClient.post(route('user.login'), {
                     email: this.email,
                     password: this.password,
                 });
 
                 if (response.data.success) {
-                    console.log(response)
+                    this.success = 'Login successful!';
                     this.$inertia.visit(route('project'));
                 } else {
-                    this.errorMessage = response.data.message || 'Login failed. Please try again.';
+                    this.error = response.data.message || 'Login failed. Please try again.';
                 }
             } catch (error) {
                 console.error('Logout failed:', error);
+                this.error = error || 'Login failed. Please try again.';
             }
-        }
+            setTimeout(() => {
+                if (this.error) {
+                    this.error = '';
+                }
+                if (this.success) {
+                    this.success = '';
+                }
+            }, 2000)
+        },
     }
 }
 </script>
@@ -39,9 +54,6 @@ export default {
                 <form @submit.prevent="handleLogin">
                     <input type="hidden" name="_token" :value="csrfToken">
                     <h1>Login</h1>
-                    <div v-if="errorMessage" class="error-message" style="color: red;">
-                        {{ errorMessage }}
-                    </div>
                     <input v-model="email" type="email" name="email" placeholder="Email" />
                     <input v-model="password" type="password" name="password" placeholder="Password" />
                     <button type="submit">Login</button>
@@ -71,7 +83,8 @@ export default {
             </div> -->
         </div>
 
-        <OneToast message="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores officia facere ut" type="success" duration="10000"/>
+        <OneToast v-if="success" :message="success" theme="success" />
+        <OneToast v-if="error" :message="error" theme="error" />
     </div>
 
 </template>
