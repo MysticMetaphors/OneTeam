@@ -1,26 +1,13 @@
 <template>
     <div class="main-content">
-        <div class="d-flex-row-container page-header card top-panel">
-            <div></div>
+        <one-top-bar page="Task/Create">
             <div class="d-flex-row-container">
-                <!-- Uncomment and implement navigation if needed
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" title="Add Selected" @click="goToCreate">
-                    <span class="material-symbols-rounded">add</span>
-                    New project
+                <button type="button" @click="cancel" class="btn btn-sm btn-outline-secondary btn-no-bg">
+                    <span class="material-symbols-rounded">arrow_back</span>
+                    Back
                 </button>
-                -->
-                <button class="btn notification-btn btn-no-bg" title="Notifications">
-                    <span class="material-symbols-rounded">&#xe7f4;</span>
-                </button>
-                <button class="btn mail-btn btn-no-bg" title="Mail">
-                    <span class="material-symbols-rounded">&#xe158;</span>
-                </button>
-                <!-- <button class="theme-toggle btn-no-bg" @click="toggleTheme">
-                    <span class="material-symbols-rounded" v-show="theme === 'light'" id="sunIcon">&#xe51c;</span>
-                    <span class="material-symbols-rounded" v-show="theme === 'dark'" id="moonIcon">&#xe518;</span>
-                </button> -->
             </div>
-        </div>
+        </one-top-bar>
         <form @submit.prevent="submitForm" enctype="multipart/form-data" enc>
             <h2>New Task {{ currentProject }}</h2>
             <div v-show="message" class="text-success">{{ message }}</div>
@@ -100,9 +87,9 @@
             </div>
 
             <div class="form-direction-row">
-                <button type="button" @click="cancel">
+                <!-- <button type="button" @click="cancel">
                     Cancel
-                </button>
+                </button> -->
                 <button type="submit">
                     Create
                 </button>
@@ -116,9 +103,13 @@
 import { route } from 'ziggy-js';
 import apiClient from '../../axios';
 import MainLayout from '../layout/MainLayout.vue';
+import OneTopBar from '../Component/OneTopBar.vue';
 
 export default {
     layout: MainLayout,
+    components: {
+        OneTopBar,
+    },
     props: {
         projects: Object,
         project_id: Number,

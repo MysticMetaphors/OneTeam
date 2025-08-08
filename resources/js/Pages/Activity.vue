@@ -1,54 +1,12 @@
 <template>
     <div class="main-content">
-        <div class="d-flex-row-container page-header card top-panel">
-            <div class="d-flex-row-container">
-                <button class="btn-no-bg" title="Team View">
-                    <span class="material-symbols-rounded">group</span>
-                    Team
-                </button>
-                <button class="btn-no-bg btn-border" title="Task Table View">
-                    <span class="material-symbols-rounded">checklist</span>
-                    View Task
-                </button>
-            </div>
-            <div class="d-flex-row-container">
-                <button class="btn btn-no-bg notification-btn" title="Notifications">
-                    <span class="material-symbols-rounded">&#xe7f4;</span>
-                </button>
-                <button class="btn btn-no-bg mail-btn" title="Mail">
-                    <span class="material-symbols-rounded">&#xe158;</span>
-                </button>
-                <button class="theme-toggle btn-no-bg">
-                    <span class="material-symbols-rounded" v-show="!isDark">&#xe51c;</span>
-                    <span class="material-symbols-rounded" v-show="isDark">&#xe518;</span>
-                </button>
-            </div>
-        </div>
+        <one-top-bar page="Activity">
+        </one-top-bar>
 
         <div class="act-content contents">
             <div class="table-container" id="act-table-view">
                 <table class="table table-striped acts-table table-responsive">
-                    <thead>
-                        <tr>
-                            <th colspan="10">
-                                <div class="d-flex-row-container" style="gap: 12px;">
-                                    <div class="d-flex-row-container">
-                                        Activity
-                                    </div>
-                                    <div class="d-flex-row-container">
-                                        <!-- <div class="search-bar">
-                                            <input type="text" class="form-control" placeholder="Search..."
-                                                v-model="search" @input="onSearch">
-                                            <button class="btn search-btn" type="submit" title="Search"
-                                                @click="onSearch">
-                                                <span class="material-symbols-rounded">&#xe8b6;</span>
-                                            </button>
-                                        </div> -->
-                                    </div>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
+                    <thead></thead>
                     <tbody>
                         <tr v-for="act in filteredActivities" :key="act.id">
                             <td>{{ act.title }}</td>
@@ -91,9 +49,13 @@
 
 <script>
 import MainLayout from './layout/MainLayout.vue'
+import OneTopBar from './Component/OneTopBar.vue'
 
 export default {
     layout: MainLayout,
+    components: {
+        OneTopBar
+    },
     props: {
         activity: Object,
         users: Object,

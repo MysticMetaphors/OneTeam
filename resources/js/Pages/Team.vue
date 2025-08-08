@@ -1,6 +1,6 @@
 <template>
     <div class="main-content">
-        <div class="d-flex-row-container page-header card top-panel">
+        <!-- <div class="d-flex-row-container page-header card top-panel">
             <div>{{ this.project ? 'Team/' + this.project : 'All Users' }}</div>
             <div class="d-flex-row-container">
                 <button v-if="!project" class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn"
@@ -24,46 +24,27 @@
                     <span class="material-symbols-rounded" id="sunIcon">&#xe51c; </span>
                 </button>
             </div>
-        </div>
+        </div> -->
+
+        <one-top-bar page="Team/All">
+            <div class="d-flex-row-container">
+                <button v-if="!project" class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn"
+                    title="Add Selected" @click="goToCreateUser">
+                    <span class="material-symbols-rounded">add</span>
+                    New Member
+                </button>
+                <button v-else class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn"
+                    title="Add Selected" @click="toggleModal">
+                    <span class="material-symbols-rounded">add</span>
+                    Assign Member
+                </button>
+            </div>
+        </one-top-bar>
 
         <div class="d-flex-row-container contents">
             <div class="table-container" id="task-table-view">
                 <table class="table table-striped tasks-table table-responsive">
-                    <thead>
-                        <tr>
-                            <th colspan="10">
-                                <div class="d-flex-row-container" style="gap: 12px;">
-
-                                    <div class="d-flex-row-container">
-                                        <!-- Bulk edit/delete buttons can be added here -->
-                                    </div>
-                                    <div class="d-flex-row-container">
-                                        <!-- <div class="search-bar">
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Search..."
-                                            v-model="search"
-                                        />
-                                        <button class="btn search-btn" type="submit" title="Search">
-                                            <span class="material-symbols-rounded">&#xe8b6;</span>
-                                        </button>
-                                    </div> -->
-                                    </div>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <!-- <th>User</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Position</th>
-                            <th>Location</th>
-                            <th>Birthdate At</th>
-                            <th>Contact</th> -->
-                        </tr>
-                    </thead>
+                    <thead></thead>
                     <tbody>
                         <tr v-for="user in filteredUsers" :key="user.id">
                             <td>
@@ -126,9 +107,13 @@
 import { route } from 'ziggy-js';
 import MainLayout from './layout/MainLayout.vue';
 import { all } from 'axios';
+import OneTopBar from './Component/OneTopBar.vue';
 
 export default {
     layout: MainLayout,
+    components: {
+        OneTopBar,
+    },
     props: {
         users: Object,
         all_users: Object,

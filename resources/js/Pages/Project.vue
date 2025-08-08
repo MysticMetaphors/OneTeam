@@ -1,28 +1,14 @@
 <template>
     <div class="main-content">
-        <div class="d-flex-row-container page-header card top-panel">
-            <div class="d-flex-row-container">
-                Projects/All
-            </div>
+        <one-top-bar page="Projects/All">
             <div class="d-flex-row-container">
                 <button class="btn btn-sm btn-outline-secondary btn-no-bg" id="bulkCompleteBtn" title="Add Selected"
                     @click="goToCreateProject">
                     <span class="material-symbols-rounded">add</span>
                     New project
                 </button>
-                <!-- <button class="btn btn-no-bg notification-btn" title="Notifications">
-                    <span class="material-symbols-rounded">&#xe7f4;</span>
-                </button>
-                <button class="btn btn-no-bg mail-btn" title="Mail">
-                    <span class="material-symbols-rounded">&#xe158;</span>
-                </button>
-                <button class="theme-toggle btn-no-bg">
-                    <span class="material-symbols-rounded" id="moonIcon" style="display: none;">&#xe518;</span>
-                    <span class="material-symbols-rounded" id="sunIcon">&#xe51c; </span>
-                </button> -->
             </div>
-        </div>
-
+        </one-top-bar>
         <div class="project-content contents">
             <div class="table-container" id="project-table-view">
                 <table class="table table-striped projects-table table-responsive">
@@ -121,9 +107,13 @@
 import MainLayout from './layout/MainLayout.vue';
 import { usePage } from '@inertiajs/vue3'
 import { route } from 'ziggy-js';
+import OneTopBar from './Component/OneTopBar.vue';
 
 export default {
     layout: MainLayout,
+    components: {
+        OneTopBar,
+    },
     props: {
         projects: {
             type: Array,
