@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function profile()
     {
-        $act_logs = Activity_log::where('user_id', Auth::user()->id)->get();
+        $act_logs = Activity_log::where('user_id', Auth::user()->id)->limit(5)->get();
         // dd($act_logs);
         // $tasks = Tasks::all();
         return Inertia::render('Profile', [
@@ -60,6 +60,7 @@ class UserController extends Controller
             ]);
             return response()->json([
                 'success' =>  true,
+                'id' => Auth::user()->id,
                 'role' => Auth::user()->role,
             ]);
         }

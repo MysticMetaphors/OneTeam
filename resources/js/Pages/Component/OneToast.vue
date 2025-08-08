@@ -1,10 +1,9 @@
 <template>
-    <div v-if="visible" class="one-toast text-success"><!--:class="toastClass" -->
+    <div v-if="visible" :class="[toastClass, isAppend]">
         <span>{{ message }}</span>
-        <span class="material-symbols-rounded close-btn" @click="close">
+        <span v-if="!append" class="material-symbols-rounded close-btn" @click="close">
             close
         </span>
-        <!-- <button >×</button> -->
     </div>
 </template>
 
@@ -16,13 +15,21 @@ export default {
             type: String,
             required: true
         },
+        theme: {
+            type: String,
+            default: 'success'
+        },
         type: {
             type: String,
             default: 'info' // 'success', 'error', 'warning'
         },
         duration: {
             type: Number,
-            default: 3000
+            default: 5000
+        },
+        append: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -32,16 +39,20 @@ export default {
     },
     computed: {
         toastClass() {
-            switch (this.type) {
+            switch (this.theme) {
                 case 'success':
-                    return 'success';
+                    return 'text-success';
                 case 'error':
-                    return 'error';
+                    return 'text-error';
                 case 'warning':
                     return 'warning';
                 default:
                     return 'info';
             }
+        },
+        isAppend() {
+            console.log(this.append);
+            return this.append ? 'toast-append' : 'one-toast';
         }
     },
     methods: {
@@ -50,9 +61,9 @@ export default {
         }
     },
     mounted() {
-        // setTimeout(() => {
-        //     this.close();
-        // }, this.duration);
+        setTimeout(() => {
+            this.close();
+        }, this.duration);
     }
 }
 </script>
@@ -60,12 +71,19 @@ export default {
 <style scoped>
 .one-toast {
     position: fixed;
-    /* padding-right: 40px; */
     padding: 10px 40px 10px 20px;
     bottom: 20px;
     right: 20px;
     z-index: 9999;
-    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); */
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.toast-append {
+    padding: 10px 40px 10px 20px;
+    z-index: 9999;
     max-width: 400px;
     display: flex;
     align-items: center;

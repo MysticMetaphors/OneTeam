@@ -10,7 +10,7 @@
                     <span class="material-symbols-rounded">add</span>
                     New project
                 </button>
-                <button class="btn btn-no-bg notification-btn" title="Notifications">
+                <!-- <button class="btn btn-no-bg notification-btn" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
                 </button>
                 <button class="btn btn-no-bg mail-btn" title="Mail">
@@ -19,7 +19,7 @@
                 <button class="theme-toggle btn-no-bg">
                     <span class="material-symbols-rounded" id="moonIcon" style="display: none;">&#xe518;</span>
                     <span class="material-symbols-rounded" id="sunIcon">&#xe51c; </span>
-                </button>
+                </button> -->
             </div>
         </div>
 
@@ -69,7 +69,7 @@
                                             {{ project.status }}
                                         </div>
                                     </td>
-                                    <td>
+                                    <td v-if="user.role === 'Admin'">
                                         <button class="btn-no-bg" title="View Team" @click="goToTeam(project.encrypt)">
                                             <span class="material-symbols-rounded">group</span>
                                         </button>
@@ -97,7 +97,7 @@
                                         </span>
                                         <span v-else>—</span>
                                     </td>
-                                    <td>
+                                    <td  v-if="user.role === 'Admin'">
                                         <div class="d-flex-row-container">
                                             <button class="btn-no-bg" title="Edit Task">
                                                 <span class="material-symbols-rounded">edit</span>
@@ -144,8 +144,6 @@ export default {
     setup() {
         const page = usePage()
         const user = page.props.auth.user
-        const proj = page.props.auth.projects
-        console.log(proj)
         return {
             user,
         }

@@ -18,10 +18,9 @@ export default {
                     password: this.password,
                 });
 
-                if (response.data.success && response.data.role === 'Admin') {
+                if (response.data.success) {
+                    console.log(response)
                     this.$inertia.visit(route('project'));
-                } else if (response.data.success && response.data.role === 'Member') {
-                    this.$inertia.visit(route('task')); //project.show
                 } else {
                     this.errorMessage = response.data.message || 'Login failed. Please try again.';
                 }

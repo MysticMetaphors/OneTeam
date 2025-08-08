@@ -7,6 +7,7 @@ use App\Models\Tasks;
 use App\Models\User;
 use App\Models\Activity;
 use App\Http\Controllers\Controller;
+use App\Models\Team_members;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
@@ -19,15 +20,35 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::where('is_deleted', 'false')->get();
-        foreach ($projects as $project) {
-            $project->encrypt = Crypt::encryptString($project->id);
-        }
+        $id = Auth::user()->id;
+        $role = Auth::user()->role;
 
-        // dd($projects);
-        // return view('pages.Project ', ['projects' => $projects]);
+        if ($role == 'Admin') {
+            $project = Project::where('is_deleted', 'false')->get();
+            foreach ($project as $proj) {
+                $proj->encrypt = Crypt::encryptString($proj->id);
+            }
+        } else {
+            $project = [];
+            $project_ids = [];
+            $team_members = Team_members::where('user_id', $id)->get();
+
+            foreach ($team_members as $team) {
+                array_push($project_ids, $team->project_id);
+            }
+
+            foreach ($project_ids as $ids) {
+                $proj = Project::where('id', $ids)->where('is_deleted', 'false')->first();
+                $proj->encrypt = Crypt::encryptString($proj->id);
+                array_push($project, $proj);
+            }
+
+            foreach ($project as $proj) {
+                $proj->encrypt = Crypt::encryptString($proj->id);
+            }
+        }
         return Inertia::render('Project', [
-            'projects' => $projects,
+            'projects' => $project,
         ]);
     }
 

@@ -3,12 +3,6 @@
         <div class="d-flex-row-container page-header card top-panel">
             <div></div>
             <div class="d-flex-row-container">
-                <!-- Uncomment and implement navigation if needed
-                <button class="btn btn-sm btn-outline-secondary btn-no-bg" title="Add Selected" @click="goToCreate">
-                    <span class="material-symbols-rounded">add</span>
-                    New project
-                </button>
-                -->
                 <button class="btn notification-btn btn-no-bg" title="Notifications">
                     <span class="material-symbols-rounded">&#xe7f4;</span>
                 </button>
@@ -24,7 +18,10 @@
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
             <h2>Create Project</h2>
             <!-- <div v-show="message" class="text-success">{{ message }}</div> -->
-            <OneToast v-show="message" :message="message" duration="10000"/>
+            <OneToast v-if="message" :message="message"/>
+            <div class="toast-container">
+                <OneToast v-for="(msg, index) in errors[0]" :key="index" :message="msg[0]" theme="error" :append="true"/>
+            </div>
             <div class="form-direction-row">
                 <input type="text" name="name" placeholder="Name" v-model="form.name"
                     :class="{ 'input-error': errors.name }" />
@@ -95,11 +92,12 @@ export default {
                 start_date: "",
                 deadline: "",
             },
-            errors: {},
+            errors: [],
             message: '',
             theme: "dark",
         };
     },
+
     methods: {
         onFileChange(e) {
             this.form.image = e.target.files[0];
@@ -117,14 +115,27 @@ export default {
                 formData.append('start_date', this.form.start_date);
                 formData.append('deadline', this.form.deadline);
                 const response = await apiClient.post(route('project.store'), formData);
+                if (this.errors.length > 0) {
+                    this.errors = [];
+                }
                 this.message = response.data.message;
+                console.log(this.message);
+                this.form = {
+                    name: "",
+                    owner: "",
+                    image: null,
+                    status: "",
+                    description: "",
+                    start_date: "",
+                    deadline: "",
+                };
                 // this.$inertia.visit(route('project.create'));
                 } catch (error) {
+                    this.errors.push(error.response.data.errors);
                     console.error(error);
                 }
             },
             cancel() {
-                // Replace with your actual route or navigation logic
                 this.$router.push({ name: "project" });
             },
             toggleTheme() {
@@ -136,3 +147,16 @@ export default {
         },
     };
 </script>
+
+<style scoped>
+.toast-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 400px;
+}
+</style>

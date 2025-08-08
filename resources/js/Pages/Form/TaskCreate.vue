@@ -173,6 +173,7 @@ export default {
             return this.errors.some((e) => e.toLowerCase().includes(field));
         },
         addSub() {
+            console.log(this.form.sub);
             this.form.sub.push('');
         },
         removeSub(i) {
