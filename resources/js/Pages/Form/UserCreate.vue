@@ -11,8 +11,11 @@
 
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
             <h2>New User</h2>
-            <div v-if="message" class="text-success">{{ message }}</div>
-            <div v-if="passwordError" class="text-error">{{ passwordError }}</div>
+            <OneToast v-if="message" :message="message" />
+            <div class="toast-container">
+                <OneToast v-for="(msg, index) in errors[0]" :key="index" :message="msg[0]" theme="error"
+                    :append="true" />
+            </div>
 
             <div class="form-direction-row">
                 <input type="text" name="name" placeholder="Name" :class="{ 'input-error': errors.name }"
@@ -83,11 +86,13 @@
 import { route } from 'ziggy-js';
 import apiClient from '../../axios';
 import OneTopBar from '../Component/OneTopBar.vue';
+import OneToast from '../Component/OneToast.vue';
 
 export default {
     name: "UserCreate",
     components: {
-        OneTopBar
+        OneTopBar,
+        OneToast
     },
     data() {
         return {
@@ -103,7 +108,7 @@ export default {
                 password: "",
                 repeatPassword: "",
             },
-            errors: {},
+            errors: [],
             message: "",
             passwordError: "",
         };
@@ -133,8 +138,30 @@ export default {
                 this.$inertia.visit(route('user.create'))
             } catch (errors) {
                 console.log('Error: ', errors)
+                this.errors.push(errors.response.data.errors);
             }
+            setTimeout(() => {
+                if (this.errors) {
+                    this.errors = [];
+                }
+                if (this.message) {
+                    this.message = '';
+                }
+            }, 2000)
         },
     },
 };
 </script>
+
+<style scoped>
+.toast-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 400px;
+}
+</style>

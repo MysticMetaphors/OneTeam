@@ -10,7 +10,10 @@
         </one-top-bar>
         <form @submit.prevent="submitForm" enctype="multipart/form-data" enc>
             <h2>New Task {{ currentProject }}</h2>
-            <div v-show="message" class="text-success">{{ message }}</div>
+            <OneToast v-if="message" :message="message"/>
+            <div class="toast-container">
+                <OneToast v-for="(msg, index) in errors[0]" :key="index" :message="msg[0]" theme="error" :append="true"/>
+            </div>
 
             <div class="form-direction-row">
                 <input type="text" name="title" placeholder="Title" v-model="form.title"/>
@@ -104,11 +107,13 @@ import { route } from 'ziggy-js';
 import apiClient from '../../axios';
 import MainLayout from '../layout/MainLayout.vue';
 import OneTopBar from '../Component/OneTopBar.vue';
+import OneToast from '../Component/OneToast.vue';
 
 export default {
     layout: MainLayout,
     components: {
         OneTopBar,
+        OneToast
     },
     props: {
         projects: Object,
@@ -143,7 +148,7 @@ export default {
             },
             recurring: false,
             message: '',
-            inputErr: null,
+            errors: [],
             currentProject: null
             // user: this.$props.user,
         };
@@ -183,15 +188,19 @@ export default {
                 const formData = new FormData();
                 // console.log('Form values:', this.form);
 
-                formData.append("title", this.form.title);
-                formData.append("assignee", this.form.assignee);
-                formData.append("deadline", this.form.deadline);
-                formData.append("description", this.form.description);
-                formData.append("priority", this.form.priority);
-                formData.append("project", this.form.project);
-                formData.append("type", this.form.type);
-                formData.append("repeat_interval", this.form.repeat_interval);
-                formData.append('attach', this.form.attach);
+                // formData.append("title", this.form.title);
+                // formData.append("assignee", this.form.assignee);
+                // formData.append("deadline", this.form.deadline);
+                // formData.append("description", this.form.description);
+                // formData.append("priority", this.form.priority);
+                // formData.append("project", this.form.project);
+                // formData.append("type", this.form.type);
+                // formData.append("repeat_interval", this.form.repeat_interval);
+                // formData.append('attach', this.form.attach);
+                for (let i = 0; i < form.length; i++) {
+                    const [key, value] = form[i];
+                    formData.append(key, value)
+                }
 
                 if (Array.isArray(this.form.sub) && this.form.sub.length !== 0) {
                     this.form.sub.forEach((subtask, id) => {
@@ -211,9 +220,16 @@ export default {
                 this.form = { ...this.formDefault }
                 // this.$inertia.visit(route('task.create'));
             } catch (errors) {
-                const err = errors.response.data.errors
-                this.inputErr = err
+                this.errors.push(errors.response.data.errors);
             }
+            setTimeout(() => {
+                if (this.errors) {
+                    this.errors = [];
+                }
+                if (this.message) {
+                    this.message = '';
+                }
+            }, 2000)
         },
     },
 };
@@ -222,5 +238,15 @@ export default {
 <style scoped>
 .error-input {
     border: 1px solid red;
+}
+.toast-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 400px;
 }
 </style>

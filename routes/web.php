@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/c/{id}', [TasksController::class, 'projectTask'])->name('task.c');
         Route::get('/show/{id}', [TasksController::class, 'show'])->name('task.show');
         Route::post('/store', [TasksController::class, 'store'])->name('task.store');
-        Route::post('/update', [TasksController::class, 'update'])->name('task.update');
+        // Route::post('/update', [TasksController::class, 'update'])->name('task.update');
+        Route::post('/update_subtask', [TasksController::class, 'update_subtask'])->name('task.update_subtask');
         Route::post('/destroy', [TasksController::class, 'destroy'])->name('task.destroy');
     });
 

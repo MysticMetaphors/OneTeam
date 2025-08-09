@@ -53,12 +53,13 @@ class TasksController extends Controller
         ]);
     }
 
-    public function projectTask($id) {
+    public function projectTask($id)
+    {
         $id = Crypt::decryptString($id);
         $projects = Project::all();
         $team_members = Team_members::where('project_id', $id)->get();
         $team = [];
-        foreach($team_members as $member) {
+        foreach ($team_members as $member) {
             $user = User::find($member->user_id);
             if ($user) {
                 $team[] = $user;
@@ -178,21 +179,19 @@ class TasksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tasks $tasks)
+    public function update_subtask(Request $request)
     {
-        // $request->validate([
-        //     'title' => 'required|string|max:255',
-        //     'description' => 'nullable|string|max:255',
-        //     'deadline' => 'required|date',
-        // ]);
+        $validated = $request->validate([
+            'ids' => 'array|required'
+        ]);
+        foreach ($validated['ids'] as $id) {
+            $subtask = Subtasks::where('id', $id)->first();
+            if ($subtask) {
+                $subtask->update(['is_completed' => $subtask->is_completed == 'true' ? 'false' : 'true']);
+            }
+        }
 
-        // $tasks->update([
-        //     'title' => $request->title,
-        //     'description' => $request->description,
-        //     'deadline' => $request->deadline,
-        // ]);
-
-        // return redirect()->route('tasks.index')->with('success', 'Tasks updated successfully.');
+        return response()->json(['success' => 'Updated as complete']);
     }
 
 

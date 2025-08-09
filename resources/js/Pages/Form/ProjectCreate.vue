@@ -18,9 +18,10 @@
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
             <h2>Create Project</h2>
             <!-- <div v-show="message" class="text-success">{{ message }}</div> -->
-            <OneToast v-if="message" :message="message"/>
+            <OneToast v-if="message" :message="message" />
             <div class="toast-container">
-                <OneToast v-for="(msg, index) in errors[0]" :key="index" :message="msg[0]" theme="error" :append="true"/>
+                <OneToast v-for="(msg, index) in errors[0]" :key="index" :message="msg[0]" theme="error"
+                    :append="true" />
             </div>
             <div class="form-direction-row">
                 <input type="text" name="name" placeholder="Name" v-model="form.name"
@@ -130,22 +131,30 @@ export default {
                     deadline: "",
                 };
                 // this.$inertia.visit(route('project.create'));
-                } catch (error) {
-                    this.errors.push(error.response.data.errors);
-                    console.error(error);
+            } catch (error) {
+                this.errors.push(error.response.data.errors);
+                console.error(error);
+            }
+            setTimeout(() => {
+                if (this.errors) {
+                    this.errors = [];
                 }
-            },
-            cancel() {
-                this.$router.push({ name: "project" });
-            },
-            toggleTheme() {
-                this.theme = this.theme === "dark" ? "light" : "dark";
-            },
-            // goToCreate() {
-            //   this.$router.push({ name: "project.create" });
-            // },
+                if (this.message) {
+                    this.message = '';
+                }
+            }, 2000)
         },
-    };
+        cancel() {
+            this.$router.push({ name: "project" });
+        },
+        toggleTheme() {
+            this.theme = this.theme === "dark" ? "light" : "dark";
+        },
+        // goToCreate() {
+        //   this.$router.push({ name: "project.create" });
+        // },
+    },
+};
 </script>
 
 <style scoped>

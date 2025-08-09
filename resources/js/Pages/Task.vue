@@ -7,7 +7,8 @@
                     <span class="material-symbols-rounded">view_kanban</span>
                     Kanban View
                 </button>
-                <button class="btn-no-bg" :class="{ 'btn-border': !showKanban }" id="task-view-btn" title="Table View" @click="showKanban = false">
+                <button class="btn-no-bg" :class="{ 'btn-border': !showKanban }" id="task-view-btn" title="Table View"
+                    @click="showKanban = false">
                     <span class="material-symbols-rounded">table</span>
                     Table View
                 </button>
@@ -85,7 +86,7 @@
                                             {{ task.priority }}
                                         </div>
                                     </td>
-                                    <td class="files">
+                                    <!-- <td class="files">
                                         <template v-if="task.files && task.files.length">
                                             <ul>
                                                 <li v-for="(file, idx) in task.files" :key="idx">
@@ -98,7 +99,7 @@
                                             </ul>
                                         </template>
                                         <span v-else>—</span>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <span v-if="task.deadline" class="convertDate" :data-date="task.deadline">{{
                                             formatDate(task.deadline) }}</span>
@@ -188,31 +189,39 @@
             <div class="modal-content task-card">
                 <h2 class="task-title">{{ modalTask.title }}</h2>
                 <p class="task-desc">{{ modalTask.description }}</p>
-                <hr />
-                <div class="task-sub">
-                    <div class="checkbox-input" v-for="(sub, idx) in modalTask.subtasks || []" :key="idx">
-                        <input type="checkbox" :checked="sub.completed" disabled />
-                        <span>{{ sub.title }}</span>
-                    </div>
-                </div>
-                <button class="btn-no-bg task-btn">
-                    <span class="material-symbols-rounded" style="vertical-align:middle;">image</span>
-                    Attachments
-                </button>
-                <div class="attachments">
-                    <div class="attachment-card"></div>
-                </div>
                 <div class="task-meta">
-                    <div>
-                        <strong>Status:</strong>
-                        <span class="tag modal-tag">{{ modalTask.status }}</span>
+                    <div class="tags tag-success" :class="{
+                        'tag-grey': modalTask.status === 'Waiting',
+                        'tag-warning': modalTask.status === 'Processing',
+                        'tag-success': modalTask.status === 'Completed',
+                        'tag-primary': !['Waiting', 'Processing', 'Completed'].includes(modalTask.status)
+                    }">
+                        {{ modalTask.status }}
                     </div>
-                    <div>
-                        <strong>Due:</strong>
-                        <span class="task-date">{{ formatDate(modalTask.deadline) }}</span>
+                    <div class="tags tags_icon" :class="nearDeadline(modalTask.deadline)">
+                        <span class="material-symbols-rounded">calendar_clock</span>
+                        {{ formatDate(modalTask.deadline) }}
                     </div>
                 </div>
-                <form @submit.prevent="closeModal">
+                <form @submit.prevent="submitForm">
+                    <div class="task-sub">
+                        <div class="checkbox-input" v-for="(sub, idx) in modalTask.subtasks || []" :key="idx">
+                            <input type="checkbox" :value="sub.id" :checked="sub.completed" v-model="checkedSubtasks" />
+                            <span>{{ sub.title }}</span>
+                        </div>
+                    </div>
+
+                    <!-- <div class="task-meta" style="margin: 0;">
+                        <button class="btn-no-bg task-btn" style="margin: 0;">
+                            <span class="material-symbols-rounded" style="vertical-align:middle;">image</span>
+                            Files
+                        </button>
+                        <button class="btn-no-bg task-btn" style="margin: 0;">
+                            <span class="material-symbols-rounded" style="vertical-align:middle;">attach_file</span>
+                            Attach File
+                        </button>
+                    </div> -->
+
                     <div class="modal-btns">
                         <button type="button" @click="closeModal">Cancel</button>
                         <button type="submit">Save</button>
@@ -229,6 +238,7 @@ import MainLayout from './layout/MainLayout.vue';
 import OneButton from './Component/OneButton.vue';
 import OneSelect from './Component/OneSelect.vue';
 import OneTopBar from './Component/OneTopBar.vue';
+import apiClient from '../axios';
 
 export default {
     layout: MainLayout,
@@ -258,33 +268,38 @@ export default {
                 // "Cancelled": { original: "Cancelled", tag: "tag-danger" }
             },
             taskPriority: null,
+            message: '',
+            errors: [],
+            checkedSubtasks: []
         };
     },
     methods: {
-        // statusClass(status) {
-        //     switch (status) {
-        //         case 'Completed':
-        //             return 'tag-success';
-        //         case 'Processing':
-        //             return 'tag-warning';
-        //         case 'Waiting':
-        //             return 'tag-grey';
-        //         default:
-        //             return 'tag-primary';
-        //     }
-        // },
-        // priorityClass(priority) {
-        //     switch (priority) {
-        //         case 'High':
-        //             return '🔴';
-        //         case 'Medium':
-        //             return '🟡';
-        //         case 'Low':
-        //             return '🟢';
-        //         default:
-        //             return '🔵';
-        //     }
-        // },
+        async submitForm() {
+            try {
+                await apiClient.get('/sanctum/csrf-cookie');
+
+                const formData = new FormData();
+                this.checkedSubtasks.forEach(id => {
+                    formData.append('ids[]', id);
+                });
+
+                console.log(this.checkedSubtasks, formData.getAll('ids[]'));
+                const response = await apiClient.post(route('task.update_subtask'), formData);
+                this.message = response.data.message
+                // this.$inertia.visit(route('project.create'));
+            } catch (error) {
+                this.errors.push(error.response.data.errors);
+                console.error(error);
+            }
+            setTimeout(() => {
+                if (this.errors) {
+                    this.errors = [];
+                }
+                if (this.message) {
+                    this.message = '';
+                }
+            }, 2000)
+        },
         goToCreateTask(prj) {
             if (prj == null) {
                 console.log("No project selected, redirecting to create task page");
@@ -367,6 +382,19 @@ export default {
             // Implement delete logic
             alert("Delete Task: " + task.title);
         },
+        nearDeadline(deadline) {
+            const now = new Date();
+            const taskDeadline = new Date(deadline);
+            const timeDiff = taskDeadline - now;
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            if (daysDiff <= 3 && daysDiff >= 0) {
+                return 'tag-warning';
+            } else if (daysDiff > 0) {
+                return 'tag-success';
+            } else {
+                return 'tag-danger'
+            }
+        }
     },
 };
 </script>
@@ -402,6 +430,7 @@ table ul {
 
 .btn-no-bg {
     padding: 0;
+    background-color: none;
     cursor: pointer;
 }
 
@@ -426,8 +455,14 @@ table ul {
 .task-meta {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: left;
     gap: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.task-btn {
+    margin-top: 20px;
 }
 
 .task-overview {
@@ -488,5 +523,16 @@ form {
     background-color: #4caf50;
     width: 0;
     transition: width 0.3s ease;
+}
+
+.tags span {
+    font-size: 15px;
+    height: 100%;
+}
+
+.tags_icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 </style>
