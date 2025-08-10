@@ -56,7 +56,7 @@ class ProjectSeeder extends Seeder
                     'project_id' => $project->id,
                     'issued_to' => $assigned->id,
                     'title' => "Task #$j for Project #$i",
-                    'description' => Str::random(255),
+                    'description' => fake()->paragraph(),
                     'priority' => fake()->randomElement(['High', 'Medium', 'Low']),
                     'status' => fake()->randomElement(['Scheduled', 'Processing', 'Waiting', 'Completed', 'Cancelled']),
                     'deadline' => now()->addDays(rand(7, 30)),

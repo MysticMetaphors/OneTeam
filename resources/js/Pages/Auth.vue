@@ -82,11 +82,18 @@ export default {
                 </div>
             </div> -->
         </div>
+        <div class="toast-container">
+            <OneToast v-if="success" :message="success" theme="success" :append="true" />
+            <OneToast v-if="error" :message="error" theme="error" :append="true" />
+            <OneToast message="Demo account Admin: DemoAdmin@gmail.com --> password: demo123"
+                theme="success" :duration="100000" :append="true" />
+            <OneToast message="Demo account Member: DemoMember@gmail.com --> password: demo123"
+                theme="success" :duration="100000" :append="true" />
+            <OneToast message="This project is under development. this may lead to unfinished features & pages"
+                theme="warning" :duration="100000" :append="true" />
+        </div>
 
-        <OneToast v-if="success" :message="success" theme="success" />
-        <OneToast v-if="error" :message="error" theme="error" />
     </div>
-
 </template>
 
 <style scoped>
@@ -350,5 +357,16 @@ footer a {
 
 form {
     margin: 0;
+}
+
+.toast-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 400px;
 }
 </style>

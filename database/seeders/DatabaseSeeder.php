@@ -35,6 +35,28 @@ class DatabaseSeeder extends Seeder
             'contact' => '09179876543',
         ]);
 
+        User::create([
+            'name' => 'Demo User Admin',
+            'email' => 'DemoAdmin@gmail.com',
+            'password' => Hash::make('demo123'),
+            'role' => 'Admin',
+            'position' => 'Project Manager',
+            'birthdate' => '1990-01-01',
+            'location' => 'Office',
+            'contact' => '09171234567',
+        ]);
+
+        User::create([
+            'name' => 'Demo User Member',
+            'email' => 'DemoMember@gmail.com',
+            'password' => Hash::make('demo123'),
+            'role' => 'Member',
+            'position' => 'Developer',
+            'birthdate' => '1995-05-15',
+            'location' => 'Remote',
+            'contact' => '09179876543',
+        ]);
+
         $this->call([
             UserSeeder::class,
             ProjectSeeder::class

@@ -45,7 +45,7 @@ export default {
                 case 'error':
                     return 'text-error';
                 case 'warning':
-                    return 'warning';
+                    return 'text-warning';
                 default:
                     return 'info';
             }

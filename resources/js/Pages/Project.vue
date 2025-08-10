@@ -65,25 +65,27 @@
                                             <span class="material-symbols-rounded">checklist</span>
                                         </button>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <button class="btn-no-bg" title="View Description">
                                             <span class="material-symbols-rounded">description</span>
                                         </button>
-                                    </td>
-                                    <td>
-                                        <span v-if="project.start_date" class="convertDate"
-                                            :data-date="project.start_date">
+                                    </td> -->
+                                    <td class="convertDate">
+                                        <span v-if="project.start_date" :data-date="project.start_date">
+                                            <span class="material-symbols-rounded">calendar_today</span>
                                             {{ formatDate(project.start_date) }}
                                         </span>
                                         <span v-else>—</span>
                                     </td>
+                                    <!-- <td>~</td> -->
                                     <td>
-                                        <span v-if="project.deadline" class="convertDate" :data-date="project.deadline">
+                                        <span v-if="project.deadline" :data-date="project.deadline">
+                                            <span class="material-symbols-rounded">calendar_clock</span>
                                             {{ formatDate(project.deadline) }}
                                         </span>
                                         <span v-else>—</span>
                                     </td>
-                                    <td  v-if="user.role === 'Admin'">
+                                    <td v-if="user.role === 'Admin'">
                                         <div class="d-flex-row-container">
                                             <button class="btn-no-bg" title="Edit Task">
                                                 <span class="material-symbols-rounded">edit</span>
@@ -180,6 +182,12 @@ export default {
 /* .contents {
     padding: 70px 0 0 0;
 } */
+.convertDate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
 
 .profile {
     display: flex;
