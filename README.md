@@ -21,3 +21,38 @@ It’s designed to help individuals and teams stay organized, improve productivi
 - **Laravel** 
 - **MySQL** 
 
+## 📌 Roadmap
+
+### ✅ Phase 1 – Core Features (MVP)
+- [x] **Projects Page** – Display all projects
+- [x] **Tasks Page** – Display tasks related to a project
+- [x] **Add New Project** – Form to create new projects
+- [x] **User Page** – Display list of users
+- [x] **Add New User** – Form to create new users
+
+---
+
+### 🚧 Phase 2 – Improvements & Quality of Life
+- [ ] Edit and delete projects
+- [ ] Edit and delete tasks
+- [ ] Assign tasks to specific users
+- [ ] Search and filter for projects and tasks
+- [ ] Sort tasks by priority or due date
+
+---
+
+### 🔮 Phase 3 – Advanced Features
+- [ ] User authentication (login, signup, profiles)
+- [ ] Project sharing & team collaboration
+- [ ] Task deadlines, reminders, and notifications
+- [ ] Drag-and-drop task reordering
+- [ ] Project progress tracking dashboard
+- [ ] Dark mode support
+
+---
+
+### 🛠 Phase 4 – Optimization & Deployment
+- [ ] Responsive design for all devices
+- [ ] Performance optimizations for faster loading
+- [ ] Data persistence with backend/database
+- [ ] Deployment to production (Vercel, Netlify, or custom hosting)
