@@ -45,7 +45,6 @@ class UserController extends Controller
         ]);
     }
 
-
     public function login(Request $request)
     {
         $validateData = $request->validate([
