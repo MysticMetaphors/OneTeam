@@ -32,10 +32,14 @@ class UserController extends Controller
     public function profile()
     {
         $act_logs = Activity_log::where('user_id', Auth::user()->id)->limit(5)->get();
-        // dd($act_logs);
-        // $tasks = Tasks::all();
+        $date = now()->format('Y-m-d');
+        $id = Auth::user()->id;
+        $tasks = Tasks::where('issued_to', $id)
+            ->whereDate('deadline', $date)
+            ->get();
+
         return Inertia::render('Profile', [
-            // 'tasks' => $tasks,
+            'tasks' => $tasks,
             'log' => $act_logs,
             'user' => Auth::user()
         ]);

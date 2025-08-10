@@ -1,9 +1,9 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import MainLayout from './Pages/layout/MainLayout.vue'
+import LoadingOverlay from './Pages/Component/LoadingOverlay.vue'
 import '../css/app.css'
 import { ZiggyVue } from 'ziggy-js'
-// import '../js/main'
 
 createInertiaApp({
     resolve: name => {
@@ -15,7 +15,6 @@ createInertiaApp({
         }
         return importPage().then(module => {
             const page = module.default
-            // If no layout specified, use default layout
             if (page.layout === undefined) {
                 page.layout = MainLayout;
             }
@@ -27,6 +26,7 @@ createInertiaApp({
             app.use(plugin)
             app.use(ZiggyVue, Ziggy)
             app.config.globalProperties.$route = route
+            app.component('LoadingOverlay', LoadingOverlay)
             app.mount(el)
     },
 })

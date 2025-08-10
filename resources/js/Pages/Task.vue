@@ -25,7 +25,7 @@
                     <template v-for="task in tasksByStatus(info.original)" :key="task.id"> -->
                 <table class="table table-striped tasks-table table-responsive">
                     <thead>
-                        <tr>
+                        <!-- <tr>
                             <th colspan="8">
                                 <div class="d-flex-row-container">
                                     <div></div>
@@ -39,15 +39,15 @@
                             </th>
                         </tr>
                         <tr>
-                            <!-- <th>Title</th>
+                            <th>Title</th>
                         <th>Assigned</th>
                         <th>Status</th>
                         <th>Type</th>
                         <th>Priority</th>
                         <th>Files</th>
                         <th>Due</th>
-                        <th></th> -->
-                        </tr>
+                        <th></th>
+                        </tr> -->
                     </thead>
                     <tbody>
                         <template v-for="(info, displayStatus) in statuses" :key="displayStatus">

@@ -188,19 +188,19 @@ export default {
                 const formData = new FormData();
                 // console.log('Form values:', this.form);
 
-                // formData.append("title", this.form.title);
-                // formData.append("assignee", this.form.assignee);
-                // formData.append("deadline", this.form.deadline);
-                // formData.append("description", this.form.description);
-                // formData.append("priority", this.form.priority);
-                // formData.append("project", this.form.project);
-                // formData.append("type", this.form.type);
-                // formData.append("repeat_interval", this.form.repeat_interval);
-                // formData.append('attach', this.form.attach);
-                for (let i = 0; i < form.length; i++) {
-                    const [key, value] = form[i];
-                    formData.append(key, value)
-                }
+                formData.append("title", this.form.title);
+                formData.append("assignee", this.form.assignee);
+                formData.append("deadline", this.form.deadline);
+                formData.append("description", this.form.description);
+                formData.append("priority", this.form.priority);
+                formData.append("project", this.form.project);
+                formData.append("type", this.form.type);
+                formData.append("repeat_interval", this.form.repeat_interval);
+                formData.append('attach', this.form.attach);
+                // for (let i = 0; i < form.length; i++) {
+                //     const [key, value] = form[i];
+                //     formData.append(key, value)
+                // }
 
                 if (Array.isArray(this.form.sub) && this.form.sub.length !== 0) {
                     this.form.sub.forEach((subtask, id) => {
